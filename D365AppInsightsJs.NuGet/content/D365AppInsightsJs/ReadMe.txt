@@ -1,0 +1,1 @@
+﻿Replace "Your AI Instrumentation Key" with your actual Application Insights instrumentation key

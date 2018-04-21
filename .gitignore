@@ -261,5 +261,7 @@ __pycache__/
 *.pyc
 
 # Generated files
-content/D365AppInsights/
-./content/D365AppInsightsJs/
+./content/D365AppInsights/
+./content/D365AppInsightsJs/lat_AiLogger.js
+./content/D365AppInsightsJs/lat_AiLogger.min.js
+./content/D365AppInsightsJs/lat_AiLogger.min.js.map
