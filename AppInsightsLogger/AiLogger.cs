@@ -296,7 +296,7 @@ public class AiLogger
 
         if (executionContext.GetType().Name.Contains("PluginExecutionContext"))
             AddPluginExecutionContextDetails((IPluginExecutionContext)executionContext);
-
+        _tracingService.Trace(executionContext.GetType().Name);
         if (executionContext.GetType().Name.Contains("CodeActivityContext")
             || executionContext.GetType().Name.Contains("WorkflowContext") && workflowContextDetails != null)
             AddWorkflowExecutionContextDetails(workflowContextDetails);

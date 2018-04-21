@@ -18,7 +18,7 @@ namespace AppInsightsWorkflowLogger
 
         [RequiredArgument]
         [Input("Measurement Value")]
-        public InArgument<float?> MeasurementValue { get; set; }
+        public InArgument<double> MeasurementValue { get; set; }
 
         [Output("Log Success")]
         public OutArgument<bool> LogSuccess { get; set; }
@@ -33,7 +33,7 @@ namespace AppInsightsWorkflowLogger
 
             string name = Name.Get(context);
             string measurementName = MeasurementName.Get(context);
-            float? measurementValue = MeasurementValue.Get(context);
+            double measurementValue = MeasurementValue.Get(context);
 
             string measurementNameValidationResult = AiEvent.ValidateMeasurementName(measurementName);
             if (!string.IsNullOrEmpty(measurementNameValidationResult))

@@ -21,10 +21,10 @@ namespace AppInsightsWorkflowLogger
 
         [RequiredArgument]
         [Input("Duration (ms)")]
-        public InArgument<int?> Duration { get; set; }
+        public InArgument<int> Duration { get; set; }
 
         [Input("Result Code")]
-        public InArgument<int?> ResultCode { get; set; }
+        public InArgument<int> ResultCode { get; set; }
 
         [RequiredArgument]
         [Input("Success")]

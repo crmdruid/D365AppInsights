@@ -28,7 +28,7 @@ namespace AppInsightsAction
 
                 string name = Helpers.GetInputValue<string>("name", localContext.PluginExecutionContext, localContext.TracingService);
                 string measurementName = Helpers.GetInputValue<string>("measurementname", localContext.PluginExecutionContext, localContext.TracingService);
-                float? measurementValue = Helpers.GetInputValue<float?>("measurementvalue", localContext.PluginExecutionContext, localContext.TracingService);
+                double? measurementValue = Helpers.GetInputValue<double?>("measurementvalue", localContext.PluginExecutionContext, localContext.TracingService);
 
                 if (string.IsNullOrEmpty(name))
                 {

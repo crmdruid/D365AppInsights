@@ -14,20 +14,20 @@ namespace AppInsightsWorkflowLogger
 
         [RequiredArgument]
         [Input("Kind (Valid values: 0 Measurement or 1 Aggregation)")]
-        public InArgument<int?> Kind { get; set; }
+        public InArgument<int> Kind { get; set; }
 
         [RequiredArgument]
         [Input("Metric Value")]
-        public InArgument<int?> MetricValue { get; set; }
+        public InArgument<int> MetricValue { get; set; }
 
         [Input("Count")]
-        public InArgument<int?> Count { get; set; }
+        public InArgument<int> Count { get; set; }
 
         [Input("Min")]
-        public InArgument<int?> Min { get; set; }
+        public InArgument<int> Min { get; set; }
 
         [Input("Max")]
-        public InArgument<int?> Max { get; set; }
+        public InArgument<int> Max { get; set; }
 
         [Output("Log Success")]
         public OutArgument<bool> LogSuccess { get; set; }
