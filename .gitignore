@@ -261,4 +261,5 @@ __pycache__/
 *.pyc
 
 # Generated files
-[Cc]ontent/D365AppInsights*/
+content/D365AppInsights/
+./content/D365AppInsightsJs/
