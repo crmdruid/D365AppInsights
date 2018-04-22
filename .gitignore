@@ -265,3 +265,4 @@ __pycache__/
 ./content/D365AppInsightsJs/lat_AiLogger.js
 ./content/D365AppInsightsJs/lat_AiLogger.min.js
 ./content/D365AppInsightsJs/lat_AiLogger.min.js.map
+AppInsightsJsLogger/js/
