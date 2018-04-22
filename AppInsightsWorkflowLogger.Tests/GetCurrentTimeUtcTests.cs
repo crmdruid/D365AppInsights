@@ -5,18 +5,18 @@ using System;
 namespace AppInsightsWorkflowLogger.Tests
 {
     [TestClass]
-    public class GetCurrentTimeTests
+    public class GetCurrentTimeUtcTests
     {
         [TestMethod]
-        public void GetCurrentTimeTest()
+        public void GetCurrentTimeUtcTest()
         {
             XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
 
             XrmFakedContext xrmFakedContext = new XrmFakedContext();
+            
+            var result = xrmFakedContext.ExecuteCodeActivity<GetCurrentTimeUtc>(workflowContext);
 
-            var result = xrmFakedContext.ExecuteCodeActivity<GetCurrentTime>(workflowContext);
-
-            bool isValidDateTime = DateTime.TryParse(result["CurrentTime"].ToString(), out DateTime date);
+            bool isValidDateTime = DateTime.TryParse(result["CurrentTimeUtc"].ToString(), out DateTime date);
 
             Assert.IsTrue(isValidDateTime);
         }

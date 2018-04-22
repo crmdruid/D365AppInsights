@@ -190,17 +190,26 @@ namespace AppInsightsWorkflowLogger
                         : ((OutputAttribute)p.GetCustomAttribute(typeof(OutputAttribute))).Name;
 
                     StringBuilder sb = new StringBuilder();
-                    sb.Append($"{p.PropertyType.BaseType?.Name}({p.PropertyType.GenericTypeArguments[0].FullName}): {propertyLabel}: ");
+
+                    string typeFullnameString;
+                    if (p.PropertyType.GenericTypeArguments == null || p.PropertyType.GenericTypeArguments[0] == null ||
+                        p.PropertyType.GenericTypeArguments[0].FullName == null)
+                        typeFullnameString = "NULL";
+                    else
+                        typeFullnameString = p.PropertyType.GenericTypeArguments[0].FullName;
+                    sb.Append($"{p.PropertyType.BaseType?.Name}({typeFullnameString}): {propertyLabel}: ");
 
                     var property = (Argument)p.GetValue(this);
                     var propertyValue = property.Get(context);
+
                     switch (propertyValue)
                     {
                         case null:
-                            sb.Append("Null");
+                            sb.Append("NULL");
                             break;
                         case string _:
                         case decimal _:
+                        case double _:
                         case int _:
                         case bool _:
                             sb.Append(propertyValue.ToString());

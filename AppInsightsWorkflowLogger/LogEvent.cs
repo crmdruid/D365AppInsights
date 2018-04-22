@@ -35,6 +35,13 @@ namespace AppInsightsWorkflowLogger
             string measurementName = MeasurementName.Get(context);
             double measurementValue = MeasurementValue.Get(context);
 
+            if (string.IsNullOrEmpty(name))
+            {
+                localContext.TracingService.Trace("Name must be populated");
+                LogSuccess.Set(context, false);
+                return;
+            }
+
             string measurementNameValidationResult = AiEvent.ValidateMeasurementName(measurementName);
             if (!string.IsNullOrEmpty(measurementNameValidationResult))
             {

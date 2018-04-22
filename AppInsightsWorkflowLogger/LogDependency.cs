@@ -52,6 +52,13 @@ namespace AppInsightsWorkflowLogger
             bool success = Success.Get(context);
             string data = Data.Get(context);
 
+            if (string.IsNullOrEmpty(name))
+            {
+                localContext.TracingService.Trace("Name must be populated");
+                LogSuccess.Set(context, false);
+                return;
+            }
+
             OrganizationRequest request = new OrganizationRequest
             {
                 RequestName = "lat_ApplicationInsightsLogDependency",

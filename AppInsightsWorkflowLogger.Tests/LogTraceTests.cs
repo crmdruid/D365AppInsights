@@ -50,6 +50,46 @@ namespace AppInsightsWorkflowLogger.Tests
             Assert.IsTrue(bool.Parse(result["LogSuccess"].ToString()));
         }
 
+        [TestMethod]
+        public void Trace_Null_Severity_Test()
+        {
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+
+            var inputs = new Dictionary<string, object>
+            {
+                { "Message", "Hello from TraceTest - 2"},
+                { "Severity", null }
+            };
+
+            XrmFakedContext xrmFakedContext = new XrmFakedContext();
+            var fakeLogActionExecutor = new FakeLogActionExecutor("lat_ApplicationInsightsLogTrace");
+            xrmFakedContext.AddFakeMessageExecutor<OrganizationRequest>(fakeLogActionExecutor);
+
+            var result = xrmFakedContext.ExecuteCodeActivity<LogTrace>(workflowContext, inputs);
+
+            Assert.IsFalse(bool.Parse(result["LogSuccess"].ToString()));
+        }
+
+        [TestMethod]
+        public void Trace_Invalid_Severity_Test()
+        {
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+
+            var inputs = new Dictionary<string, object>
+            {
+                { "Message", "Hello from TraceTest - 2"},
+                { "Severity", "test" }
+            };
+
+            XrmFakedContext xrmFakedContext = new XrmFakedContext();
+            var fakeLogActionExecutor = new FakeLogActionExecutor("lat_ApplicationInsightsLogTrace");
+            xrmFakedContext.AddFakeMessageExecutor<OrganizationRequest>(fakeLogActionExecutor);
+
+            var result = xrmFakedContext.ExecuteCodeActivity<LogTrace>(workflowContext, inputs);
+
+            Assert.IsFalse(bool.Parse(result["LogSuccess"].ToString()));
+        }
+
         private class FakeLogActionExecutor : IFakeMessageExecutor
         {
             private readonly string _actionName;

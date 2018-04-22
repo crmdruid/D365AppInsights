@@ -29,7 +29,110 @@ namespace AppInsightsAction.Tests
             xrmFakedPluginExecution.OrganizationName = "test.crm.dynamics.com";
             xrmFakedPluginExecution.Stage = 40;
 
-            xrmFakedPluginExecution.InputParameters = new ParameterCollection {
+            xrmFakedPluginExecution.InputParameters = GetInputParameters();
+
+            xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
+
+            context.ExecutePluginWithConfigurations<LogDependency>(xrmFakedPluginExecution, null, secureConfig);
+
+            Assert.IsTrue((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
+        }
+
+        [TestMethod]
+        public void ActionDependency_Missing_Name_Test()
+        {
+            AiSecureConfig aiSecureConfig =
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+
+            string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
+
+            XrmFakedContext context = new XrmFakedContext();
+
+            XrmFakedPluginExecutionContext xrmFakedPluginExecution = new XrmFakedPluginExecutionContext();
+
+            xrmFakedPluginExecution.InputParameters = GetInputParameters();
+            xrmFakedPluginExecution.InputParameters.Remove("name");
+
+            xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
+
+            context.ExecutePluginWithConfigurations<LogDependency>(xrmFakedPluginExecution, null, secureConfig);
+
+            Assert.IsFalse((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
+            Assert.IsTrue(xrmFakedPluginExecution.OutputParameters["errormessage"].ToString() == "Name must be populated");
+        }
+
+        [TestMethod]
+        public void ActionDependency_Missing_Duration_Test()
+        {
+            AiSecureConfig aiSecureConfig =
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+
+            string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
+
+            XrmFakedContext context = new XrmFakedContext();
+
+            XrmFakedPluginExecutionContext xrmFakedPluginExecution = new XrmFakedPluginExecutionContext();
+
+            xrmFakedPluginExecution.InputParameters = GetInputParameters();
+            xrmFakedPluginExecution.InputParameters.Remove("duration");
+
+            xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
+
+            context.ExecutePluginWithConfigurations<LogDependency>(xrmFakedPluginExecution, null, secureConfig);
+
+            Assert.IsFalse((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
+            Assert.IsTrue(xrmFakedPluginExecution.OutputParameters["errormessage"].ToString() == "Duration must be populated");
+        }
+
+        [TestMethod]
+        public void ActionDependency_Missing_Type_Test()
+        {
+            AiSecureConfig aiSecureConfig =
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+
+            string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
+
+            XrmFakedContext context = new XrmFakedContext();
+
+            XrmFakedPluginExecutionContext xrmFakedPluginExecution = new XrmFakedPluginExecutionContext();
+
+            xrmFakedPluginExecution.InputParameters = GetInputParameters();
+            xrmFakedPluginExecution.InputParameters.Remove("type");
+
+            xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
+
+            context.ExecutePluginWithConfigurations<LogDependency>(xrmFakedPluginExecution, null, secureConfig);
+
+            Assert.IsFalse((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
+            Assert.IsTrue(xrmFakedPluginExecution.OutputParameters["errormessage"].ToString() == "Type must be populated");
+        }
+
+        [TestMethod]
+        public void ActionDependency_Missing_Success_Test()
+        {
+            AiSecureConfig aiSecureConfig =
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+
+            string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
+
+            XrmFakedContext context = new XrmFakedContext();
+
+            XrmFakedPluginExecutionContext xrmFakedPluginExecution = new XrmFakedPluginExecutionContext();
+
+            xrmFakedPluginExecution.InputParameters = GetInputParameters();
+            xrmFakedPluginExecution.InputParameters.Remove("success");
+
+            xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
+
+            context.ExecutePluginWithConfigurations<LogDependency>(xrmFakedPluginExecution, null, secureConfig);
+
+            Assert.IsFalse((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
+            Assert.IsTrue(xrmFakedPluginExecution.OutputParameters["errormessage"].ToString() == "Success must be populated");
+        }
+
+        private static ParameterCollection GetInputParameters()
+        {
+            return new ParameterCollection {
                 new System.Collections.Generic.KeyValuePair<string, object>("name", "https://www.testapi.com/user/7"),
                 new System.Collections.Generic.KeyValuePair<string, object>("method", "GET"),
                 new System.Collections.Generic.KeyValuePair<string, object>("type", "HTTP"),
@@ -38,12 +141,6 @@ namespace AppInsightsAction.Tests
                 new System.Collections.Generic.KeyValuePair<string, object>("success", true),
                 new System.Collections.Generic.KeyValuePair<string, object>("data", "Hello from DependencyTest - 1")
             };
-
-            xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
-
-            context.ExecutePluginWithConfigurations<LogDependency>(xrmFakedPluginExecution, null, secureConfig);
-
-            Assert.IsTrue((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
         }
     }
 }

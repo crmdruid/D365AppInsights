@@ -1,16 +1,15 @@
 ﻿using Microsoft.Xrm.Sdk.Workflow;
 using System;
 using System.Activities;
-using System.Globalization;
 
 namespace AppInsightsWorkflowLogger
 {
-    public sealed class GetWorkflowStartTime : WorkFlowActivityBase
+    public sealed class GetCurrentTimeUtc : WorkFlowActivityBase
     {
-        [Output("Workflow Start Time")]
-        public OutArgument<string> WorkflowStartTime { get; set; }
+        [Output("Current Time (UTC)")]
+        public OutArgument<DateTime> CurrentTimeUtc { get; set; }
 
-        public GetWorkflowStartTime() : base(typeof(GetWorkflowStartTime)) { }
+        public GetCurrentTimeUtc() : base(typeof(GetCurrentTimeUtc)) { }
         protected override void ExecuteCrmWorkFlowActivity(CodeActivityContext context, LocalWorkflowContext localContext)
         {
             if (context == null)
@@ -18,7 +17,9 @@ namespace AppInsightsWorkflowLogger
             if (localContext == null)
                 throw new ArgumentNullException(nameof(localContext));
 
-            WorkflowStartTime.Set(context, DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture));
+            DateTime x = TimeProvider.UtcNow;
+
+            CurrentTimeUtc.Set(context, TimeProvider.UtcNow);
         }
     }
 }

@@ -41,11 +41,25 @@ namespace AppInsightsWorkflowLogger
                 throw new ArgumentNullException(nameof(localContext));
 
             string name = Name.Get(context);
-            int? kind = Kind.Get(context);
-            int? metricValue = MetricValue.Get(context);
+            int kind = Kind.Get(context);
+            int? value = MetricValue.Get(context);
             int? count = Count.Get(context);
             int? min = Min.Get(context);
             int? max = Max.Get(context);
+
+            if (string.IsNullOrEmpty(name))
+            {
+                localContext.TracingService.Trace("Name must be populated");
+                LogSuccess.Set(context, false);
+                return;
+            }
+
+            if (!Enum.IsDefined(typeof(DataPointType), kind))
+            {
+                localContext.TracingService.Trace("Invalid DataPointType, should be 0 (Measurement) or 1 (Aggregation)");
+                LogSuccess.Set(context, false);
+                return;
+            }
 
             OrganizationRequest request = new OrganizationRequest
             {
@@ -54,7 +68,7 @@ namespace AppInsightsWorkflowLogger
                 {
                     new KeyValuePair<string, object>("name", name),
                     new KeyValuePair<string, object>("kind", kind),
-                    new KeyValuePair<string, object>("metricValue", metricValue),
+                    new KeyValuePair<string, object>("metricValue", value),
                     new KeyValuePair<string, object>("count", count),
                     new KeyValuePair<string, object>("min", min),
                     new KeyValuePair<string, object>("max", max)

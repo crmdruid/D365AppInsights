@@ -31,7 +31,7 @@ namespace AppInsightsAction
                 string severityValidationResult = AiTrace.ValidateSeverityValue(severity);
                 if (!string.IsNullOrEmpty(severityValidationResult))
                 {
-                    localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(false, severityValidationResult));
+                    Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, severityValidationResult);
                     return;
                 }
 
@@ -41,11 +41,11 @@ namespace AppInsightsAction
                     ? traceSeverity
                     : AiTraceSeverity.Information);
 
-                localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(result, null));
+                Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, result, null);
             }
             catch (Exception e)
             {
-                localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(false, e.Message));
+                Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, e.Message);
             }
         }
     }

@@ -37,7 +37,7 @@ namespace AppInsightsWorkflowLogger.Tests
 
             var inputs = new Dictionary<string, object>
             {
-                { "Name", "Hello from EventTest - 2"},
+                { "Name", "Hello from EventTest - 2" },
                 { "Method", "GET" },
                 { "Type", AiDependencyType.HTTP.ToString() },
                 { "Duration", 12356 },
@@ -53,6 +53,31 @@ namespace AppInsightsWorkflowLogger.Tests
             var result = xrmFakedContext.ExecuteCodeActivity<LogDependency>(workflowContext, inputs);
 
             Assert.IsTrue(bool.Parse(result["LogSuccess"].ToString()));
+        }
+
+        [TestMethod]
+        public void Dependency_Missing_Name_Test()
+        {
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+
+            var inputs = new Dictionary<string, object>
+            {
+                { "Name", null },
+                { "Method", "GET" },
+                { "Type", AiDependencyType.HTTP.ToString() },
+                { "Duration", 12356 },
+                { "ResultCode", 200 },
+                { "Success", true },
+                { "Data", "Hello from DependencyTest - 2" }
+            };
+
+            XrmFakedContext xrmFakedContext = new XrmFakedContext();
+            var fakeLogActionExecutor = new FakeLogActionExecutor("lat_ApplicationInsightsLogDependency");
+            xrmFakedContext.AddFakeMessageExecutor<OrganizationRequest>(fakeLogActionExecutor);
+
+            var result = xrmFakedContext.ExecuteCodeActivity<LogDependency>(workflowContext, inputs);
+
+            Assert.IsFalse(bool.Parse(result["LogSuccess"].ToString()));
         }
 
         private class FakeLogActionExecutor : IFakeMessageExecutor

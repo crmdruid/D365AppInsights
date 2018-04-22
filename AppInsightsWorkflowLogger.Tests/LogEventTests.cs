@@ -37,9 +37,9 @@ namespace AppInsightsWorkflowLogger.Tests
 
             var inputs = new Dictionary<string, object>
             {
-                { "Name", "Hello from EventTest - 2"},
+                { "Name", "Hello from EventTest - 2" },
                 { "MeasurementName", "TestMeasurement" },
-                { "MeasurementValue", 4622f }
+                { "MeasurementValue", 4622d }
             };
 
             XrmFakedContext xrmFakedContext = new XrmFakedContext();
@@ -49,6 +49,69 @@ namespace AppInsightsWorkflowLogger.Tests
             var result = xrmFakedContext.ExecuteCodeActivity<LogEvent>(workflowContext, inputs);
 
             Assert.IsTrue(bool.Parse(result["LogSuccess"].ToString()));
+        }
+
+        [TestMethod]
+        public void Event_Float_Value_Test()
+        {
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+
+            var inputs = new Dictionary<string, object>
+            {
+                { "Name", "Test Log Event" },
+                { "MeasurementName", "test" },
+                { "MeasurementValue", 1.00000f }
+            };
+
+            XrmFakedContext xrmFakedContext = new XrmFakedContext();
+            var fakeLogActionExecutor = new FakeLogActionExecutor("lat_ApplicationInsightsLogEvent");
+            xrmFakedContext.AddFakeMessageExecutor<OrganizationRequest>(fakeLogActionExecutor);
+
+            var result = xrmFakedContext.ExecuteCodeActivity<LogEvent>(workflowContext, inputs);
+
+            Assert.IsTrue(bool.Parse(result["LogSuccess"].ToString()));
+        }
+
+        [TestMethod]
+        public void Event_Missing_Name_Test()
+        {
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+
+            var inputs = new Dictionary<string, object>
+            {
+                { "Name", null },
+                { "MeasurementName", "TestMeasurement" },
+                { "MeasurementValue", 4622d }
+            };
+
+            XrmFakedContext xrmFakedContext = new XrmFakedContext();
+            var fakeLogActionExecutor = new FakeLogActionExecutor("lat_ApplicationInsightsLogEvent");
+            xrmFakedContext.AddFakeMessageExecutor<OrganizationRequest>(fakeLogActionExecutor);
+
+            var result = xrmFakedContext.ExecuteCodeActivity<LogEvent>(workflowContext, inputs);
+
+            Assert.IsFalse(bool.Parse(result["LogSuccess"].ToString()));
+        }
+
+        [TestMethod]
+        public void Event_Invalid_Measurement_Name_Test()
+        {
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+
+            var inputs = new Dictionary<string, object>
+            {
+                { "Name", null},
+                { "MeasurementName", "sisznxevfkzibsdtsvfwijucumzedrzauyzzyzqmrrmdwwdqugtiprgvgkmpokcoldnxcmlwywcuernvoobnfogzgjkbnsteycrvafpharlnylyvyigsnskjuwwqjeiudwkibztwzwwotfbaijxcqwwk" },
+                { "MeasurementValue", 4622d }
+            };
+
+            XrmFakedContext xrmFakedContext = new XrmFakedContext();
+            var fakeLogActionExecutor = new FakeLogActionExecutor("lat_ApplicationInsightsLogEvent");
+            xrmFakedContext.AddFakeMessageExecutor<OrganizationRequest>(fakeLogActionExecutor);
+
+            var result = xrmFakedContext.ExecuteCodeActivity<LogEvent>(workflowContext, inputs);
+
+            Assert.IsFalse(bool.Parse(result["LogSuccess"].ToString()));
         }
 
         private class FakeLogActionExecutor : IFakeMessageExecutor

@@ -31,7 +31,7 @@ namespace AppInsightsWorkflowLogger.Tests
         #endregion
 
         [TestMethod]
-        public void MetricTest()
+        public void Metric_Measurement_Test()
         {
             XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
 
@@ -39,10 +39,73 @@ namespace AppInsightsWorkflowLogger.Tests
             {
                 { "Name", "Hello from TraceTest - 2"},
                 { "Kind", 0 },
+                { "MetricValue", 456 }
+            };
+
+            XrmFakedContext xrmFakedContext = new XrmFakedContext();
+            var fakeLogActionExecutor = new FakeLogActionExecutor("lat_ApplicationInsightsLogMetric");
+            xrmFakedContext.AddFakeMessageExecutor<OrganizationRequest>(fakeLogActionExecutor);
+
+            var result = xrmFakedContext.ExecuteCodeActivity<LogMetric>(workflowContext, inputs);
+
+            Assert.IsTrue(bool.Parse(result["LogSuccess"].ToString()));
+        }
+
+        [TestMethod]
+        public void Metric_Measurement_Missing_Name_Test()
+        {
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+
+            var inputs = new Dictionary<string, object>
+            {
+                { "Name", null},
+                { "Kind", 0 },
+                { "MetricValue", 456 }
+            };
+
+            XrmFakedContext xrmFakedContext = new XrmFakedContext();
+            var fakeLogActionExecutor = new FakeLogActionExecutor("lat_ApplicationInsightsLogMetric");
+            xrmFakedContext.AddFakeMessageExecutor<OrganizationRequest>(fakeLogActionExecutor);
+
+            var result = xrmFakedContext.ExecuteCodeActivity<LogMetric>(workflowContext, inputs);
+
+            Assert.IsFalse(bool.Parse(result["LogSuccess"].ToString()));
+        }
+
+        [TestMethod]
+        public void Metric_Measurement_Invalid_Kind_Test()
+        {
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+
+            var inputs = new Dictionary<string, object>
+            {
+                { "Name", null},
+                { "Kind", 3 },
+                { "MetricValue", 456 }
+            };
+
+            XrmFakedContext xrmFakedContext = new XrmFakedContext();
+            var fakeLogActionExecutor = new FakeLogActionExecutor("lat_ApplicationInsightsLogMetric");
+            xrmFakedContext.AddFakeMessageExecutor<OrganizationRequest>(fakeLogActionExecutor);
+
+            var result = xrmFakedContext.ExecuteCodeActivity<LogMetric>(workflowContext, inputs);
+
+            Assert.IsFalse(bool.Parse(result["LogSuccess"].ToString()));
+        }
+
+        [TestMethod]
+        public void Metric_Aggregation_Test()
+        {
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+
+            var inputs = new Dictionary<string, object>
+            {
+                { "Name", "Hello from TraceTest - 2"},
+                { "Kind", 1 },
                 { "MetricValue", 456 },
-                { "Count", null },
-                { "Min", null },
-                { "Max", null }
+                { "Count", 1 },
+                { "Min", 456 },
+                { "Max", 456 }
             };
 
             XrmFakedContext xrmFakedContext = new XrmFakedContext();

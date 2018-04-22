@@ -45,18 +45,18 @@ namespace AppInsightsAction
                     else
                         errorMessage = "Success must be populated";
 
-                    localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(false, errorMessage));
+                    Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, errorMessage);
                     return;
                 }
 
                 bool result = aiLogger.WriteDependency(name, method, typeInput,
                     (int)duration, resultcode, (bool)success, data);
 
-                localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(result, null));
+                Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, result, null);
             }
             catch (Exception e)
             {
-                localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(false, e.Message));
+                Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, e.Message);
             }
         }
     }

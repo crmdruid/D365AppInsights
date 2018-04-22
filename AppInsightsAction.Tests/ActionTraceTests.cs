@@ -1,7 +1,7 @@
-﻿using System;
-using FakeXrmEasy;
+﻿using FakeXrmEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xrm.Sdk;
+using System;
 
 namespace AppInsightsAction.Tests
 {
@@ -29,14 +29,67 @@ namespace AppInsightsAction.Tests
             xrmFakedPluginExecution.OrganizationName = "test.crm.dynamics.com";
             xrmFakedPluginExecution.Stage = 40;
 
-            xrmFakedPluginExecution.InputParameters = new ParameterCollection {
-                new System.Collections.Generic.KeyValuePair<string, object>("message", "Hello from TraceTest - 1"),
-                new System.Collections.Generic.KeyValuePair<string, object>("severity", "Warning")
-            };
+            xrmFakedPluginExecution.InputParameters = GetInputParameters();
 
             xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
 
             context.ExecutePluginWithConfigurations<LogTrace>(xrmFakedPluginExecution, null, secureConfig);
+
+            Assert.IsTrue((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
+        }
+
+        [TestMethod]
+        public void ActionTrace_Null_Severity_Test()
+        {
+            AiSecureConfig aiSecureConfig =
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+
+            string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
+
+            XrmFakedContext context = new XrmFakedContext();
+
+            XrmFakedPluginExecutionContext xrmFakedPluginExecution = new XrmFakedPluginExecutionContext();
+
+            xrmFakedPluginExecution.InputParameters = GetInputParameters();
+            xrmFakedPluginExecution.InputParameters["severity"] = null;
+
+            xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
+
+            context.ExecutePluginWithConfigurations<LogTrace>(xrmFakedPluginExecution, null, secureConfig);
+
+            Assert.IsFalse((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
+            Assert.IsTrue(xrmFakedPluginExecution.OutputParameters["errormessage"].ToString() == "Severity cannot be null");
+        }
+
+        [TestMethod]
+        public void ActionTrace_Invalid_Severity_Test()
+        {
+            AiSecureConfig aiSecureConfig =
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+
+            string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
+
+            XrmFakedContext context = new XrmFakedContext();
+
+            XrmFakedPluginExecutionContext xrmFakedPluginExecution = new XrmFakedPluginExecutionContext();
+
+            xrmFakedPluginExecution.InputParameters = GetInputParameters();
+            xrmFakedPluginExecution.InputParameters["severity"] = "test";
+
+            xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
+
+            context.ExecutePluginWithConfigurations<LogTrace>(xrmFakedPluginExecution, null, secureConfig);
+
+            Assert.IsFalse((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
+            Assert.IsTrue(xrmFakedPluginExecution.OutputParameters["errormessage"].ToString() == "Severity valid values: Verbose, Information, Warning, Error, Critical");
+        }
+
+        private static ParameterCollection GetInputParameters()
+        {
+            return new ParameterCollection {
+                new System.Collections.Generic.KeyValuePair<string, object>("message", "Hello from TraceTest - 1"),
+                new System.Collections.Generic.KeyValuePair<string, object>("severity", "Warning")
+            };
         }
     }
 }

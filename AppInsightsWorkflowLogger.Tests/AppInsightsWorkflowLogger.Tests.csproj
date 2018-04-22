@@ -107,7 +107,8 @@
     <Compile Include="LogMetricTests.cs" />
     <Compile Include="LogTraceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GetCurrentTimeTests.cs" />
+    <Compile Include="GetCurrentTimeUtcTests.cs" />
+    <Compile Include="TimeProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

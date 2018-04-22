@@ -28,34 +28,34 @@ namespace AppInsightsAction
 
                 string name = Helpers.GetInputValue<string>("name", localContext.PluginExecutionContext, localContext.TracingService);
                 string measurementName = Helpers.GetInputValue<string>("measurementname", localContext.PluginExecutionContext, localContext.TracingService);
-                double? measurementValue = Helpers.GetInputValue<double?>("measurementvalue", localContext.PluginExecutionContext, localContext.TracingService);
+                float? measurementValue = Helpers.GetFloatInput("measurementvalue", localContext.PluginExecutionContext, localContext.TracingService);
 
                 if (string.IsNullOrEmpty(name))
                 {
-                    localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(false, "Name must be populated"));
+                    Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, "Name must be populated");
                     return;
                 }
 
                 string measurementNameValidationResult = AiEvent.ValidateMeasurementName(measurementName);
                 if (!string.IsNullOrEmpty(measurementNameValidationResult))
                 {
-                    localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(false, measurementNameValidationResult));
+                    Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, measurementNameValidationResult);
                     return;
                 }
 
                 Dictionary<string, double?> measurements = new Dictionary<string, double?>();
                 if (measurementValue != null)
-                    measurements.Add(measurementName, (double)measurementValue);
+                    measurements.Add(measurementName, Convert.ToDouble(measurementValue));
                 else
                     measurements.Add(measurementName, null);
 
                 bool result = aiLogger.WriteEvent(name, measurements);
 
-                localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(result, null));
+                Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, result, null);
             }
             catch (Exception e)
             {
-                localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(false, e.Message));
+                Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, e.Message);
             }
         }
 

@@ -43,13 +43,13 @@ namespace AppInsightsAction
                     else
                         errorMessage = "Value must be populated";
 
-                    localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(false, errorMessage));
+                    Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, errorMessage);
                     return;
                 }
 
                 if (!Enum.IsDefined(typeof(DataPointType), kindInput))
                 {
-                    localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(false, "Invalid DataPointType, should be 0 (Measurement) or 1 (Aggregation)"));
+                    Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, "Invalid DataPointType, should be 0 (Measurement) or 1 (Aggregation)");
                     return;
                 }
 
@@ -57,11 +57,11 @@ namespace AppInsightsAction
 
                 bool result = aiLogger.WriteMetric(name, kind, (int)value, count, min, max, stdDev);
 
-                localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(result, null));
+                Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, result, null);
             }
             catch (Exception e)
             {
-                localContext.PluginExecutionContext.OutputParameters.AddRange(Helpers.SetOutputParameters(false, e.Message));
+                Helpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, e.Message);
             }
         }
     }

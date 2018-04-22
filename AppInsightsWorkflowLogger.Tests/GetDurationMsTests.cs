@@ -9,22 +9,35 @@ namespace AppInsightsWorkflowLogger.Tests
     public class GetDurationMsTests
     {
         [TestMethod]
-        public void GetCurrentTimeTest()
+        public void GetCurrentTime_Greater_1_Minute_No_StartTime_Test()
         {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+            XrmFakedWorkflowContext workflowContext =
+                new XrmFakedWorkflowContext { OperationCreatedOn = DateTime.UtcNow.AddMinutes(-1) };
+
+            XrmFakedContext xrmFakedContext = new XrmFakedContext();
+
+
+            var result = xrmFakedContext.ExecuteCodeActivity<GetDurationMs>(workflowContext);
+
+            Assert.IsTrue((int)result["DurationMs"] > 60000);
+        }
+
+        [TestMethod]
+        public void GetCurrentTime_Greater_1_Minute_Set_StartTime_Test()
+        {
+            XrmFakedWorkflowContext workflowContext =
+                new XrmFakedWorkflowContext { OperationCreatedOn = DateTime.UtcNow.AddMinutes(-1) };
 
             var inputs = new Dictionary<string, object>
             {
-                { "StartTime", new DateTime(2018, 2, 2, 10, 0, 0, 0, 0) }
+                { "StartTime", DateTime.UtcNow.AddMinutes(-1) }
             };
 
             XrmFakedContext xrmFakedContext = new XrmFakedContext();
 
             var result = xrmFakedContext.ExecuteCodeActivity<GetDurationMs>(workflowContext, inputs);
 
-            bool isValidDateTime = DateTime.TryParse(result["CurrentTime"].ToString(), out DateTime date);
-
-            Assert.IsTrue(isValidDateTime);
+            Assert.IsTrue((int)result["DurationMs"] > 60000);
         }
     }
 }

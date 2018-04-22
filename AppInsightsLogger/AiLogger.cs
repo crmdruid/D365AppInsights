@@ -296,7 +296,7 @@ public class AiLogger
 
         if (executionContext.GetType().Name.Contains("PluginExecutionContext"))
             AddPluginExecutionContextDetails((IPluginExecutionContext)executionContext);
-        _tracingService.Trace(executionContext.GetType().Name);
+        
         if (executionContext.GetType().Name.Contains("CodeActivityContext")
             || executionContext.GetType().Name.Contains("WorkflowContext") && workflowContextDetails != null)
             AddWorkflowExecutionContextDetails(workflowContextDetails);
@@ -347,7 +347,7 @@ public class AiLogger
             int i = 1;
             foreach (KeyValuePair<string, object> parameter in parameters)
             {
-                var typeFullname = (object)parameter.Value.GetType().FullName;
+                var typeFullname = (object)parameter.Value?.GetType().FullName;
                 string parameterType = input ? "Input" : "Output";
                 sb.Append($"{parameterType} Parameter({typeFullname}): {parameter.Key}: ");
 
@@ -355,6 +355,7 @@ public class AiLogger
                 {
                     case "System.String":
                     case "System.Decimal":
+                    case "System.Double":
                     case "System.Int32":
                     case "System.Boolean":
                     case "System.Single":

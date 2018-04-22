@@ -7,7 +7,7 @@
         {
             return new AiSecureConfig
             {
-                InstrumentationKey = "Your AI Instrumentation Key",
+                InstrumentationKey = "YOUR AI INSTRUMENTATION KEY",
                 AiEndpoint = "https://dc.services.visualstudio.com/v2/track",
                 DisableDependencyTracking = disableDependencyTracking,
                 DisableEventTracking = disableEventTracking,

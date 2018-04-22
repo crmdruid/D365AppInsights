@@ -213,12 +213,17 @@ namespace AppInsightsAction
 
                     var typeFullname =  (object) parameter.Value?.GetType().FullName;
                     string parameterType = input ? "Input" : "Output";
-                    sb.Append($"{parameterType} Parameter({typeFullname}): {parameter.Key}: ");
+                    string typeFullnameString = typeFullname != null ? typeFullname.ToString() : "NULL";
+                    sb.Append($"{parameterType} Parameter({typeFullnameString}): {parameter.Key}: ");
 
                     switch (typeFullname)
                     {
+                        case null:
+                            sb.Append("NULL");
+                            break;
                         case "System.String":
                         case "System.Decimal":
+                        case "System.Double":
                         case "System.Int32":
                         case "System.Boolean":
                         case "System.Single":
@@ -250,7 +255,7 @@ namespace AppInsightsAction
                             sb.Append(((Money)parameter.Value).Value.ToString(CultureInfo.CurrentCulture));
                             break;
                         default:
-                            sb.Append($"Null or Undefined Type - {typeFullname}");
+                            sb.Append($"Undefined Type - {typeFullname}");
                             break;
                     }
 
