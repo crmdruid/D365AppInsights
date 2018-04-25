@@ -12,7 +12,7 @@ namespace AppInsightsAction.Tests
         public void ActionMetric_Measurement_Test()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 
@@ -42,7 +42,7 @@ namespace AppInsightsAction.Tests
         public void ActionMetric_Measurement_Missing_Name_Test()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 
@@ -62,33 +62,10 @@ namespace AppInsightsAction.Tests
         }
 
         [TestMethod]
-        public void ActionMetric_Measurement_Missing_Kind_Test()
-        {
-            AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
-
-            string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
-
-            XrmFakedContext context = new XrmFakedContext();
-
-            XrmFakedPluginExecutionContext xrmFakedPluginExecution = new XrmFakedPluginExecutionContext();
-
-            xrmFakedPluginExecution.InputParameters = GetInputParameters();
-            xrmFakedPluginExecution.InputParameters.Remove("kind");
-
-            xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
-
-            context.ExecutePluginWithConfigurations<LogMetric>(xrmFakedPluginExecution, null, secureConfig);
-
-            Assert.IsFalse((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
-            Assert.IsTrue(xrmFakedPluginExecution.OutputParameters["errormessage"].ToString() == "Kind must be populated");
-        }
-
-        [TestMethod]
         public void ActionMetric_Measurement_Missing_Value_Test()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 
@@ -108,33 +85,10 @@ namespace AppInsightsAction.Tests
         }
 
         [TestMethod]
-        public void ActionMetric_Measurement_Invalid_Kind_Test()
-        {
-            AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
-
-            string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
-
-            XrmFakedContext context = new XrmFakedContext();
-
-            XrmFakedPluginExecutionContext xrmFakedPluginExecution = new XrmFakedPluginExecutionContext();
-
-            xrmFakedPluginExecution.InputParameters = GetInputParameters();
-            xrmFakedPluginExecution.InputParameters["kind"] = 5;
-
-            xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
-
-            context.ExecutePluginWithConfigurations<LogMetric>(xrmFakedPluginExecution, null, secureConfig);
-
-            Assert.IsFalse((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
-            Assert.IsTrue(xrmFakedPluginExecution.OutputParameters["errormessage"].ToString() == "Invalid DataPointType, should be 0 (Measurement) or 1 (Aggregation)");
-        }
-
-        [TestMethod]
         public void ActionMetric_Aggregate_Test()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 
@@ -155,7 +109,6 @@ namespace AppInsightsAction.Tests
 
             xrmFakedPluginExecution.OutputParameters = new ParameterCollection {
                 new System.Collections.Generic.KeyValuePair<string, object>("name", "Hello from MetricTest - 1"),
-                new System.Collections.Generic.KeyValuePair<string, object>("kind", 1),
                 new System.Collections.Generic.KeyValuePair<string, object>("value", 34),
                 new System.Collections.Generic.KeyValuePair<string, object>("count", 1),
                 new System.Collections.Generic.KeyValuePair<string, object>("min", 34),
@@ -171,7 +124,6 @@ namespace AppInsightsAction.Tests
         {
             return new ParameterCollection {
                 new System.Collections.Generic.KeyValuePair<string, object>("name", "Hello from MetricTest - 1"),
-                new System.Collections.Generic.KeyValuePair<string, object>("kind", 0),
                 new System.Collections.Generic.KeyValuePair<string, object>("value", 34)
             };
         }

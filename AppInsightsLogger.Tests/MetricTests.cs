@@ -13,7 +13,7 @@ namespace AppInsightsLogger.Tests
         public void MetricTest()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 
@@ -41,7 +41,7 @@ namespace AppInsightsLogger.Tests
 
             AiLogger aiLogger = new AiLogger(secureConfig, fakedService, fakedTracingService, xrmFakedPluginExecution);
 
-            bool result = aiLogger.WriteMetric("Hello from MetricTest - 0", DataPointType.Measurement, 55, null, null, null, null);
+            bool result = aiLogger.WriteMetric("Hello from MetricTest - 0", 55, null, null, null, null);
 
             Assert.IsTrue(result);
         }

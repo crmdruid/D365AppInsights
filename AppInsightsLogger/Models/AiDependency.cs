@@ -40,15 +40,15 @@ public class AiDependency : AiBaseData
         }
         else
         {
-            Name = name.Length > 512
-                ? name.Substring(0, 511)
-                : name;
+            Name = name;
             Data = data;
             Target = null;
         }
 
-        Id = LogHelper.GenerateNewId();
+        if (Name.Length > 512)
+            Name = Name.Substring(0, 511);
 
+        Id = LogHelper.GenerateNewId();
         ResultCode = resultCode;
         Duration = duration;
         Success = success;

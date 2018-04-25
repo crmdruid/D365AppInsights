@@ -9,8 +9,8 @@
             }
         }
         var c = {
-                config: a
-            },
+            config: a
+        },
             d = document,
             e = window;
         setTimeout(function () {
@@ -19,7 +19,7 @@
         });
         try {
             c.cookie = d.cookie
-        } catch (a) {}
+        } catch (a) { }
         c.queue = [];
         for (var f = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; f.length;) b("track" + f.pop());
         if (b("setAuthenticatedUserContext"), b("clearAuthenticatedUserContext"), b("startTrackEvent"), b("stopTrackEvent"), b("startTrackPage"), b("stopTrackPage"), b("flush"), !a.disableExceptionTracking) {

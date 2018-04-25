@@ -28,7 +28,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\AiSecureConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AiTags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AiLogger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Enums\AiDataPointType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\AiExceptionSeverity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\AiTraceSeverity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ExceptionHelper.cs" />

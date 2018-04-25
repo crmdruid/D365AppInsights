@@ -10,12 +10,12 @@ public class AiLogger
 {
     private readonly string _instrumentationKey;
     private readonly string _loggingEndpoint;
-    private readonly string _applicationVersion;
     private readonly bool _disableTraceTracking;
     private readonly bool _disableExceptionTracking;
     private readonly bool _disableDependencyTracking;
     private readonly bool _disableMetricTracking;
     private readonly bool _disableEventTracking;
+    private readonly bool _enableDebug;
     private readonly string _authenticatedUserId;
     private readonly ITracingService _tracingService;
     private readonly AiProperties _eventProperties;
@@ -27,20 +27,22 @@ public class AiLogger
         AiConfig aiConfig = new AiConfig(secureConfig);
         _instrumentationKey = aiConfig.InstrumentationKey;
         _loggingEndpoint = aiConfig.AiEndpoint;
-        _applicationVersion = GetVersion(service);
         _disableTraceTracking = aiConfig.DisableTraceTracking;
         _disableExceptionTracking = aiConfig.DisableExceptionTracking;
         _disableDependencyTracking = aiConfig.DisableDependencyTracking;
         _disableEventTracking = aiConfig.DisableEventTracking;
         _disableMetricTracking = aiConfig.DisableMetricTracking;
+        _enableDebug = aiConfig.EnableDebug;
         bool disableContextParameterTracking = aiConfig.DisableContextParameterTracking;
         _authenticatedUserId = executionContext.InitiatingUserId.ToString();
         _tracingService = tracingService;
         _httpClient = HttpHelper.GetHttpClient();
 
         _eventProperties = new AiProperties();
+        AddPrimaryPropertyValues(executionContext, service);
+
         if (!disableContextParameterTracking)
-            AddExecutionContextDetails(executionContext, service, workflowContextDetails);
+            AddExecutionContextDetails(executionContext, workflowContextDetails);
     }
 
     public bool WriteTrace(string message, AiTraceSeverity aiTraceSeverity)
@@ -51,6 +53,10 @@ public class AiLogger
         AiTrace aiTrace = new AiTrace(message, aiTraceSeverity);
 
         string json = GetTraceJsonString(aiTrace);
+
+        if (_enableDebug)
+            _tracingService.Trace($"Application Insights JSON: {CreateJsonDataLog(json)}");
+
         return SendToAi(json);
     }
 
@@ -62,6 +68,10 @@ public class AiLogger
         AiEvent aiEvent = new AiEvent(name);
 
         string json = GetEventJsonString(aiEvent, measurements);
+
+        if (_enableDebug)
+            _tracingService.Trace($"Application Insights JSON: {CreateJsonDataLog(json)}");
+
         return SendToAi(json);
     }
 
@@ -73,17 +83,25 @@ public class AiLogger
         AiException aiException = new AiException(e, severity);
 
         string json = GetExceptionJsonString(aiException);
+
+        if (_enableDebug)
+            _tracingService.Trace($"Application Insights JSON: {CreateJsonDataLog(json)}");
+
         return SendToAi(json);
     }
 
-    public bool WriteMetric(string name, DataPointType kind, int value, int? count, int? min, int? max, int? stdDev)
+    public bool WriteMetric(string name, int value, int? count, int? min, int? max, int? stdDev)
     {
         if (_disableMetricTracking)
             return true;
 
-        AiMetric metric = new AiMetric(name, kind, value, count, min, max, stdDev);
+        AiMetric metric = new AiMetric(name, value, count, min, max, stdDev);
 
         string json = GetMetricJsonString(metric);
+
+        if (_enableDebug)
+            _tracingService.Trace($"Application Insights JSON: {CreateJsonDataLog(json)}");
+
         return SendToAi(json);
     }
 
@@ -97,6 +115,10 @@ public class AiLogger
             new AiDependency(_eventProperties, name, method, type, duration, resultCode, success, data);
 
         string json = GetDependencyJsonString(dependency, null);
+
+        if (_enableDebug)
+            _tracingService.Trace($"Application Insights JSON: {CreateJsonDataLog(json)}");
+
         return SendToAi(json);
     }
 
@@ -111,12 +133,12 @@ public class AiLogger
                 return true;
 
             _tracingService?.Trace(
-                $"Error writing to Application Insights with response: {response.StatusCode.ToString()}: {response.ReasonPhrase}: Message: {json}");
+                $"Error writing to Application Insights with response: {response.StatusCode.ToString()}: {response.ReasonPhrase}: Message: {CreateJsonDataLog(json)}");
             return false;
         }
         catch (Exception e)
         {
-            _tracingService?.Trace($"Error writing to Application Insights: Message: {json}", e);
+            _tracingService?.Trace(CreateJsonDataLog(json), e);
             return false;
         }
     }
@@ -235,7 +257,6 @@ public class AiLogger
             {
                 RoleInstance = null,
                 OperationName = null,
-                ApplicationVersion = _applicationVersion,
                 AuthenticatedUserId = _authenticatedUserId
             },
             Data = new AiData
@@ -279,24 +300,27 @@ public class AiLogger
         return json;
     }
 
-    private void AddExecutionContextDetails(IExecutionContext executionContext, IOrganizationService service,
-        Dictionary<string, object> workflowContextDetails)
+    private void AddPrimaryPropertyValues(IExecutionContext executionContext, IOrganizationService service)
+    {
+        _eventProperties.EntityName = executionContext.PrimaryEntityName;
+        _eventProperties.EntityId = executionContext.PrimaryEntityId.ToString();
+        _eventProperties.OrgName = executionContext.OrganizationName;
+        _eventProperties.OrgVersion = GetVersion(service);
+    }
+
+    private void AddExecutionContextDetails(IExecutionContext executionContext, Dictionary<string, object> workflowContextDetails)
     {
         _eventProperties.ImpersonatingUserId = executionContext.UserId.ToString();
         _eventProperties.CorrelationId = executionContext.CorrelationId.ToString();
-        _eventProperties.EntityName = executionContext.PrimaryEntityName;
-        _eventProperties.EntityId = executionContext.PrimaryEntityId.ToString();
         _eventProperties.Message = executionContext.MessageName;
         _eventProperties.Mode = AiProperties.GetModeName(executionContext.Mode);
         _eventProperties.Depth = executionContext.Depth;
-        _eventProperties.OrgName = executionContext.OrganizationName;
-        _eventProperties.OrgVersion = GetVersion(service);
         _eventProperties.InputParameters = TraceParameters(true, executionContext);
         _eventProperties.OutputParameters = TraceParameters(false, executionContext);
 
         if (executionContext.GetType().Name.Contains("PluginExecutionContext"))
             AddPluginExecutionContextDetails((IPluginExecutionContext)executionContext);
-        
+
         if (executionContext.GetType().Name.Contains("CodeActivityContext")
             || executionContext.GetType().Name.Contains("WorkflowContext") && workflowContextDetails != null)
             AddWorkflowExecutionContextDetails(workflowContextDetails);
@@ -392,7 +416,7 @@ public class AiLogger
                 }
 
                 i++;
-                if (i < parameters.Count)
+                if (i <= parameters.Count)
                     sb.Append(Environment.NewLine);
             }
 
@@ -406,5 +430,10 @@ public class AiLogger
             _tracingService.Trace($"Error tracing parameters: {e.Message}");
             return null;
         }
+    }
+
+    private static string CreateJsonDataLog(string json)
+    {
+        return $"Error writing to Application Insights: Message: {json.Replace("{", "{{").Replace("}", "}}")}";
     }
 }

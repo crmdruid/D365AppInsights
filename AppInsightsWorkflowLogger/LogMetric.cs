@@ -13,10 +13,6 @@ namespace AppInsightsWorkflowLogger
         public InArgument<string> Name { get; set; }
 
         [RequiredArgument]
-        [Input("Kind (Valid values: 0 Measurement or 1 Aggregation)")]
-        public InArgument<int> Kind { get; set; }
-
-        [RequiredArgument]
         [Input("Metric Value")]
         public InArgument<int> MetricValue { get; set; }
 
@@ -41,7 +37,6 @@ namespace AppInsightsWorkflowLogger
                 throw new ArgumentNullException(nameof(localContext));
 
             string name = Name.Get(context);
-            int kind = Kind.Get(context);
             int? value = MetricValue.Get(context);
             int? count = Count.Get(context);
             int? min = Min.Get(context);
@@ -54,20 +49,12 @@ namespace AppInsightsWorkflowLogger
                 return;
             }
 
-            if (!Enum.IsDefined(typeof(DataPointType), kind))
-            {
-                localContext.TracingService.Trace("Invalid DataPointType, should be 0 (Measurement) or 1 (Aggregation)");
-                LogSuccess.Set(context, false);
-                return;
-            }
-
             OrganizationRequest request = new OrganizationRequest
             {
                 RequestName = "lat_ApplicationInsightsLogMetric",
                 Parameters = new ParameterCollection
                 {
                     new KeyValuePair<string, object>("name", name),
-                    new KeyValuePair<string, object>("kind", kind),
                     new KeyValuePair<string, object>("metricValue", value),
                     new KeyValuePair<string, object>("count", count),
                     new KeyValuePair<string, object>("min", min),

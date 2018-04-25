@@ -13,7 +13,7 @@ namespace AppInsightsLogger.Tests
         public void EventTest()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 

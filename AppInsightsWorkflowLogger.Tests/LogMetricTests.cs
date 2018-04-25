@@ -38,7 +38,6 @@ namespace AppInsightsWorkflowLogger.Tests
             var inputs = new Dictionary<string, object>
             {
                 { "Name", "Hello from TraceTest - 2"},
-                { "Kind", 0 },
                 { "MetricValue", 456 }
             };
 
@@ -59,28 +58,6 @@ namespace AppInsightsWorkflowLogger.Tests
             var inputs = new Dictionary<string, object>
             {
                 { "Name", null},
-                { "Kind", 0 },
-                { "MetricValue", 456 }
-            };
-
-            XrmFakedContext xrmFakedContext = new XrmFakedContext();
-            var fakeLogActionExecutor = new FakeLogActionExecutor("lat_ApplicationInsightsLogMetric");
-            xrmFakedContext.AddFakeMessageExecutor<OrganizationRequest>(fakeLogActionExecutor);
-
-            var result = xrmFakedContext.ExecuteCodeActivity<LogMetric>(workflowContext, inputs);
-
-            Assert.IsFalse(bool.Parse(result["LogSuccess"].ToString()));
-        }
-
-        [TestMethod]
-        public void Metric_Measurement_Invalid_Kind_Test()
-        {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
-
-            var inputs = new Dictionary<string, object>
-            {
-                { "Name", null},
-                { "Kind", 3 },
                 { "MetricValue", 456 }
             };
 
@@ -101,7 +78,6 @@ namespace AppInsightsWorkflowLogger.Tests
             var inputs = new Dictionary<string, object>
             {
                 { "Name", "Hello from TraceTest - 2"},
-                { "Kind", 1 },
                 { "MetricValue", 456 },
                 { "Count", 1 },
                 { "Min", 456 },

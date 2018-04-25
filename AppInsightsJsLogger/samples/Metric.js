@@ -1,5 +1,6 @@
 ﻿function Metric() {
 
-    AiFormLogger.writeMetric("Custom Metric: Some Metric", 5, 2, 0, 10, null);
+    AiFormLogger.writeMetric("Custom Metric: Measurement?", 5, 1, null, null, null);
+    AiFormLogger.writeMetric("Custom Metric: Aggregate?", 15, 3, 0, 30, null);
 
 }

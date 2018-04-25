@@ -18,7 +18,6 @@
 			"ver": 2,
 			"metrics": [{
 				"name": "Custom Metric: Some Metric",
-				"kind": 0,
 				"value": 5,
 				"count": 2,
 				"min": 0,

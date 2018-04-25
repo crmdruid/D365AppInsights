@@ -12,7 +12,7 @@ namespace AppInsightsAction.Tests
         public void ActionDependencyTest()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 
@@ -42,7 +42,7 @@ namespace AppInsightsAction.Tests
         public void ActionDependency_Missing_Name_Test()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 
@@ -65,7 +65,7 @@ namespace AppInsightsAction.Tests
         public void ActionDependency_Missing_Duration_Test()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 
@@ -88,7 +88,7 @@ namespace AppInsightsAction.Tests
         public void ActionDependency_Missing_Type_Test()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 
@@ -111,7 +111,7 @@ namespace AppInsightsAction.Tests
         public void ActionDependency_Missing_Success_Test()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 

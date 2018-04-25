@@ -6,9 +6,6 @@ public class AiMetric
     [DataMember(Name = "name")]
     public string Name { get; set; }
 
-    [DataMember(Name = "kind")]
-    public string Kind { get; set; }
-
     [DataMember(Name = "value")]
     public int Value { get; set; }
 
@@ -24,16 +21,12 @@ public class AiMetric
     [DataMember(Name = "stdDev")]
     public int StdDev { get; set; }
 
-    public AiMetric(string name, DataPointType kind, int value, int? count, int? min, int? max, int? stdDev)
+    public AiMetric(string name, int value, int? count, int? min, int? max, int? stdDev)
     {
         Name = name.Length > 512
             ? name.Substring(0, 511)
             : name;
-        Kind = kind.ToString();
         Value = value;
-
-        if (kind != DataPointType.Aggregation)
-            return;
 
         Count = count ?? 1;
         Min = min ?? value;

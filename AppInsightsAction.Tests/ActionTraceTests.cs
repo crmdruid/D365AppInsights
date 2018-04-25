@@ -12,7 +12,7 @@ namespace AppInsightsAction.Tests
         public void ActionTraceTest()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 
@@ -42,7 +42,7 @@ namespace AppInsightsAction.Tests
         public void ActionTrace_Null_Severity_Test()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 
@@ -65,7 +65,7 @@ namespace AppInsightsAction.Tests
         public void ActionTrace_Invalid_Severity_Test()
         {
             AiSecureConfig aiSecureConfig =
-                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false);
+                AppInsightsShared.Tests.Configs.GetAiSecureConfig(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSecureConfig>(aiSecureConfig);
 

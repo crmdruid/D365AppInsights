@@ -10,6 +10,7 @@ public class AiConfig
     public bool DisableExceptionTracking { get; set; }
     public bool DisableDependencyTracking { get; set; }
     public bool DisableContextParameterTracking { get; set; }
+    public bool EnableDebug { get; set; }
 
     public AiConfig(string secureConfig)
     {
@@ -31,5 +32,6 @@ public class AiConfig
         DisableExceptionTracking = aiSecureConfig.DisableExceptionTracking;
         DisableMetricTracking = aiSecureConfig.DisableMetricTracking;
         DisableContextParameterTracking = aiSecureConfig.DisableContextParameterTracking;
+        EnableDebug = aiSecureConfig.EnableDebug;
     }
 }

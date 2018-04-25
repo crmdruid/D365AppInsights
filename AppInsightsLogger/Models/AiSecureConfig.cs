@@ -9,7 +9,8 @@
     "DisableEventTracking": false,
     "DisableExceptionTracking": false,
     "DisableDependencyTracking": false,
-    "DisableContextParameterTracking": false
+    "DisableContextParameterTracking": false,
+    "EnableDebug": true
 }
 */
 
@@ -32,4 +33,6 @@ public class AiSecureConfig
     public bool DisableDependencyTracking { get; set; }
     [DataMember]
     public bool DisableContextParameterTracking { get; set; }
+    [DataMember]
+    public bool EnableDebug { get; set; }
 }

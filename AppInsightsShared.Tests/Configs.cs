@@ -3,7 +3,8 @@
     public class Configs
     {
         public static AiSecureConfig GetAiSecureConfig(bool disableDependencyTracking, bool disableEventTracking,
-            bool disableExceptionTracking, bool disableMetricTracking, bool disableTraceTracking, bool disableContextParameterTracking)
+            bool disableExceptionTracking, bool disableMetricTracking, bool disableTraceTracking, 
+            bool disableContextParameterTracking, bool enableDebug)
         {
             return new AiSecureConfig
             {
@@ -14,7 +15,8 @@
                 DisableExceptionTracking = disableExceptionTracking,
                 DisableMetricTracking = disableMetricTracking,
                 DisableTraceTracking = disableTraceTracking,
-                DisableContextParameterTracking = disableContextParameterTracking
+                DisableContextParameterTracking = disableContextParameterTracking,
+                EnableDebug = enableDebug
             };
         }
     }
