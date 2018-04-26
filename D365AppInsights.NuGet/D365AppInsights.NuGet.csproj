@@ -31,76 +31,76 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\AppInsightsLogger\AiLogger.cs">
+    <Compile Include="..\D365AppInsights.Shared\AiLogger.cs">
       <Link>content\D365AppInsights\AiLogger.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Enums\AiDependencyType.cs">
+    <Compile Include="..\D365AppInsights.Shared\Enums\AiDependencyType.cs">
       <Link>content\D365AppInsights\Enums\AiDependencyType.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Enums\AiExceptionSeverity.cs">
+    <Compile Include="..\D365AppInsights.Shared\Enums\AiExceptionSeverity.cs">
       <Link>content\D365AppInsights\Enums\AiExceptionSeverity.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Enums\AiLogType.cs">
+    <Compile Include="..\D365AppInsights.Shared\Enums\AiLogType.cs">
       <Link>content\D365AppInsights\Enums\AiLogType.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Enums\AiTraceSeverity.cs">
+    <Compile Include="..\D365AppInsights.Shared\Enums\AiTraceSeverity.cs">
       <Link>content\D365AppInsights\Enums\AiTraceSeverity.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Enums\EnumHelper.cs">
+    <Compile Include="..\D365AppInsights.Shared\Enums\EnumHelper.cs">
       <Link>content\D365AppInsights\Enums\EnumHelper.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Helpers\ExceptionHelper.cs">
+    <Compile Include="..\D365AppInsights.Shared\Helpers\ExceptionHelper.cs">
       <Link>content\D365AppInsights\Helpers\ExceptionHelper.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Helpers\HttpHelper.cs">
+    <Compile Include="..\D365AppInsights.Shared\Helpers\HttpHelper.cs">
       <Link>content\D365AppInsights\Helpers\HttpHelper.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Helpers\LogHelper.cs">
+    <Compile Include="..\D365AppInsights.Shared\Helpers\LogHelper.cs">
       <Link>content\D365AppInsights\Helpers\LogHelper.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Helpers\SerializationHelper.cs">
+    <Compile Include="..\D365AppInsights.Shared\Helpers\SerializationHelper.cs">
       <Link>content\D365AppInsights\Helpers\SerializationHelper.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiBaseData.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiBaseData.cs">
       <Link>content\D365AppInsights\Models\AiBaseData.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiConfig.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiConfig.cs">
       <Link>content\D365AppInsights\Models\AiConfig.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiData.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiData.cs">
       <Link>content\D365AppInsights\Models\AiData.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiDependency.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiDependency.cs">
       <Link>content\D365AppInsights\Models\AiDependency.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiEvent.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiEvent.cs">
       <Link>content\D365AppInsights\Models\AiEvent.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiException.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiException.cs">
       <Link>content\D365AppInsights\Models\AiException.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiLogRequest.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiLogRequest.cs">
       <Link>content\D365AppInsights\Models\AiLogRequest.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiMeasurement.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiMeasurement.cs">
       <Link>content\D365AppInsights\Models\AiMeasurement.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiMetric.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiMetric.cs">
       <Link>content\D365AppInsights\Models\AiMetric.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiParsedStack.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiParsedStack.cs">
       <Link>content\D365AppInsights\Models\AiParsedStack.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiProperties.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiProperties.cs">
       <Link>content\D365AppInsights\Models\AiProperties.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiSecureConfig.cs">
-      <Link>content\D365AppInsights\Models\AiSecureConfig.cs</Link>
+    <Compile Include="..\D365AppInsights.Shared\Models\AiSetup.cs">
+      <Link>content\D365AppInsights\Models\AiSetup.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiTags.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiTags.cs">
       <Link>content\D365AppInsights\Models\AiTags.cs</Link>
     </Compile>
-    <Compile Include="..\AppInsightsLogger\Models\AiTrace.cs">
+    <Compile Include="..\D365AppInsights.Shared\Models\AiTrace.cs">
       <Link>content\D365AppInsights\Models\AiTrace.cs</Link>
     </Compile>
     <Compile Include="Properties\VersionInfo.cs" />

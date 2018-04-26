@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AppInsightsLogger", "AppInsightsLogger\AppInsightsLogger.shproj", "{9ADCA6A3-54D2-4816-BF5E-E418ED3764EB}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "D365AppInsights.Shared", "D365AppInsights.Shared\D365AppInsights.Shared.shproj", "{9ADCA6A3-54D2-4816-BF5E-E418ED3764EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.NuGet", "D365AppInsights.NuGet\D365AppInsights.NuGet.csproj", "{AEA3D3AD-56C4-4811-806B-DE563E248138}"
 EndProject
@@ -13,43 +13,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NuGetPack", ".NuGetPack", 
 		Tools\NuGetPack.exe = Tools\NuGetPack.exe
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AppInsightsJsLogger", "AppInsightsJsLogger\", "{D3191741-D868-477C-84BB-F3FBE71DF42E}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "D365AppInsights.Js", "D365AppInsights.Js\", "{CE43390F-55D5-4D47-806B-E544CD0093ED}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_3489"
-		Debug.AspNetCompiler.PhysicalPath = "AppInsightsJsLogger\"
+		Debug.AspNetCompiler.PhysicalPath = "D365AppInsights.Js\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_3489\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_3489"
-		Release.AspNetCompiler.PhysicalPath = "AppInsightsJsLogger\"
+		Release.AspNetCompiler.PhysicalPath = "D365AppInsights.Js\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_3489\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "3489"
-		SlnRelativePath = "AppInsightsJsLogger\"
+		SlnRelativePath = "D365AppInsights.Js\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppInsightsAction", "AppInsightsAction\AppInsightsAction.csproj", "{9A5277E5-7184-4726-91D5-9B201F1811BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Action", "D365AppInsights.Action\D365AppInsights.Action.csproj", "{9A5277E5-7184-4726-91D5-9B201F1811BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppInsightsWorkflowLogger", "AppInsightsWorkflowLogger\AppInsightsWorkflowLogger.csproj", "{AD22DE1A-5502-46C9-92CD-DB55626BA765}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Workflow", "D365AppInsights.Workflow\D365AppInsights.Workflow.csproj", "{AD22DE1A-5502-46C9-92CD-DB55626BA765}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsightsJs.NuGet", "D365AppInsightsJs.NuGet\D365AppInsightsJs.NuGet.csproj", "{C176C753-DCB5-47D7-A1A0-CF6F8EF9A85C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Js.NuGet", "D365AppInsights.Js.NuGet\D365AppInsights.Js.NuGet.csproj", "{C176C753-DCB5-47D7-A1A0-CF6F8EF9A85C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppInsightsAction.Tests", "AppInsightsAction.Tests\AppInsightsAction.Tests.csproj", "{878A80CF-1B96-4858-A704-4D974580FB73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Action.Tests", "D365AppInsights.Action.Tests\D365AppInsights.Action.Tests.csproj", "{878A80CF-1B96-4858-A704-4D974580FB73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppInsightsLogger.Tests", "AppInsightsLogger.Tests\AppInsightsLogger.Tests.csproj", "{45C18ACD-4467-4883-AEE8-3FBA137673A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Shared.Tests", "D365AppInsights.Shared.Tests\D365AppInsights.Shared.Tests.csproj", "{45C18ACD-4467-4883-AEE8-3FBA137673A4}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AppInsightsLogger.Workflow", "AppInsightsLogger.Workflow\AppInsightsLogger.Workflow.shproj", "{EB0E658B-3404-4A35-B689-626493C029AD}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "D365AppInsight.Workflow.Shared", "D365AppInsights.Workflow.Shared\D365AppInsight.Workflow.Shared.shproj", "{EB0E658B-3404-4A35-B689-626493C029AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppInsightsWorkflowLogger.Tests", "AppInsightsWorkflowLogger.Tests\AppInsightsWorkflowLogger.Tests.csproj", "{27C0F6FA-1B9B-431F-AFBD-1F7F0EBA9AE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Workflow.Tests", "D365AppInsights.Workflow.Tests\D365AppInsights.Workflow.Tests.csproj", "{27C0F6FA-1B9B-431F-AFBD-1F7F0EBA9AE0}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AppInsightsShared.Tests", "AppInsightsShared.Tests\AppInsightsShared.Tests.shproj", "{5A5E6D7D-6AA9-45E4-A251-19F592B431D6}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "D365AppInsights.Shared.Tests.Common", "D365AppInsights.Shared.Tests.Common\D365AppInsights.Shared.Tests.Common.shproj", "{5A5E6D7D-6AA9-45E4-A251-19F592B431D6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{DBA9412D-F69B-4E9B-89BE-B8931D8B56C8}"
 	ProjectSection(SolutionItems) = preProject
@@ -58,15 +58,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{DBA941
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		AppInsightsLogger\AppInsightsLogger.projitems*{45c18acd-4467-4883-aee8-3fba137673a4}*SharedItemsImports = 4
-		AppInsightsShared.Tests\AppInsightsShared.Tests.projitems*{45c18acd-4467-4883-aee8-3fba137673a4}*SharedItemsImports = 4
-		AppInsightsShared.Tests\AppInsightsShared.Tests.projitems*{5a5e6d7d-6aa9-45e4-a251-19f592b431d6}*SharedItemsImports = 13
-		AppInsightsShared.Tests\AppInsightsShared.Tests.projitems*{878a80cf-1b96-4858-a704-4d974580fb73}*SharedItemsImports = 4
-		AppInsightsLogger\AppInsightsLogger.projitems*{9a5277e5-7184-4726-91d5-9b201f1811bf}*SharedItemsImports = 4
-		AppInsightsLogger\AppInsightsLogger.projitems*{9adca6a3-54d2-4816-bf5e-e418ed3764eb}*SharedItemsImports = 13
-		AppInsightsLogger.Workflow\AppInsightsLogger.Workflow.projitems*{ad22de1a-5502-46c9-92cd-db55626ba765}*SharedItemsImports = 4
-		AppInsightsLogger\AppInsightsLogger.projitems*{ad22de1a-5502-46c9-92cd-db55626ba765}*SharedItemsImports = 4
-		AppInsightsLogger.Workflow\AppInsightsLogger.Workflow.projitems*{eb0e658b-3404-4a35-b689-626493c029ad}*SharedItemsImports = 13
+		D365AppInsights.Shared\D365AppInsights.Shared.projitems*{27c0f6fa-1b9b-431f-afbd-1f7f0eba9ae0}*SharedItemsImports = 4
+		D365AppInsights.Shared.Tests.Common\D365AppInsights.Shared.Tests.Common.projitems*{45c18acd-4467-4883-aee8-3fba137673a4}*SharedItemsImports = 4
+		D365AppInsights.Shared\D365AppInsights.Shared.projitems*{45c18acd-4467-4883-aee8-3fba137673a4}*SharedItemsImports = 4
+		D365AppInsights.Shared.Tests.Common\D365AppInsights.Shared.Tests.Common.projitems*{5a5e6d7d-6aa9-45e4-a251-19f592b431d6}*SharedItemsImports = 13
+		D365AppInsights.Shared.Tests.Common\D365AppInsights.Shared.Tests.Common.projitems*{878a80cf-1b96-4858-a704-4d974580fb73}*SharedItemsImports = 4
+		D365AppInsights.Shared\D365AppInsights.Shared.projitems*{9a5277e5-7184-4726-91d5-9b201f1811bf}*SharedItemsImports = 4
+		D365AppInsights.Shared\D365AppInsights.Shared.projitems*{9adca6a3-54d2-4816-bf5e-e418ed3764eb}*SharedItemsImports = 13
+		D365AppInsights.Shared\D365AppInsights.Shared.projitems*{ad22de1a-5502-46c9-92cd-db55626ba765}*SharedItemsImports = 4
+		D365AppInsights.Workflow.Shared\D365AppInsight.Workflow.Shared.projitems*{eb0e658b-3404-4a35-b689-626493c029ad}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,10 +77,10 @@ Global
 		{AEA3D3AD-56C4-4811-806B-DE563E248138}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEA3D3AD-56C4-4811-806B-DE563E248138}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEA3D3AD-56C4-4811-806B-DE563E248138}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D3191741-D868-477C-84BB-F3FBE71DF42E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3191741-D868-477C-84BB-F3FBE71DF42E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3191741-D868-477C-84BB-F3FBE71DF42E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3191741-D868-477C-84BB-F3FBE71DF42E}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{CE43390F-55D5-4D47-806B-E544CD0093ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE43390F-55D5-4D47-806B-E544CD0093ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE43390F-55D5-4D47-806B-E544CD0093ED}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE43390F-55D5-4D47-806B-E544CD0093ED}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{9A5277E5-7184-4726-91D5-9B201F1811BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A5277E5-7184-4726-91D5-9B201F1811BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A5277E5-7184-4726-91D5-9B201F1811BF}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9adca6a3-54d2-4816-bf5e-e418ed3764eb</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>D365AppInsights.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\SerializationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\AiDependencyType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\AiLogType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\EnumHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\HttpHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiBaseData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiDependency.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiLogRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiMeasurement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiMetric.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiParsedStack.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiSetup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiTags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\AiExceptionSeverity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\AiTraceSeverity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ExceptionHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\LogHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AiTrace.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
+  </ItemGroup>
+</Project>
