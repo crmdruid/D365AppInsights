@@ -22,15 +22,19 @@ paths.concatJsMinDest = paths.jsDest + "/lat_AiLogger.min.js";
 gulp.task("build:ts", function () {
     var tsProject = ts.createProject("../D365AppInsights.Js/tsconfig.json");
 
-    var tsResult = tsProject.src().pipe(tsProject());
-
-    return tsResult.js.pipe(gulp.dest("../D365AppInsights.Js/js"));
+    return tsProject.src().pipe(tsProject()).pipe(gulp.dest("../D365AppInsights.Js/js"));
 });
 
 gulp.task("move:js", ["build:ts"], function () {
-    gulp.src([paths.root + "../D365AppInsights.Js/scripts/AiLogger.js", paths.root + "../D365AppInsights.Js/js/AiFormLogger.js"])
+    gulp.src([paths.root + "../D365AppInsights.Js/scripts/AiLogger.js", paths.root + "../D365AppInsights.Js/js/lat_AiLogger.js"])
         .pipe(concat(paths.concatJsDest))
         .pipe(gulp.dest(""));
+
+    gulp.src("../D365AppInsights.Js/js/lat_AiLogger.d.ts").pipe(gulp.dest(paths.jsDest  + "/ts"));
+
+    gulp.src("../D365AppInsights.Js/scripts/ai.1.0.15-build03916.d.ts").pipe(gulp.dest(paths.jsDest + "/ts"));
+    gulp.src("../D365AppInsights.Js/scripts/ai.1.0.15-build03916.js").pipe(gulp.dest(paths.jsDest + "/scripts"));
+    gulp.src("../D365AppInsights.Js/scripts/ai.1.0.15-build03916.min.js").pipe(gulp.dest(paths.jsDest + "/scripts"));
 });
 
 gulp.task("min:js", ["move:js"], function () {
