@@ -38,7 +38,7 @@ gulp.task("move:js", ["build:ts"], function () {
 });
 
 gulp.task("min:js", ["move:js"], function () {
-    gulp.src([paths.root + "../D365AppInsights.Js/scripts/AiLogger.js", paths.root + "../D365AppInsights.Js/js/AiFormLogger.js"])
+    gulp.src([paths.root + "../D365AppInsights.Js/scripts/AiLogger.js", paths.root + "../D365AppInsights.Js/js/lat_AiLogger.js"])
         .pipe(sourcemaps.init())
         .pipe(concat(paths.concatJsMinDest))
         .pipe(gulp.dest(""))
