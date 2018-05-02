@@ -39,23 +39,32 @@ namespace AiFormLogger {
 
         var formName = Xrm.Page.ui.formSelector.getCurrentItem().getLabel();
 
-        (window as any).addEventListener("beforeunload",
-            () => {
-                // Need slight delay to ensure PageView gets sent
-                var waitMs = 100; // Miliseconds wait
-                var futureTime = (new Date()).getTime() + waitMs;
-
-                // Custom implementation of Pageview to avoid duplicate events being 
-                // recorded likely due to CRM already implementing AI which currently
-                // has poor support for multiple AI accounts
-                if (!disablePageviewTracking) {
+        // Custom implementation of Pageview to avoid duplicate events being 
+        // recorded likely due to CRM already implementing AI which currently
+        // has poor support for multiple AI accounts
+        if (!disablePageviewTracking) {
+            (window as any).addEventListener("beforeunload",
+                () => {
                     const envelope = createPageViewEnvelope(formName, pageViewStart);
-                    sendPageViewRequest(envelope);
-                }
 
-                // Delay
-                while ((new Date()).getTime() < futureTime) { }
-            }, false);
+                    if (navigator.sendBeacon) {
+                        navigator.sendBeacon((window as any).appInsights.config.endpointUrl, JSON.stringify(envelope));
+                        if (enableDebug)
+                            console.log("Application Insights logged Pageview via Beacon");
+                    } else {
+                        // IE doesn't support Beacon - use sync XHR w/ delay instead
+                        // Need slight delay to ensure PageView gets sent
+                        var waitMs = 100; // Miliseconds wait
+                        var futureTime = (new Date()).getTime() + waitMs;
+
+                        sendPageViewRequest(envelope);
+
+                        // Delay
+                        while ((new Date()).getTime() < futureTime) { }
+                    }
+                },
+                false);
+        }
 
         props = {};
         props["entityId"] = Xrm.Page.data.entity.getId().substr(1, 36);
@@ -66,11 +75,15 @@ namespace AiFormLogger {
         props["orgVersion"] = Xrm.Page.context.getVersion();
         props["source"] = "JavaScript";
 
-        (window as any).appInsights.context.addTelemetryInitializer(envelope => {
-            const telemetryItem = envelope.data.baseData;
-            // Add CRM specific properties to every request
-            telemetryItem.properties = combineProps(telemetryItem.properties, props);
-        });
+        if ((window as any).appInsights.queue) {
+            (window as any).appInsights.queue.push(() => {
+                (window as any).appInsights.context.addTelemetryInitializer(envelope => {
+                    const telemetryItem = envelope.data.baseData;
+                    // Add CRM specific properties to every request
+                    telemetryItem.properties = combineProps(telemetryItem.properties, props);
+                });
+            });
+        }
 
         (window as any).appInsights.setAuthenticatedUserContext(Xrm.Page.context.getUserId().substr(1, 36), null, false);
 
@@ -258,7 +271,7 @@ namespace AiFormLogger {
             if (req.readyState === 4) {
                 if (req.status === 200) {
                     if (enableDebug)
-                        console.log("Application Insights logged Pageview");
+                        console.log("Application Insights logged Pageview via XHR");
                 }
             }
         }
@@ -300,7 +313,7 @@ namespace AiFormLogger {
         switch (formType) {
             case 1:
                 return "Create";
-            case 2: 
+            case 2:
                 return "Update";
             case 3:
                 return "Read Only";
