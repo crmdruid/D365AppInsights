@@ -1,5 +1,5 @@
-﻿const iterations = 50;
-const multiplier = 1000000000;
+﻿var iterations = 50;
+var multiplier = 1000000000;
 
 function calculatePrimes(iterations, multiplier) {
     var primes = [];
@@ -20,7 +20,7 @@ function calculatePrimes(iterations, multiplier) {
     return primes;
 }
 
-function TestMethod() {
+function MethodTimerTest() {
     var t = performance.now();
     try {
 
