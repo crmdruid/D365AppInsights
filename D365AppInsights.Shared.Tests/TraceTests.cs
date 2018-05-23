@@ -32,6 +32,7 @@ namespace D365AppInsights.Shared.Tests
             xrmFakedPluginExecution.Depth = 1;
             xrmFakedPluginExecution.OrganizationName = "test.crm.dynamics.com";
             xrmFakedPluginExecution.Stage = 40;
+            xrmFakedPluginExecution.OperationCreatedOn = DateTime.Now;
 
             xrmFakedPluginExecution.InputParameters = new ParameterCollection {
                 new System.Collections.Generic.KeyValuePair<string, object>("InputParam1", "test"),
@@ -44,7 +45,7 @@ namespace D365AppInsights.Shared.Tests
             };
 
             AiLogger aiLogger = new AiLogger(secureConfig, fakedService, fakedTracingService, xrmFakedPluginExecution);
-            bool result = aiLogger.WriteTrace("Hello from TraceTest - 0", AiTraceSeverity.Information);
+            bool result = aiLogger.WriteTrace(DateTime.UtcNow, "Hello from TraceTest - 0", AiTraceSeverity.Information);
 
             Assert.IsTrue(result);
         }

@@ -25,6 +25,10 @@ namespace D365AppInsights.Workflow
         [Input("Max")]
         public InArgument<int> Max { get; set; }
 
+        [Input("StdDev")]
+        [Default("0")]
+        public InArgument<int> StdDev { get; set; }
+
         [Output("Log Success")]
         public OutArgument<bool> LogSuccess { get; set; }
 
@@ -41,6 +45,7 @@ namespace D365AppInsights.Workflow
             int? count = Count.Get(context);
             int? min = Min.Get(context);
             int? max = Max.Get(context);
+            int stdDev = StdDev.Get(context);
 
             if (string.IsNullOrEmpty(name))
             {
@@ -55,10 +60,11 @@ namespace D365AppInsights.Workflow
                 Parameters = new ParameterCollection
                 {
                     new KeyValuePair<string, object>("name", name),
-                    new KeyValuePair<string, object>("metricValue", value),
+                    new KeyValuePair<string, object>("value", value),
                     new KeyValuePair<string, object>("count", count),
                     new KeyValuePair<string, object>("min", min),
-                    new KeyValuePair<string, object>("max", max)
+                    new KeyValuePair<string, object>("max", max),
+                    new KeyValuePair<string, object>("stdDev", stdDev)
                 }
             };
 

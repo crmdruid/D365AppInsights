@@ -33,6 +33,7 @@ namespace D365AppInsights.Shared.Tests
             xrmFakedPluginExecution.Depth = 1;
             xrmFakedPluginExecution.OrganizationName = "test.crm.dynamics.com";
             xrmFakedPluginExecution.Stage = 40;
+            xrmFakedPluginExecution.OperationCreatedOn = DateTime.Now;
 
             xrmFakedPluginExecution.InputParameters = new ParameterCollection {
                 new KeyValuePair<string, object>("Param1", "test"),
@@ -43,7 +44,7 @@ namespace D365AppInsights.Shared.Tests
 
             Exception e = new ArgumentException("Hello from ExceptionTest - 0");
 
-            bool result = aiLogger.WriteException(e, AiExceptionSeverity.Error);
+            bool result = aiLogger.WriteException(DateTime.UtcNow, e, AiExceptionSeverity.Error);
 
             Assert.IsTrue(result);
         }

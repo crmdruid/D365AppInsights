@@ -9,6 +9,7 @@
     <Import_RootNamespace>D365AppInsights.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\AiDataPointType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\SerializationHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\AiDependencyType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\AiLogType.cs" />

@@ -49,7 +49,7 @@ namespace D365AppInsights.Action
                 else
                     measurements.Add(measurementName, null);
 
-                bool result = aiLogger.WriteEvent(name, measurements);
+                bool result = aiLogger.WriteEvent(DateTime.UtcNow, name, measurements);
 
                 ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, result, null);
             }

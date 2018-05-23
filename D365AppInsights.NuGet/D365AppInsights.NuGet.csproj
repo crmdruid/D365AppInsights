@@ -34,6 +34,9 @@
     <Compile Include="..\D365AppInsights.Shared\AiLogger.cs">
       <Link>content\D365AppInsights\AiLogger.cs</Link>
     </Compile>
+    <Compile Include="..\D365AppInsights.Shared\Enums\AiDataPointType.cs">
+      <Link>content\D365AppInsights\Enums\AiDataPointType.cs</Link>
+    </Compile>
     <Compile Include="..\D365AppInsights.Shared\Enums\AiDependencyType.cs">
       <Link>content\D365AppInsights\Enums\AiDependencyType.cs</Link>
     </Compile>

@@ -33,6 +33,7 @@ namespace D365AppInsights.Shared.Tests
             xrmFakedPluginExecution.Depth = 1;
             xrmFakedPluginExecution.OrganizationName = "test.crm.dynamics.com";
             xrmFakedPluginExecution.Stage = 40;
+            xrmFakedPluginExecution.OperationCreatedOn = DateTime.Now;
 
             xrmFakedPluginExecution.InputParameters = new ParameterCollection {
                 new KeyValuePair<string, object>("Param1", "test"),
@@ -45,7 +46,7 @@ namespace D365AppInsights.Shared.Tests
                 { "Click1", 33 }
             };
 
-            bool result = aiLogger.WriteEvent("Hello from EventTest - 0", measurements);
+            bool result = aiLogger.WriteEvent(DateTime.UtcNow, "Hello from EventTest - 0", measurements);
 
             Assert.IsTrue(result);
         }

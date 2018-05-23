@@ -21,6 +21,9 @@ public class AiMetric
     [DataMember(Name = "stdDev")]
     public int StdDev { get; set; }
 
+    [DataMember(Name = "kind")]
+    public int Kind { get; set; }
+
     public AiMetric(string name, int value, int? count, int? min, int? max, int? stdDev)
     {
         Name = name.Length > 512
@@ -32,5 +35,8 @@ public class AiMetric
         Min = min ?? value;
         Max = max ?? value;
         StdDev = stdDev ?? 0;
+        Kind = count == 1
+            ? (int)AiDataPointType.Measurement
+            : (int)AiDataPointType.Aggregation;
     }
 }

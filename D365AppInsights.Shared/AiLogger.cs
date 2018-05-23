@@ -45,67 +45,67 @@ public class AiLogger
             AddExecutionContextDetails(executionContext, workflowContextDetails);
     }
 
-    public bool WriteTrace(string message, AiTraceSeverity aiTraceSeverity)
+    public bool WriteTrace(DateTime timestamp, string message, AiTraceSeverity aiTraceSeverity)
     {
         if (_disableTraceTracking)
             return true;
 
         AiTrace aiTrace = new AiTrace(message, aiTraceSeverity);
 
-        string json = GetTraceJsonString(aiTrace);
+        string json = GetTraceJsonString(timestamp, aiTrace);
 
         if (_enableDebug)
-            _tracingService.Trace($"Application Insights JSON: {CreateJsonDataLog(json)}");
+            _tracingService.Trace($"DEBUG: Application Insights JSON: {CreateJsonDataLog(json)}");
 
         return SendToAi(json);
     }
 
-    public bool WriteEvent(string name, Dictionary<string, double?> measurements)
+    public bool WriteEvent(DateTime timestamp, string name, Dictionary<string, double?> measurements)
     {
         if (_disableEventTracking)
             return true;
 
         AiEvent aiEvent = new AiEvent(name);
 
-        string json = GetEventJsonString(aiEvent, measurements);
+        string json = GetEventJsonString(timestamp, aiEvent, measurements);
 
         if (_enableDebug)
-            _tracingService.Trace($"Application Insights JSON: {CreateJsonDataLog(json)}");
+            _tracingService.Trace($"DEBUG: Application Insights JSON: {CreateJsonDataLog(json)}");
 
         return SendToAi(json);
     }
 
-    public bool WriteException(Exception e, AiExceptionSeverity severity)
+    public bool WriteException(DateTime timestamp, Exception e, AiExceptionSeverity severity)
     {
         if (_disableExceptionTracking)
             return true;
 
         AiException aiException = new AiException(e, severity);
 
-        string json = GetExceptionJsonString(aiException);
+        string json = GetExceptionJsonString(timestamp, aiException);
 
         if (_enableDebug)
-            _tracingService.Trace($"Application Insights JSON: {CreateJsonDataLog(json)}");
+            _tracingService.Trace($"DEBUG: Application Insights JSON: {CreateJsonDataLog(json)}");
 
         return SendToAi(json);
     }
 
-    public bool WriteMetric(string name, int value, int? count, int? min, int? max, int? stdDev)
+    public bool WriteMetric(DateTime timestamp, string name, int value, int? count, int? min, int? max, int? stdDev)
     {
         if (_disableMetricTracking)
             return true;
 
         AiMetric metric = new AiMetric(name, value, count, min, max, stdDev);
 
-        string json = GetMetricJsonString(metric);
+        string json = GetMetricJsonString(timestamp, metric);
 
         if (_enableDebug)
-            _tracingService.Trace($"Application Insights JSON: {CreateJsonDataLog(json)}");
+            _tracingService.Trace($"DEBUG: Application Insights JSON: {CreateJsonDataLog(json)}");
 
         return SendToAi(json);
     }
 
-    public bool WriteDependency(string name, string method, string type, int duration, int? resultCode,
+    public bool WriteDependency(DateTime timestamp, string name, string method, string type, int duration, int? resultCode,
         bool success, string data)
     {
         if (_disableDependencyTracking)
@@ -114,10 +114,10 @@ public class AiLogger
         AiDependency dependency =
             new AiDependency(_eventProperties, name, method, type, duration, resultCode, success, data);
 
-        string json = GetDependencyJsonString(dependency, null);
+        string json = GetDependencyJsonString(timestamp, dependency, null);
 
         if (_enableDebug)
-            _tracingService.Trace($"Application Insights JSON: {CreateJsonDataLog(json)}");
+            _tracingService.Trace($"DEBUG: Application Insights JSON: {CreateJsonDataLog(json)}");
 
         return SendToAi(json);
     }
@@ -143,12 +143,12 @@ public class AiLogger
         }
     }
 
-    private string GetTraceJsonString(AiTrace aiTrace)
+    private string GetTraceJsonString(DateTime timestamp, AiTrace aiTrace)
     {
         AiLogRequest logRequest = new AiLogRequest
         {
             Name = $"Microsoft.ApplicationInsights.{_instrumentationKey}.Message",
-            Time = $"{DateTime.UtcNow:O}",
+            Time = timestamp.ToString("O"),
             InstrumentationKey = _instrumentationKey,
             Tags = new AiTags
             {
@@ -167,12 +167,12 @@ public class AiLogger
         return json;
     }
 
-    private string GetEventJsonString(AiEvent aiEvent, Dictionary<string, double?> measurements)
+    private string GetEventJsonString(DateTime timestamp, AiEvent aiEvent, Dictionary<string, double?> measurements)
     {
         AiLogRequest logRequest = new AiLogRequest
         {
             Name = $"Microsoft.ApplicationInsights.{_instrumentationKey}.Event",
-            Time = $"{DateTime.UtcNow:O}",
+            Time = timestamp.ToString("O"),
             InstrumentationKey = _instrumentationKey,
             Tags = new AiTags
             {
@@ -216,12 +216,12 @@ public class AiLogger
         return json;
     }
 
-    private string GetExceptionJsonString(AiException aiException)
+    private string GetExceptionJsonString(DateTime timestamp, AiException aiException)
     {
         AiLogRequest logRequest = new AiLogRequest
         {
             Name = $"Microsoft.ApplicationInsights.{_instrumentationKey}.Exception",
-            Time = $"{DateTime.UtcNow:O}",
+            Time = timestamp.ToString("O"),
             InstrumentationKey = _instrumentationKey,
             Tags = new AiTags
             {
@@ -246,12 +246,12 @@ public class AiLogger
         return json;
     }
 
-    private string GetMetricJsonString(AiMetric aiMetric)
+    private string GetMetricJsonString(DateTime timestamp, AiMetric aiMetric)
     {
         AiLogRequest logRequest = new AiLogRequest
         {
             Name = $"Microsoft.ApplicationInsights.{_instrumentationKey}.Metric",
-            Time = $"{DateTime.UtcNow:O}",
+            Time = timestamp.ToString("O"),
             InstrumentationKey = _instrumentationKey,
             Tags = new AiTags
             {
@@ -276,12 +276,12 @@ public class AiLogger
         return json;
     }
 
-    private string GetDependencyJsonString(AiBaseData aiDependency, string operationName)
+    private string GetDependencyJsonString(DateTime timestamp, AiBaseData aiDependency, string operationName)
     {
         AiLogRequest logRequest = new AiLogRequest
         {
             Name = $"Microsoft.ApplicationInsights.{_instrumentationKey}.RemoteDependency",
-            Time = $"{DateTime.UtcNow:O}",
+            Time = timestamp.ToString("O"),
             InstrumentationKey = _instrumentationKey,
             Tags = new AiTags
             {
@@ -434,6 +434,6 @@ public class AiLogger
 
     private static string CreateJsonDataLog(string json)
     {
-        return $"Error writing to Application Insights: Message: {json.Replace("{", "{{").Replace("}", "}}")}";
+        return json.Replace("{", "{{").Replace("}", "}}");
     }
 }

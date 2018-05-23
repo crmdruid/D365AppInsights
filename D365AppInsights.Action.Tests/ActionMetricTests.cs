@@ -28,6 +28,7 @@ namespace D365AppInsights.Action.Tests
             xrmFakedPluginExecution.Depth = 1;
             xrmFakedPluginExecution.OrganizationName = "test.crm.dynamics.com";
             xrmFakedPluginExecution.Stage = 40;
+            xrmFakedPluginExecution.OperationCreatedOn = DateTime.Now;
 
             xrmFakedPluginExecution.InputParameters = GetInputParameters();
 
@@ -104,6 +105,7 @@ namespace D365AppInsights.Action.Tests
             xrmFakedPluginExecution.Depth = 1;
             xrmFakedPluginExecution.OrganizationName = "test.crm.dynamics.com";
             xrmFakedPluginExecution.Stage = 40;
+            xrmFakedPluginExecution.OperationCreatedOn = DateTime.Now;
 
             xrmFakedPluginExecution.InputParameters = GetInputParameters();
 

@@ -49,7 +49,7 @@ namespace D365AppInsights.Action
                     return;
                 }
 
-                bool result = aiLogger.WriteDependency(name, method, typeInput,
+                bool result = aiLogger.WriteDependency(DateTime.UtcNow, name, method, typeInput,
                     (int)duration, resultcode, (bool)success, data);
 
                 ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, result, null);
