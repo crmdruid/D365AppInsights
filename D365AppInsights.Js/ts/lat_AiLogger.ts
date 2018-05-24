@@ -75,15 +75,16 @@ namespace AiFormLogger {
         props["orgVersion"] = Xrm.Page.context.getVersion();
         props["source"] = "JavaScript";
 
-        if ((window as any).appInsights.queue) {
-            (window as any).appInsights.queue.push(() => {
-                (window as any).appInsights.context.addTelemetryInitializer(envelope => {
-                    const telemetryItem = envelope.data.baseData;
-                    // Add CRM specific properties to every request
-                    telemetryItem.properties = combineProps(telemetryItem.properties, props);
-                });
+        if (!(window as any).appInsights.queue)
+            (window as any).appInsights.queue = [];
+
+        (window as any).appInsights.queue.push(() => {
+            (window as any).appInsights.context.addTelemetryInitializer(envelope => {
+                const telemetryItem = envelope.data.baseData;
+                // Add CRM specific properties to every request
+                telemetryItem.properties = combineProps(telemetryItem.properties, props);
             });
-        }
+        });
 
         (window as any).appInsights.setAuthenticatedUserContext(Xrm.Page.context.getUserId().substr(1, 36), null, false);
 
