@@ -15,9 +15,10 @@ var paths = {
     root: ""
 };
 
-paths.jsDest = paths.root + "./content/D365AppInsightsJs";
-paths.concatJsDest = paths.jsDest + "/lat_AiLogger.js";
-paths.concatJsMinDest = paths.jsDest + "/lat_AiLogger.min.js";
+paths.jsDest = paths.root + "./content";
+paths.concatJsDest = paths.jsDest + "/jlattimer.d365appinsights.js";
+paths.concatJsMinDest = paths.jsDest + "/jlattimer.d365appinsights.min.js";
+paths.dTsDest = paths.jsDest + "/Scripts/typings/jlattimer.d365appinsights";
 
 gulp.task("build:ts", function () {
     var tsProject = ts.createProject("../D365AppInsights.Js/tsconfig.json");
@@ -26,19 +27,19 @@ gulp.task("build:ts", function () {
 });
 
 gulp.task("move:js", ["build:ts"], function () {
-    gulp.src([paths.root + "../D365AppInsights.Js/scripts/AiLogger.js", paths.root + "../D365AppInsights.Js/js/lat_AiLogger.js"])
+    gulp.src([paths.root + "../D365AppInsights.Js/scripts/AiLogger.js", paths.root + "../D365AppInsights.Js/js/jlattimer.d365appinsights.js"])
         .pipe(concat(paths.concatJsDest))
         .pipe(gulp.dest(""));
 
-    gulp.src("../D365AppInsights.Js/js/lat_AiLogger.d.ts").pipe(gulp.dest(paths.jsDest  + "/ts"));
+    gulp.src("../D365AppInsights.Js/js/jlattimer.d365appinsights.d.ts").pipe(gulp.dest(paths.dTsDest));
+});
 
-    gulp.src("../D365AppInsights.Js/scripts/ai.1.0.15-build03916.d.ts").pipe(gulp.dest(paths.jsDest + "/ts"));
-    gulp.src("../D365AppInsights.Js/scripts/ai.1.0.15-build03916.js").pipe(gulp.dest(paths.jsDest + "/scripts"));
-    gulp.src("../D365AppInsights.Js/scripts/ai.1.0.15-build03916.min.js").pipe(gulp.dest(paths.jsDest + "/scripts"));
+gulp.task("move:ts", ["build:ts"], function () {
+    gulp.src("../D365AppInsights.Js/ts/jlattimer.d365appinsights.ts").pipe(gulp.dest(paths.jsDest + "/ts"));
 });
 
 gulp.task("min:js", ["move:js"], function () {
-    gulp.src([paths.root + "../D365AppInsights.Js/scripts/AiLogger.js", paths.root + "../D365AppInsights.Js/js/lat_AiLogger.js"])
+    gulp.src([paths.root + "../D365AppInsights.Js/scripts/AiLogger.js", paths.root + "../D365AppInsights.Js/js/jlattimer.d365appinsights.js"])
         .pipe(sourcemaps.init())
         .pipe(concat(paths.concatJsMinDest))
         .pipe(gulp.dest(""))
@@ -47,4 +48,4 @@ gulp.task("min:js", ["move:js"], function () {
         .pipe(gulp.dest(""));
 });
 
-gulp.task("build:all", ["build:ts", "move:js", "min:js"]);
+gulp.task("build:all", ["build:ts", "move:js", "move:ts", "min:js"]);

@@ -7,8 +7,8 @@
     <ProjectGuid>{C176C753-DCB5-47D7-A1A0-CF6F8EF9A85C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>D365AppInsightsJs.NuGet</RootNamespace>
-    <AssemblyName>D365AppInsightsJs.NuGet</AssemblyName>
+    <RootNamespace>JLattimer.D365AppInsights.Js.NuGet</RootNamespace>
+    <AssemblyName>JLattimer.D365AppInsights.Js.NuGet</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -27,6 +27,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,6 +51,7 @@
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="content\jlattimer.d365appinsights.min.js.map" />
     <None Include="NuGetPack.config">
       <SubType>Designer</SubType>
     </None>
@@ -58,10 +61,11 @@
     </None>
     <None Include="NuGetPack.Readme.txt" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="content\D365AppInsightsJs\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="content\jlattimer.d365appinsights.js" />
+    <Content Include="content\jlattimer.d365appinsights.min.js" />
+    <Content Include="content\ReadMe.txt" />
     <Content Include="gulpfile.js" />
   </ItemGroup>
   <ItemGroup>
@@ -79,9 +83,27 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\D365AppInsights.Js.References\D365AppInsights.Js.References.csproj">
+      <Project>{a68df862-999e-4b8e-9cb2-5094d90bfae5}</Project>
+      <Name>D365AppInsights.Js.References</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="content\Scripts\typings\jlattimer.d365appinsights\jlattimer.d365appinsights.d.ts" />
+    <TypeScriptCompile Include="content\ts\jlattimer.d365appinsights.ts" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir).NuGetPack\NuGetPack.exe" "$(ProjectPath)" "$(TargetPath)" $(ConfigurationName)</PostBuildEvent>
+    <PostBuildEvent>rem Remove files from reference project
+del "$(TargetDir)D365AppInsights.Js.References.dll"
+del "$(TargetDir)D365AppInsights.Js.References.pdb"
+
+rem Package
+"$(SolutionDir).NuGetPack\NuGetPack.exe" "$(ProjectPath)" "$(TargetPath)" $(ConfigurationName)
+
+rem Remove reference project assemblies from .nupkg
+"$(SolutionDir).NuGetPack\NupkgWrench.exe" files remove "$(ProjectDir)bin\$(ConfigurationName)" --path lib\*.*</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

@@ -331,8 +331,6 @@ namespace AiFormLogger {
         return (mode) ? "Asynchronous" : "Synchronous";
     }
 
-    //https://stackoverflow.com/questions/5202296/add-a-hook-to-all-ajax-requests-on-a-page
-
     var xhrProto = XMLHttpRequest.prototype,
         origOpen = xhrProto.open;
 
@@ -343,15 +341,3 @@ namespace AiFormLogger {
         return origOpen.apply(this, arguments);
     };
 }
-
-////https://stackoverflow.com/questions/5202296/add-a-hook-to-all-ajax-requests-on-a-page
-
-//var xhrProto = XMLHttpRequest.prototype,
-//    origOpen = xhrProto.open;
-
-//xhrProto.open = function (method, url, async) {
-//    this._url = url;
-//    this._method = method;
-//    this._async = async;
-//    return origOpen.apply(this, arguments);
-//};

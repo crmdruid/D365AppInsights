@@ -261,9 +261,10 @@ __pycache__/
 *.pyc
 
 # Generated files
-D365AppInsights.Js.NuGet/content/D365AppInsightsJs/scripts/
-D365AppInsights.Js.NuGet/content/D365AppInsightsJs/ts/
-D365AppInsights.Js.NuGet/content/D365AppInsightsJs/lat_AiLogger.js
-D365AppInsights.Js.NuGet/content/D365AppInsightsJs/lat_AiLogger.min.js
-D365AppInsights.Js.NuGet/content/D365AppInsightsJs/lat_AiLogger.min.js.map
+D365AppInsights.Js.NuGet/content/Scripts/
+D365AppInsights.Js.NuGet/content/ts/
+D365AppInsights.Js.NuGet/content/jlattimer.d365appinsights.js
+D365AppInsights.Js.NuGet/content/jlattimer.d365appinsights.min.js
+D365AppInsights.Js.NuGet/content/jlattimer.d365appinsights.min.js.map
 D365AppInsights.Js/js/
+D365AppInsights.Js.References/scripts
