@@ -81,7 +81,8 @@ namespace D365AppInsights.Workflow.Tests
                 { "MetricValue", 456 },
                 { "Count", 1 },
                 { "Min", 456 },
-                { "Max", 456 }
+                { "Max", 456 },
+                { "StdDev", 0 }
             };
 
             XrmFakedContext xrmFakedContext = new XrmFakedContext();

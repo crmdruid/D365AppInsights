@@ -64,7 +64,7 @@ namespace D365AppInsights.Workflow
                     new KeyValuePair<string, object>("count", count),
                     new KeyValuePair<string, object>("min", min),
                     new KeyValuePair<string, object>("max", max),
-                    new KeyValuePair<string, object>("stdDev", stdDev)
+                    new KeyValuePair<string, object>("stddev", stdDev)
                 }
             };
 

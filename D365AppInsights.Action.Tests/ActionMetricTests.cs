@@ -115,7 +115,8 @@ namespace D365AppInsights.Action.Tests
                 new System.Collections.Generic.KeyValuePair<string, object>("value", 34),
                 new System.Collections.Generic.KeyValuePair<string, object>("count", 1),
                 new System.Collections.Generic.KeyValuePair<string, object>("min", 34),
-                new System.Collections.Generic.KeyValuePair<string, object>("max", 34)
+                new System.Collections.Generic.KeyValuePair<string, object>("max", 34),
+                new System.Collections.Generic.KeyValuePair<string, object>("stddev", 0)
             };
 
             context.ExecutePluginWithConfigurations<LogMetric>(xrmFakedPluginExecution, null, secureConfig);

@@ -31,7 +31,7 @@ namespace D365AppInsights.Action
                 int? count = ActionHelpers.GetInputValue<int?>("count", localContext.PluginExecutionContext, localContext.TracingService);
                 int? min = ActionHelpers.GetInputValue<int?>("min", localContext.PluginExecutionContext, localContext.TracingService);
                 int? max = ActionHelpers.GetInputValue<int?>("max", localContext.PluginExecutionContext, localContext.TracingService);
-                int? stdDev = ActionHelpers.GetInputValue<int?>("stdDev", localContext.PluginExecutionContext, localContext.TracingService);
+                int? stdDev = ActionHelpers.GetInputValue<int?>("stddev", localContext.PluginExecutionContext, localContext.TracingService);
 
                 if (string.IsNullOrEmpty(name) || value == null)
                 {
