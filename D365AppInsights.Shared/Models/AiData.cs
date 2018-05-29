@@ -1,10 +1,14 @@
 using System.Runtime.Serialization;
 
-[DataContract]
-public class AiData
+namespace JLattimer.D365AppInsights
 {
-    [DataMember(Name = "baseType")]
-    public string BaseType { get; set; }
-    [DataMember(Name = "baseData")]
-    public AiBaseData BaseData { get; set; }
+    [DataContract]
+    public class AiData
+    {
+        [DataMember(Name = "baseType")]
+        public string BaseType { get; set; }
+
+        [DataMember(Name = "baseData")]
+        public AiBaseData BaseData { get; set; }
+    }
 }

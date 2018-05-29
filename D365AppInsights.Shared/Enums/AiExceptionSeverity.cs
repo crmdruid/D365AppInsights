@@ -1,8 +1,11 @@
-﻿public enum AiExceptionSeverity
+﻿namespace JLattimer.D365AppInsights
 {
-    Verbose,
-    Information,
-    Warning,
-    Error,
-    Critical
+    public enum AiExceptionSeverity
+    {
+        Verbose,
+        Information,
+        Warning,
+        Error,
+        Critical
+    }
 }

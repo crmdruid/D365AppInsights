@@ -14,25 +14,36 @@
 }
 */
 
-[DataContract]
-public class AiSetup
+namespace JLattimer.D365AppInsights
 {
-    [DataMember]
-    public string InstrumentationKey { get; set; }
-    [DataMember]
-    public string AiEndpoint { get; set; }
-    [DataMember]
-    public bool DisableTraceTracking { get; set; }
-    [DataMember]
-    public bool DisableMetricTracking { get; set; }
-    [DataMember]
-    public bool DisableEventTracking { get; set; }
-    [DataMember]
-    public bool DisableExceptionTracking { get; set; }
-    [DataMember]
-    public bool DisableDependencyTracking { get; set; }
-    [DataMember]
-    public bool DisableContextParameterTracking { get; set; }
-    [DataMember]
-    public bool EnableDebug { get; set; }
+    [DataContract]
+    public class AiSetup
+    {
+        [DataMember]
+        public string InstrumentationKey { get; set; }
+
+        [DataMember]
+        public string AiEndpoint { get; set; }
+
+        [DataMember]
+        public bool DisableTraceTracking { get; set; }
+
+        [DataMember]
+        public bool DisableMetricTracking { get; set; }
+
+        [DataMember]
+        public bool DisableEventTracking { get; set; }
+
+        [DataMember]
+        public bool DisableExceptionTracking { get; set; }
+
+        [DataMember]
+        public bool DisableDependencyTracking { get; set; }
+
+        [DataMember]
+        public bool DisableContextParameterTracking { get; set; }
+
+        [DataMember]
+        public bool EnableDebug { get; set; }
+    }
 }

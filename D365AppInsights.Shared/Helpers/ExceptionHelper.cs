@@ -2,39 +2,41 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-public class ExceptionHelper
+namespace JLattimer.D365AppInsights
 {
-    public static List<AiParsedStack> GetParsedStacked(Exception e)
+    public class ExceptionHelper
     {
-        if (string.IsNullOrEmpty(e.StackTrace))
-            return null;
-
-        List<AiParsedStack> parsedStacks = new List<AiParsedStack>();
-
-        Exception currentException = e;
-        while (currentException != null)
+        public static List<AiParsedStack> GetParsedStacked(Exception e)
         {
-            AiParsedStack parsedStack = ParseStackTrace(e);
-            parsedStacks.Add(parsedStack);
+            if (string.IsNullOrEmpty(e.StackTrace))
+                return null;
 
-            currentException = currentException.InnerException;
+            List<AiParsedStack> parsedStacks = new List<AiParsedStack>();
+
+            Exception currentException = e;
+            while (currentException != null)
+            {
+                AiParsedStack parsedStack = ParseStackTrace(e);
+                parsedStacks.Add(parsedStack);
+
+                currentException = currentException.InnerException;
+            }
+
+            return parsedStacks;
         }
 
-        return parsedStacks;
-    }
-
-    private static AiParsedStack ParseStackTrace(Exception e)
-    {
-        StackTrace stackTrace = new StackTrace(e);
-        StackFrame stackFrame = stackTrace.GetFrame(0);
-        AiParsedStack aiParsedStack = new AiParsedStack
-
+        private static AiParsedStack ParseStackTrace(Exception e)
         {
-            Method = stackFrame.GetMethod().Name,
-            FileName = stackFrame.GetFileName(),
-            Line = stackFrame.GetFileLineNumber()
-        };
+            StackTrace stackTrace = new StackTrace(e);
+            StackFrame stackFrame = stackTrace.GetFrame(0);
+            AiParsedStack aiParsedStack = new AiParsedStack
+            {
+                Method = stackFrame.GetMethod().Name,
+                FileName = stackFrame.GetFileName(),
+                Line = stackFrame.GetFileLineNumber()
+            };
 
-        return aiParsedStack;
+            return aiParsedStack;
+        }
     }
 }

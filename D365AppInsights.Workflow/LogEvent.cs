@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using JLattimer.D365AppInsights;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
 using System;
 using System.Activities;

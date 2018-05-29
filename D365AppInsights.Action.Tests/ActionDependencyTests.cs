@@ -1,5 +1,6 @@
 ﻿using AppInsightsShared.Tests;
 using FakeXrmEasy;
+using JLattimer.D365AppInsights;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xrm.Sdk;
 using System;

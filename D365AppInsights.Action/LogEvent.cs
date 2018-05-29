@@ -1,3 +1,4 @@
+using JLattimer.D365AppInsights;
 using System;
 using System.Collections.Generic;
 

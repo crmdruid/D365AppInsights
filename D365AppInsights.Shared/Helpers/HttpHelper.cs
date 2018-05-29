@@ -1,12 +1,15 @@
 ﻿using System.Net.Http;
 
-public class HttpHelper
+namespace JLattimer.D365AppInsights
 {
-    public static HttpClient GetHttpClient()
+    public class HttpHelper
     {
-        HttpClient client = new HttpClient();
-        client.DefaultRequestHeaders.Add("Connection", "close");
+        public static HttpClient GetHttpClient()
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Connection", "close");
 
-        return client;
+            return client;
+        }
     }
 }

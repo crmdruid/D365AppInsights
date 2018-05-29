@@ -1,3 +1,4 @@
+using JLattimer.D365AppInsights;
 using System;
 
 namespace D365AppInsights.Action

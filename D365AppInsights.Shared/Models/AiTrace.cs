@@ -1,31 +1,34 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-[DataContract]
-public class AiTrace : AiBaseData
+namespace JLattimer.D365AppInsights
 {
-    [DataMember(Name = "message")]
-    public string Message { get; set; }
-
-    [DataMember(Name = "severityLevel")]
-    public AiTraceSeverity SeverityLevel { get; set; }
-
-    public AiTrace(string message, AiTraceSeverity aiTraceSeverity)
+    [DataContract]
+    public class AiTrace : AiBaseData
     {
-        Message = message.Length > 32768
-            ? message.Substring(0, 32767)
-            : message;
-        SeverityLevel = aiTraceSeverity;
-    }
+        [DataMember(Name = "message")]
+        public string Message { get; set; }
 
-    public static string ValidateSeverityValue(string severity)
-    {
-        if (string.IsNullOrEmpty(severity))
-            return "Severity cannot be null";
+        [DataMember(Name = "severityLevel")]
+        public AiTraceSeverity SeverityLevel { get; set; }
 
-        if (!Enum.IsDefined(typeof(AiTraceSeverity), severity))
-            return "Severity valid values: Verbose, Information, Warning, Error, Critical";
+        public AiTrace(string message, AiTraceSeverity aiTraceSeverity)
+        {
+            Message = message.Length > 32768
+                ? message.Substring(0, 32767)
+                : message;
+            SeverityLevel = aiTraceSeverity;
+        }
 
-        return null;
+        public static string ValidateSeverityValue(string severity)
+        {
+            if (string.IsNullOrEmpty(severity))
+                return "Severity cannot be null";
+
+            if (!Enum.IsDefined(typeof(AiTraceSeverity), severity))
+                return "Severity valid values: Verbose, Information, Warning, Error, Critical";
+
+            return null;
+        }
     }
 }

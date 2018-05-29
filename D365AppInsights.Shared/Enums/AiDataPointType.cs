@@ -1,5 +1,8 @@
-﻿public enum AiDataPointType
+﻿namespace JLattimer.D365AppInsights
 {
-    Measurement = 0,
-    Aggregation = 1,
+    public enum AiDataPointType
+    {
+        Measurement = 0,
+        Aggregation = 1,
+    }
 }

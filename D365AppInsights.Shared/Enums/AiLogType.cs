@@ -1,8 +1,11 @@
-﻿public enum AiLogType
+﻿namespace JLattimer.D365AppInsights
 {
-    Trace,
-    Event,
-    NetException,
-    JsException,
-    PerfMetric
+    public enum AiLogType
+    {
+        Trace,
+        Event,
+        NetException,
+        JsException,
+        PerfMetric
+    }
 }

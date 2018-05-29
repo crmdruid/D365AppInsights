@@ -1,16 +1,19 @@
 ﻿using System;
 
-public class EnumHelper
+namespace JLattimer.D365AppInsights
 {
-    public static T ParseEnum<T>(object o)
+    public class EnumHelper
     {
-        try
+        public static T ParseEnum<T>(object o)
         {
-            return (T)Enum.Parse(typeof(T), o.ToString());
-        }
-        catch (Exception)
-        {
-            return default(T); //Information
+            try
+            {
+                return (T)Enum.Parse(typeof(T), o.ToString());
+            }
+            catch (Exception)
+            {
+                return default(T); //Information
+            }
         }
     }
 }

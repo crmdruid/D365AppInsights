@@ -1,8 +1,11 @@
-﻿public enum AiTraceSeverity
+﻿namespace JLattimer.D365AppInsights
 {
-    Verbose,
-    Information,
-    Warning,
-    Error,
-    Critical
+    public enum AiTraceSeverity
+    {
+        Verbose,
+        Information,
+        Warning,
+        Error,
+        Critical
+    }
 }
