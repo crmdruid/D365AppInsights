@@ -100,10 +100,10 @@ del "$(TargetDir)D365AppInsights.Js.References.dll"
 del "$(TargetDir)D365AppInsights.Js.References.pdb"
 
 rem Package
-"$(SolutionDir).NuGetPack\NuGetPack.exe" "$(ProjectPath)" "$(TargetPath)" $(ConfigurationName)
+"$(ProjectDir)"..\".NuGetPack\NuGetPack.exe" "$(ProjectPath)" "$(TargetPath)" $(ConfigurationName)
 
 rem Remove reference project assemblies from .nupkg
-"$(SolutionDir).NuGetPack\NupkgWrench.exe" files remove "$(ProjectDir)bin\$(ConfigurationName)" --path lib\*.*</PostBuildEvent>
+"$(ProjectDir)"..\".NuGetPack\NupkgWrench.exe" files remove "$(ProjectDir)bin\$(ConfigurationName)" --path lib\*.*</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
