@@ -7,8 +7,8 @@
     <ProjectGuid>{AEA3D3AD-56C4-4811-806B-DE563E248138}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>D365AppInsights.NuGet</RootNamespace>
-    <AssemblyName>D365AppInsights.NuGet</AssemblyName>
+    <RootNamespace>JLattimer.D365AppInsights.NuGet</RootNamespace>
+    <AssemblyName>JLattimer.D365AppInsights.NuGet</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
