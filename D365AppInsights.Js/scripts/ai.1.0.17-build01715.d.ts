@@ -20,6 +20,7 @@ declare module Microsoft.ApplicationInsights {
         maxAjaxCallsPerView?: number;
         disableDataLossAnalysis?: boolean;
         disableCorrelationHeaders?: boolean;
+        correlationHeaderExcludedDomains?: string[];
         disableFlushOnBeforeUnload?: boolean;
         enableSessionStorageBuffer?: boolean;
         isCookieUseDisabled?: boolean;
@@ -30,6 +31,7 @@ declare module Microsoft.ApplicationInsights {
         isBeaconApiDisabled?: boolean;
         sdkExtension?: string;
         isBrowserLinkTrackingEnabled?: boolean;
+        appId?: string;
     }
 }
 declare module Microsoft.Telemetry {
@@ -506,54 +508,56 @@ declare module Microsoft.ApplicationInsights {
         FailedMonitorAjaxOpen = 15,
         FailedMonitorAjaxRSC = 16,
         FailedMonitorAjaxSend = 17,
-        FailedToAddHandlerForOnBeforeUnload = 18,
-        FailedToSendQueuedTelemetry = 19,
-        FailedToReportDataLoss = 20,
-        FlushFailed = 21,
-        MessageLimitPerPVExceeded = 22,
-        MissingRequiredFieldSpecification = 23,
-        NavigationTimingNotSupported = 24,
-        OnError = 25,
-        SessionRenewalDateIsZero = 26,
-        SenderNotInitialized = 27,
-        StartTrackEventFailed = 28,
-        StopTrackEventFailed = 29,
-        StartTrackFailed = 30,
-        StopTrackFailed = 31,
-        TelemetrySampledAndNotSent = 32,
-        TrackEventFailed = 33,
-        TrackExceptionFailed = 34,
-        TrackMetricFailed = 35,
-        TrackPVFailed = 36,
-        TrackPVFailedCalc = 37,
-        TrackTraceFailed = 38,
-        TransmissionFailed = 39,
-        FailedToSetStorageBuffer = 40,
-        FailedToRestoreStorageBuffer = 41,
-        InvalidBackendResponse = 42,
-        FailedToFixDepricatedValues = 43,
-        InvalidDurationValue = 44,
-        CannotSerializeObject = 45,
-        CannotSerializeObjectNonSerializable = 46,
-        CircularReferenceDetected = 47,
-        ClearAuthContextFailed = 48,
-        ExceptionTruncated = 49,
-        IllegalCharsInName = 50,
-        ItemNotInArray = 51,
-        MaxAjaxPerPVExceeded = 52,
-        MessageTruncated = 53,
-        NameTooLong = 54,
-        SampleRateOutOfRange = 55,
-        SetAuthContextFailed = 56,
-        SetAuthContextFailedAccountName = 57,
-        StringValueTooLong = 58,
-        StartCalledMoreThanOnce = 59,
-        StopCalledWithoutStart = 60,
-        TelemetryInitializerFailed = 61,
-        TrackArgumentsNotSpecified = 62,
-        UrlTooLong = 63,
-        SessionStorageBufferFull = 64,
-        CannotAccessCookie = 65,
+        FailedMonitorAjaxGetCorrelationHeader = 18,
+        FailedToAddHandlerForOnBeforeUnload = 19,
+        FailedToSendQueuedTelemetry = 20,
+        FailedToReportDataLoss = 21,
+        FlushFailed = 22,
+        MessageLimitPerPVExceeded = 23,
+        MissingRequiredFieldSpecification = 24,
+        NavigationTimingNotSupported = 25,
+        OnError = 26,
+        SessionRenewalDateIsZero = 27,
+        SenderNotInitialized = 28,
+        StartTrackEventFailed = 29,
+        StopTrackEventFailed = 30,
+        StartTrackFailed = 31,
+        StopTrackFailed = 32,
+        TelemetrySampledAndNotSent = 33,
+        TrackEventFailed = 34,
+        TrackExceptionFailed = 35,
+        TrackMetricFailed = 36,
+        TrackPVFailed = 37,
+        TrackPVFailedCalc = 38,
+        TrackTraceFailed = 39,
+        TransmissionFailed = 40,
+        FailedToSetStorageBuffer = 41,
+        FailedToRestoreStorageBuffer = 42,
+        InvalidBackendResponse = 43,
+        FailedToFixDepricatedValues = 44,
+        InvalidDurationValue = 45,
+        CannotSerializeObject = 46,
+        CannotSerializeObjectNonSerializable = 47,
+        CircularReferenceDetected = 48,
+        ClearAuthContextFailed = 49,
+        ExceptionTruncated = 50,
+        IllegalCharsInName = 51,
+        ItemNotInArray = 52,
+        MaxAjaxPerPVExceeded = 53,
+        MessageTruncated = 54,
+        NameTooLong = 55,
+        SampleRateOutOfRange = 56,
+        SetAuthContextFailed = 57,
+        SetAuthContextFailedAccountName = 58,
+        StringValueTooLong = 59,
+        StartCalledMoreThanOnce = 60,
+        StopCalledWithoutStart = 61,
+        TelemetryInitializerFailed = 62,
+        TrackArgumentsNotSpecified = 63,
+        UrlTooLong = 64,
+        SessionStorageBufferFull = 65,
+        CannotAccessCookie = 66,
+        IdTooLong = 67,
     }
     class _InternalLogMessage {
         message: string;
@@ -801,6 +805,21 @@ declare module Microsoft.ApplicationInsights {
         static getAbsoluteUrl(url: any): string;
         static getPathName(url: any): string;
         static getCompleteUrl(method: string, absoluteUrl: string): string;
+    }
+    class CorrelationIdHelper {
+        static correlationIdPrefix: string;
+        /**
+        * Checks if a request url is not on a excluded domain list and if it is safe to add correlation headers
+        */
+        static canIncludeCorrelationHeader(config: IConfig, requestUrl: string): boolean;
+        /**
+        * Combines target appId and target role name from response header.
+        */
+        static getCorrelationContext(responseHeader: string): string;
+        /**
+        * Gets key from correlation response header
+        */
+        static getCorrelationContextValue(responseHeader: string, key: string): string;
     }
 }
 declare module Microsoft.ApplicationInsights {
@@ -1257,6 +1276,12 @@ declare module Microsoft.ApplicationInsights {
         static AttachEvent(obj: any, eventNameWithoutOn: any, handlerRef: any): boolean;
         static DetachEvent(obj: any, eventNameWithoutOn: any, handlerRef: any): void;
     }
+    class AjaxHelper {
+        static ParseDependencyPath(absoluteUrl: string, method: string, pathName: string): {
+            target: any;
+            name: any;
+        };
+    }
 }
 declare module Microsoft.ApplicationInsights {
     class XHRMonitoringState {
@@ -1295,6 +1320,233 @@ declare module Microsoft.ApplicationInsights {
     }
 }
 declare module Microsoft.ApplicationInsights {
+    class RequestHeaders {
+        /**
+         * Request-Context header
+         */
+        static requestContextHeader: string;
+        /**
+         * Target instrumentation header that is added to the response and retrieved by the
+         * calling application when processing incoming responses.
+         */
+        static requestContextTargetKey: string;
+        /**
+         * Request-Context appId format
+         */
+        static requestContextAppIdFormat: string;
+        /**
+         * Request-Id header
+         */
+        static requestIdHeader: string;
+        /**
+         * Sdk-Context header
+         * If this header passed with appId in content then appId will be returned back by the backend.
+         */
+        static sdkContextHeader: string;
+        /**
+         * String to pass in header for requesting appId back from the backend.
+         */
+        static sdkContextHeaderAppIdRequest: string;
+        static requestContextHeaderLowerCase: string;
+    }
+}
+declare module Microsoft.Telemetry {
+    /**
+     * The abstract common base of all domains.
+     */
+    class Domain {
+        constructor();
+    }
+}
+declare module AI {
+    /**
+     * Instances of Event represent structured event records that can be grouped and searched by their properties. Event data item also creates a metric of event count by name.
+     */
+    class EventData extends Microsoft.Telemetry.Domain {
+        /**
+         * Schema version
+         */
+        ver: number;
+        /**
+         * Event name. Keep it low cardinality to allow proper grouping and useful metrics.
+         */
+        name: string;
+        /**
+         * Collection of custom properties.
+         */
+        properties: any;
+        /**
+         * Collection of custom measurements.
+         */
+        measurements: any;
+        constructor();
+    }
+}
+declare module AI {
+    /**
+     * An instance of PageView represents a generic action on a page like a button click. It is also the base type for PageView.
+     */
+    class PageViewData extends AI.EventData {
+        /**
+         * Schema version
+         */
+        ver: number;
+        /**
+         * Request URL with all query string parameters
+         */
+        url: string;
+        /**
+         * Event name. Keep it low cardinality to allow proper grouping and useful metrics.
+         */
+        name: string;
+        /**
+         * Request duration in format: DD.HH:MM:SS.MMMMMM. For a page view (PageViewData), this is the duration. For a page view with performance information (PageViewPerfData), this is the page load time. Must be less than 1000 days.
+         */
+        duration: string;
+        /**
+         * Identifier of a page view instance. Used for correlation between page view and other telemetry items.
+         */
+        id: string;
+        /**
+         * Collection of custom properties.
+         */
+        properties: any;
+        /**
+         * Collection of custom measurements.
+         */
+        measurements: any;
+        constructor();
+    }
+}
+declare module AI {
+    /**
+     * An instance of Remote Dependency represents an interaction of the monitored component with a remote component/service like SQL or an HTTP endpoint.
+     */
+    class RemoteDependencyData extends Microsoft.Telemetry.Domain {
+        /**
+         * Schema version
+         */
+        ver: number;
+        /**
+         * Name of the command initiated with this dependency call. Low cardinality value. Examples are stored procedure name and URL path template.
+         */
+        name: string;
+        /**
+         * Identifier of a dependency call instance. Used for correlation with the request telemetry item corresponding to this dependency call.
+         */
+        id: string;
+        /**
+         * Result code of a dependency call. Examples are SQL error code and HTTP status code.
+         */
+        resultCode: string;
+        /**
+         * Request duration in format: DD.HH:MM:SS.MMMMMM. Must be less than 1000 days.
+         */
+        duration: string;
+        /**
+         * Indication of successfull or unsuccessfull call.
+         */
+        success: boolean;
+        /**
+         * Command initiated by this dependency call. Examples are SQL statement and HTTP URL's with all query parameters.
+         */
+        data: string;
+        /**
+         * Target site of a dependency call. Examples are server name, host address.
+         */
+        target: string;
+        /**
+         * Dependency type name. Very low cardinality value for logical grouping of dependencies and interpretation of other fields like commandName and resultCode. Examples are SQL, Azure table, and HTTP.
+         */
+        type: string;
+        /**
+         * Collection of custom properties.
+         */
+        properties: any;
+        /**
+         * Collection of custom measurements.
+         */
+        measurements: any;
+        constructor();
+    }
+}
+declare module Microsoft.ApplicationInsights.Telemetry.Common {
+    class DataSanitizer {
+        /**
+        * Max length allowed for custom names.
+        */
+        private static MAX_NAME_LENGTH;
+        /**
+         * Max length allowed for Id field in page views.
+         */
+        private static MAX_ID_LENGTH;
+        /**
+         * Max length allowed for custom values.
+         */
+        private static MAX_PROPERTY_LENGTH;
+        /**
+         * Max length allowed for names
+         */
+        private static MAX_STRING_LENGTH;
+        /**
+         * Max length allowed for url.
+         */
+        private static MAX_URL_LENGTH;
+        /**
+         * Max length allowed for messages.
+         */
+        private static MAX_MESSAGE_LENGTH;
+        /**
+         * Max length allowed for exceptions.
+         */
+        private static MAX_EXCEPTION_LENGTH;
+        static sanitizeKeyAndAddUniqueness(key: any, map: any): any;
+        static sanitizeKey(name: any): any;
+        static sanitizeString(value: any, maxLength?: number): any;
+        static sanitizeUrl(url: any): any;
+        static sanitizeMessage(message: any): any;
+        static sanitizeException(exception: any): any;
+        static sanitizeProperties(properties: any): any;
+        static sanitizeMeasurements(measurements: any): any;
+        static sanitizeId(id: string): string;
+        static sanitizeInput(input: any, maxLength: number, _msgId: _InternalMessageId): any;
+        static padNumber(num: any): string;
+    }
+}
+declare module Microsoft.ApplicationInsights.Telemetry {
+    class RemoteDependencyData extends AI.RemoteDependencyData implements ISerializable {
+        static envelopeType: string;
+        static dataType: string;
+        aiDataContract: {
+            id: FieldType;
+            ver: FieldType;
+            name: FieldType;
+            resultCode: FieldType;
+            duration: FieldType;
+            success: FieldType;
+            data: FieldType;
+            target: FieldType;
+            type: FieldType;
+            properties: FieldType;
+            measurements: FieldType;
+            kind: FieldType;
+            value: FieldType;
+            count: FieldType;
+            min: FieldType;
+            max: FieldType;
+            stdDev: FieldType;
+            dependencyKind: FieldType;
+            dependencySource: FieldType;
+            commandName: FieldType;
+            dependencyTypeName: FieldType;
+        };
+        /**
+         * Constructs a new instance of the RemoteDependencyData object
+         */
+        constructor(id: string, absoluteUrl: string, commandName: string, value: number, success: boolean, resultCode: number, method?: string, properties?: Object, measurements?: Object);
+    }
+}
+declare module Microsoft.ApplicationInsights {
     interface XMLHttpRequestInstrumented extends XMLHttpRequest {
         ajaxData: ajaxRecord;
     }
@@ -1316,6 +1568,7 @@ declare module Microsoft.ApplicationInsights {
         private instrumentAbort();
         private attachToOnReadyStateChange(xhr);
         private onAjaxComplete(xhr);
+        private getCorrelationContext(xhr);
     }
 }
 declare module Microsoft.ApplicationInsights {
@@ -1442,6 +1695,10 @@ declare module Microsoft.ApplicationInsights {
          * List of errors for items which were not accepted
          */
         errors: IResponseError[];
+        /**
+         * App id returned by the backend - not necessary returned, but we don't need it with each response.
+         */
+        appId?: string;
     }
     class Sender {
         /**
@@ -1468,6 +1725,10 @@ declare module Microsoft.ApplicationInsights {
          * The configuration for this sender instance
          */
         _config: ISenderConfig;
+        /**
+         * AppId of this component parsed from some backend response.
+         */
+        _appId: string;
         /**
          * A method which will cause data to be send to the url
          */
@@ -1537,12 +1798,16 @@ declare module Microsoft.ApplicationInsights {
          *
          * Note: XDomainRequest does not support sync requests. This 'isAsync' parameter is added
          * to maintain consistency with the xhrSender's contract
+         * Note: XDomainRequest does not support custom headers and we are not able to get
+         * appId from the backend for the correct correlation.
          */
         private _xdrSender(payload, isAsync);
         /**
          * Send Beacon API request
          * @param payload {string} - The data payload to be sent.
          * @param isAsync {boolean} - not used
+         * Note: Beacon API does not support custom headers and we are not able to get
+         * appId from the backend for the correct correlation.
          */
         private _beaconSender(payload, isAsync);
         /**
@@ -1565,14 +1830,6 @@ declare module Microsoft.ApplicationInsights {
          * success handler
          */
         _onSuccess(payload: string[], countOfItemsInPayload: number): void;
-    }
-}
-declare module Microsoft.Telemetry {
-    /**
-     * The abstract common base of all domains.
-     */
-    class Domain {
-        constructor();
     }
 }
 declare module AI {
@@ -1599,39 +1856,6 @@ declare module AI {
         constructor();
     }
 }
-declare module Microsoft.ApplicationInsights.Telemetry.Common {
-    class DataSanitizer {
-        /**
-        * Max length allowed for custom names.
-        */
-        private static MAX_NAME_LENGTH;
-        /**
-         * Max length allowed for custom values.
-         */
-        private static MAX_STRING_LENGTH;
-        /**
-         * Max length allowed for url.
-         */
-        private static MAX_URL_LENGTH;
-        /**
-         * Max length allowed for messages.
-         */
-        private static MAX_MESSAGE_LENGTH;
-        /**
-         * Max length allowed for exceptions.
-         */
-        private static MAX_EXCEPTION_LENGTH;
-        static sanitizeKeyAndAddUniqueness(key: any, map: any): any;
-        static sanitizeKey(name: any): any;
-        static sanitizeString(value: any): any;
-        static sanitizeUrl(url: any): any;
-        static sanitizeMessage(message: any): any;
-        static sanitizeException(exception: any): any;
-        static sanitizeProperties(properties: any): any;
-        static sanitizeMeasurements(measurements: any): any;
-        static padNumber(num: any): string;
-    }
-}
 declare module Microsoft.ApplicationInsights.Telemetry {
     class Trace extends AI.MessageData implements ISerializable {
         static envelopeType: string;
@@ -1646,30 +1870,6 @@ declare module Microsoft.ApplicationInsights.Telemetry {
          * Constructs a new instance of the TraceTelemetry object
          */
         constructor(message: string, properties?: any, severityLevel?: AI.SeverityLevel);
-    }
-}
-declare module AI {
-    /**
-     * Instances of Event represent structured event records that can be grouped and searched by their properties. Event data item also creates a metric of event count by name.
-     */
-    class EventData extends Microsoft.Telemetry.Domain {
-        /**
-         * Schema version
-         */
-        ver: number;
-        /**
-         * Event name. Keep it low cardinality to allow proper grouping and useful metrics.
-         */
-        name: string;
-        /**
-         * Collection of custom properties.
-         */
-        properties: any;
-        /**
-         * Collection of custom measurements.
-         */
-        measurements: any;
-        constructor();
     }
 }
 declare module Microsoft.ApplicationInsights.Telemetry {
@@ -1910,38 +2110,6 @@ declare module Microsoft.ApplicationInsights.Telemetry {
         constructor(name: string, value: number, count?: number, min?: number, max?: number, properties?: any);
     }
 }
-declare module AI {
-    /**
-     * An instance of PageView represents a generic action on a page like a button click. It is also the base type for PageView.
-     */
-    class PageViewData extends AI.EventData {
-        /**
-         * Schema version
-         */
-        ver: number;
-        /**
-         * Request URL with all query string parameters
-         */
-        url: string;
-        /**
-         * Event name. Keep it low cardinality to allow proper grouping and useful metrics.
-         */
-        name: string;
-        /**
-         * Request duration in format: DD.HH:MM:SS.MMMMMM. For a page view (PageViewData), this is the duration. For a page view with performance information (PageViewPerfData), this is the page load time. Must be less than 1000 days.
-         */
-        duration: string;
-        /**
-         * Collection of custom properties.
-         */
-        properties: any;
-        /**
-         * Collection of custom measurements.
-         */
-        measurements: any;
-        constructor();
-    }
-}
 declare module Microsoft.ApplicationInsights.Telemetry {
     class PageView extends AI.PageViewData implements ISerializable {
         static envelopeType: string;
@@ -1953,11 +2121,12 @@ declare module Microsoft.ApplicationInsights.Telemetry {
             duration: FieldType;
             properties: FieldType;
             measurements: FieldType;
+            id: FieldType;
         };
         /**
          * Constructs a new instance of the PageEventTelemetry object
          */
-        constructor(name?: string, url?: string, durationMs?: number, properties?: any, measurements?: any);
+        constructor(name?: string, url?: string, durationMs?: number, properties?: any, measurements?: any, id?: string);
     }
 }
 declare module AI {
@@ -2074,6 +2243,7 @@ declare module Microsoft.ApplicationInsights {
         cookieDomain: () => string;
         sdkExtension: () => string;
         isBrowserLinkTrackingEnabled: () => boolean;
+        appId: () => string;
     }
     class TelemetryContext implements ITelemetryContext {
         /**
@@ -2110,6 +2280,10 @@ declare module Microsoft.ApplicationInsights {
          * The object describing a session tracked by this object.
          */
         session: Context.Session;
+        /**
+         * AppId of this component if returned by the backend.
+         */
+        appId: () => string;
         /**
         * The array of telemetry initializers to call before sending each telemetry item.
         */
@@ -2238,91 +2412,6 @@ declare module Microsoft.ApplicationInsights.Telemetry {
         constructor(pageName: any, pageUrl: any);
     }
 }
-declare module AI {
-    /**
-     * An instance of Remote Dependency represents an interaction of the monitored component with a remote component/service like SQL or an HTTP endpoint.
-     */
-    class RemoteDependencyData extends Microsoft.Telemetry.Domain {
-        /**
-         * Schema version
-         */
-        ver: number;
-        /**
-         * Name of the command initiated with this dependency call. Low cardinality value. Examples are stored procedure name and URL path template.
-         */
-        name: string;
-        /**
-         * Identifier of a dependency call instance. Used for correlation with the request telemetry item corresponding to this dependency call.
-         */
-        id: string;
-        /**
-         * Result code of a dependency call. Examples are SQL error code and HTTP status code.
-         */
-        resultCode: string;
-        /**
-         * Request duration in format: DD.HH:MM:SS.MMMMMM. Must be less than 1000 days.
-         */
-        duration: string;
-        /**
-         * Indication of successfull or unsuccessfull call.
-         */
-        success: boolean;
-        /**
-         * Command initiated by this dependency call. Examples are SQL statement and HTTP URL's with all query parameters.
-         */
-        data: string;
-        /**
-         * Target site of a dependency call. Examples are server name, host address.
-         */
-        target: string;
-        /**
-         * Dependency type name. Very low cardinality value for logical grouping of dependencies and interpretation of other fields like commandName and resultCode. Examples are SQL, Azure table, and HTTP.
-         */
-        type: string;
-        /**
-         * Collection of custom properties.
-         */
-        properties: any;
-        /**
-         * Collection of custom measurements.
-         */
-        measurements: any;
-        constructor();
-    }
-}
-declare module Microsoft.ApplicationInsights.Telemetry {
-    class RemoteDependencyData extends AI.RemoteDependencyData implements ISerializable {
-        static envelopeType: string;
-        static dataType: string;
-        aiDataContract: {
-            id: FieldType;
-            ver: FieldType;
-            name: FieldType;
-            resultCode: FieldType;
-            duration: FieldType;
-            success: FieldType;
-            data: FieldType;
-            target: FieldType;
-            type: FieldType;
-            properties: FieldType;
-            measurements: FieldType;
-            kind: FieldType;
-            value: FieldType;
-            count: FieldType;
-            min: FieldType;
-            max: FieldType;
-            stdDev: FieldType;
-            dependencyKind: FieldType;
-            dependencySource: FieldType;
-            commandName: FieldType;
-            dependencyTypeName: FieldType;
-        };
-        /**
-         * Constructs a new instance of the RemoteDependencyData object
-         */
-        constructor(id: string, absoluteUrl: string, commandName: string, value: number, success: boolean, resultCode: number, method?: string, properties?: Object, measurements?: Object);
-    }
-}
 declare module Microsoft.ApplicationInsights {
     class SplitTest {
         private hashCodeGeneragor;
@@ -2404,14 +2493,19 @@ declare module Microsoft.ApplicationInsights {
          * @param id    unique id, this is used by the backend o correlate server requests. Use Util.newId() to generate a unique Id.
          * @param method    represents request verb (GET, POST, etc.)
          * @param absoluteUrl   absolute url used to make the dependency request
-         * @param pathName  the path part of the absolute url
+         * @param command   command name
          * @param totalTime total request time
          * @param success   indicates if the request was sessessful
          * @param resultCode    response code returned by the dependency request
          * @param properties    map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
          * @param measurements  map[string, number] - metrics associated with this event, displayed in Metrics Explorer on the portal. Defaults to empty.
          */
-        trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number, properties?: Object, measurements?: Object): void;
+        trackDependency(id: string, method: string, absoluteUrl: string, command: string, totalTime: number, success: boolean, resultCode: number, properties?: Object, measurements?: Object): void;
+        /**
+        * Logs dependency call
+        * @param dependencyData dependency data object
+        */
+        trackDependencyData(dependency: Telemetry.RemoteDependencyData): void;
         /**
          * trackAjax method is obsolete, use trackDependency instead
          */

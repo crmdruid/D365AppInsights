@@ -36,15 +36,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
-    <Content Include="scripts\ai.1.0.15-build03916.js" />
-    <Content Include="scripts\ai.1.0.15-build03916.min.js" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="scripts\ai.1.0.15-build03916.d.ts" />
+    <Content Include="scripts\ai.1.0.17-build01715.js" />
+    <Content Include="scripts\ai.1.0.17-build01715.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="scripts\ai.1.0.17-build01715.d.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -231,55 +231,57 @@ var Microsoft;
             _InternalMessageId[_InternalMessageId["FailedMonitorAjaxOpen"] = 15] = "FailedMonitorAjaxOpen";
             _InternalMessageId[_InternalMessageId["FailedMonitorAjaxRSC"] = 16] = "FailedMonitorAjaxRSC";
             _InternalMessageId[_InternalMessageId["FailedMonitorAjaxSend"] = 17] = "FailedMonitorAjaxSend";
-            _InternalMessageId[_InternalMessageId["FailedToAddHandlerForOnBeforeUnload"] = 18] = "FailedToAddHandlerForOnBeforeUnload";
-            _InternalMessageId[_InternalMessageId["FailedToSendQueuedTelemetry"] = 19] = "FailedToSendQueuedTelemetry";
-            _InternalMessageId[_InternalMessageId["FailedToReportDataLoss"] = 20] = "FailedToReportDataLoss";
-            _InternalMessageId[_InternalMessageId["FlushFailed"] = 21] = "FlushFailed";
-            _InternalMessageId[_InternalMessageId["MessageLimitPerPVExceeded"] = 22] = "MessageLimitPerPVExceeded";
-            _InternalMessageId[_InternalMessageId["MissingRequiredFieldSpecification"] = 23] = "MissingRequiredFieldSpecification";
-            _InternalMessageId[_InternalMessageId["NavigationTimingNotSupported"] = 24] = "NavigationTimingNotSupported";
-            _InternalMessageId[_InternalMessageId["OnError"] = 25] = "OnError";
-            _InternalMessageId[_InternalMessageId["SessionRenewalDateIsZero"] = 26] = "SessionRenewalDateIsZero";
-            _InternalMessageId[_InternalMessageId["SenderNotInitialized"] = 27] = "SenderNotInitialized";
-            _InternalMessageId[_InternalMessageId["StartTrackEventFailed"] = 28] = "StartTrackEventFailed";
-            _InternalMessageId[_InternalMessageId["StopTrackEventFailed"] = 29] = "StopTrackEventFailed";
-            _InternalMessageId[_InternalMessageId["StartTrackFailed"] = 30] = "StartTrackFailed";
-            _InternalMessageId[_InternalMessageId["StopTrackFailed"] = 31] = "StopTrackFailed";
-            _InternalMessageId[_InternalMessageId["TelemetrySampledAndNotSent"] = 32] = "TelemetrySampledAndNotSent";
-            _InternalMessageId[_InternalMessageId["TrackEventFailed"] = 33] = "TrackEventFailed";
-            _InternalMessageId[_InternalMessageId["TrackExceptionFailed"] = 34] = "TrackExceptionFailed";
-            _InternalMessageId[_InternalMessageId["TrackMetricFailed"] = 35] = "TrackMetricFailed";
-            _InternalMessageId[_InternalMessageId["TrackPVFailed"] = 36] = "TrackPVFailed";
-            _InternalMessageId[_InternalMessageId["TrackPVFailedCalc"] = 37] = "TrackPVFailedCalc";
-            _InternalMessageId[_InternalMessageId["TrackTraceFailed"] = 38] = "TrackTraceFailed";
-            _InternalMessageId[_InternalMessageId["TransmissionFailed"] = 39] = "TransmissionFailed";
-            _InternalMessageId[_InternalMessageId["FailedToSetStorageBuffer"] = 40] = "FailedToSetStorageBuffer";
-            _InternalMessageId[_InternalMessageId["FailedToRestoreStorageBuffer"] = 41] = "FailedToRestoreStorageBuffer";
-            _InternalMessageId[_InternalMessageId["InvalidBackendResponse"] = 42] = "InvalidBackendResponse";
-            _InternalMessageId[_InternalMessageId["FailedToFixDepricatedValues"] = 43] = "FailedToFixDepricatedValues";
-            _InternalMessageId[_InternalMessageId["InvalidDurationValue"] = 44] = "InvalidDurationValue";
+            _InternalMessageId[_InternalMessageId["FailedMonitorAjaxGetCorrelationHeader"] = 18] = "FailedMonitorAjaxGetCorrelationHeader";
+            _InternalMessageId[_InternalMessageId["FailedToAddHandlerForOnBeforeUnload"] = 19] = "FailedToAddHandlerForOnBeforeUnload";
+            _InternalMessageId[_InternalMessageId["FailedToSendQueuedTelemetry"] = 20] = "FailedToSendQueuedTelemetry";
+            _InternalMessageId[_InternalMessageId["FailedToReportDataLoss"] = 21] = "FailedToReportDataLoss";
+            _InternalMessageId[_InternalMessageId["FlushFailed"] = 22] = "FlushFailed";
+            _InternalMessageId[_InternalMessageId["MessageLimitPerPVExceeded"] = 23] = "MessageLimitPerPVExceeded";
+            _InternalMessageId[_InternalMessageId["MissingRequiredFieldSpecification"] = 24] = "MissingRequiredFieldSpecification";
+            _InternalMessageId[_InternalMessageId["NavigationTimingNotSupported"] = 25] = "NavigationTimingNotSupported";
+            _InternalMessageId[_InternalMessageId["OnError"] = 26] = "OnError";
+            _InternalMessageId[_InternalMessageId["SessionRenewalDateIsZero"] = 27] = "SessionRenewalDateIsZero";
+            _InternalMessageId[_InternalMessageId["SenderNotInitialized"] = 28] = "SenderNotInitialized";
+            _InternalMessageId[_InternalMessageId["StartTrackEventFailed"] = 29] = "StartTrackEventFailed";
+            _InternalMessageId[_InternalMessageId["StopTrackEventFailed"] = 30] = "StopTrackEventFailed";
+            _InternalMessageId[_InternalMessageId["StartTrackFailed"] = 31] = "StartTrackFailed";
+            _InternalMessageId[_InternalMessageId["StopTrackFailed"] = 32] = "StopTrackFailed";
+            _InternalMessageId[_InternalMessageId["TelemetrySampledAndNotSent"] = 33] = "TelemetrySampledAndNotSent";
+            _InternalMessageId[_InternalMessageId["TrackEventFailed"] = 34] = "TrackEventFailed";
+            _InternalMessageId[_InternalMessageId["TrackExceptionFailed"] = 35] = "TrackExceptionFailed";
+            _InternalMessageId[_InternalMessageId["TrackMetricFailed"] = 36] = "TrackMetricFailed";
+            _InternalMessageId[_InternalMessageId["TrackPVFailed"] = 37] = "TrackPVFailed";
+            _InternalMessageId[_InternalMessageId["TrackPVFailedCalc"] = 38] = "TrackPVFailedCalc";
+            _InternalMessageId[_InternalMessageId["TrackTraceFailed"] = 39] = "TrackTraceFailed";
+            _InternalMessageId[_InternalMessageId["TransmissionFailed"] = 40] = "TransmissionFailed";
+            _InternalMessageId[_InternalMessageId["FailedToSetStorageBuffer"] = 41] = "FailedToSetStorageBuffer";
+            _InternalMessageId[_InternalMessageId["FailedToRestoreStorageBuffer"] = 42] = "FailedToRestoreStorageBuffer";
+            _InternalMessageId[_InternalMessageId["InvalidBackendResponse"] = 43] = "InvalidBackendResponse";
+            _InternalMessageId[_InternalMessageId["FailedToFixDepricatedValues"] = 44] = "FailedToFixDepricatedValues";
+            _InternalMessageId[_InternalMessageId["InvalidDurationValue"] = 45] = "InvalidDurationValue";
             // User actionable
-            _InternalMessageId[_InternalMessageId["CannotSerializeObject"] = 45] = "CannotSerializeObject";
-            _InternalMessageId[_InternalMessageId["CannotSerializeObjectNonSerializable"] = 46] = "CannotSerializeObjectNonSerializable";
-            _InternalMessageId[_InternalMessageId["CircularReferenceDetected"] = 47] = "CircularReferenceDetected";
-            _InternalMessageId[_InternalMessageId["ClearAuthContextFailed"] = 48] = "ClearAuthContextFailed";
-            _InternalMessageId[_InternalMessageId["ExceptionTruncated"] = 49] = "ExceptionTruncated";
-            _InternalMessageId[_InternalMessageId["IllegalCharsInName"] = 50] = "IllegalCharsInName";
-            _InternalMessageId[_InternalMessageId["ItemNotInArray"] = 51] = "ItemNotInArray";
-            _InternalMessageId[_InternalMessageId["MaxAjaxPerPVExceeded"] = 52] = "MaxAjaxPerPVExceeded";
-            _InternalMessageId[_InternalMessageId["MessageTruncated"] = 53] = "MessageTruncated";
-            _InternalMessageId[_InternalMessageId["NameTooLong"] = 54] = "NameTooLong";
-            _InternalMessageId[_InternalMessageId["SampleRateOutOfRange"] = 55] = "SampleRateOutOfRange";
-            _InternalMessageId[_InternalMessageId["SetAuthContextFailed"] = 56] = "SetAuthContextFailed";
-            _InternalMessageId[_InternalMessageId["SetAuthContextFailedAccountName"] = 57] = "SetAuthContextFailedAccountName";
-            _InternalMessageId[_InternalMessageId["StringValueTooLong"] = 58] = "StringValueTooLong";
-            _InternalMessageId[_InternalMessageId["StartCalledMoreThanOnce"] = 59] = "StartCalledMoreThanOnce";
-            _InternalMessageId[_InternalMessageId["StopCalledWithoutStart"] = 60] = "StopCalledWithoutStart";
-            _InternalMessageId[_InternalMessageId["TelemetryInitializerFailed"] = 61] = "TelemetryInitializerFailed";
-            _InternalMessageId[_InternalMessageId["TrackArgumentsNotSpecified"] = 62] = "TrackArgumentsNotSpecified";
-            _InternalMessageId[_InternalMessageId["UrlTooLong"] = 63] = "UrlTooLong";
-            _InternalMessageId[_InternalMessageId["SessionStorageBufferFull"] = 64] = "SessionStorageBufferFull";
-            _InternalMessageId[_InternalMessageId["CannotAccessCookie"] = 65] = "CannotAccessCookie";
+            _InternalMessageId[_InternalMessageId["CannotSerializeObject"] = 46] = "CannotSerializeObject";
+            _InternalMessageId[_InternalMessageId["CannotSerializeObjectNonSerializable"] = 47] = "CannotSerializeObjectNonSerializable";
+            _InternalMessageId[_InternalMessageId["CircularReferenceDetected"] = 48] = "CircularReferenceDetected";
+            _InternalMessageId[_InternalMessageId["ClearAuthContextFailed"] = 49] = "ClearAuthContextFailed";
+            _InternalMessageId[_InternalMessageId["ExceptionTruncated"] = 50] = "ExceptionTruncated";
+            _InternalMessageId[_InternalMessageId["IllegalCharsInName"] = 51] = "IllegalCharsInName";
+            _InternalMessageId[_InternalMessageId["ItemNotInArray"] = 52] = "ItemNotInArray";
+            _InternalMessageId[_InternalMessageId["MaxAjaxPerPVExceeded"] = 53] = "MaxAjaxPerPVExceeded";
+            _InternalMessageId[_InternalMessageId["MessageTruncated"] = 54] = "MessageTruncated";
+            _InternalMessageId[_InternalMessageId["NameTooLong"] = 55] = "NameTooLong";
+            _InternalMessageId[_InternalMessageId["SampleRateOutOfRange"] = 56] = "SampleRateOutOfRange";
+            _InternalMessageId[_InternalMessageId["SetAuthContextFailed"] = 57] = "SetAuthContextFailed";
+            _InternalMessageId[_InternalMessageId["SetAuthContextFailedAccountName"] = 58] = "SetAuthContextFailedAccountName";
+            _InternalMessageId[_InternalMessageId["StringValueTooLong"] = 59] = "StringValueTooLong";
+            _InternalMessageId[_InternalMessageId["StartCalledMoreThanOnce"] = 60] = "StartCalledMoreThanOnce";
+            _InternalMessageId[_InternalMessageId["StopCalledWithoutStart"] = 61] = "StopCalledWithoutStart";
+            _InternalMessageId[_InternalMessageId["TelemetryInitializerFailed"] = 62] = "TelemetryInitializerFailed";
+            _InternalMessageId[_InternalMessageId["TrackArgumentsNotSpecified"] = 63] = "TrackArgumentsNotSpecified";
+            _InternalMessageId[_InternalMessageId["UrlTooLong"] = 64] = "UrlTooLong";
+            _InternalMessageId[_InternalMessageId["SessionStorageBufferFull"] = 65] = "SessionStorageBufferFull";
+            _InternalMessageId[_InternalMessageId["CannotAccessCookie"] = 66] = "CannotAccessCookie";
+            _InternalMessageId[_InternalMessageId["IdTooLong"] = 67] = "IdTooLong";
         })(_InternalMessageId = ApplicationInsights._InternalMessageId || (ApplicationInsights._InternalMessageId = {}));
         var _InternalLogMessage = /** @class */ (function () {
             function _InternalLogMessage(msgId, msg, isUserAct, properties) {
@@ -969,6 +971,57 @@ var Microsoft;
             return UrlHelper;
         }());
         ApplicationInsights.UrlHelper = UrlHelper;
+        var CorrelationIdHelper = /** @class */ (function () {
+            function CorrelationIdHelper() {
+            }
+            /**
+            * Checks if a request url is not on a excluded domain list and if it is safe to add correlation headers
+            */
+            CorrelationIdHelper.canIncludeCorrelationHeader = function (config, requestUrl) {
+                if (config && config.disableCorrelationHeaders) {
+                    return false;
+                }
+                var excludedDomains = config && config.correlationHeaderExcludedDomains;
+                if (!excludedDomains || excludedDomains.length == 0 || !requestUrl) {
+                    return true;
+                }
+                for (var i = 0; i < excludedDomains.length; i++) {
+                    var regex = new RegExp(excludedDomains[i].replace(/\./g, "\.").replace(/\*/g, ".*"));
+                    if (regex.test(UrlHelper.parseUrl(requestUrl).host)) {
+                        return false;
+                    }
+                }
+                return true;
+            };
+            /**
+            * Combines target appId and target role name from response header.
+            */
+            CorrelationIdHelper.getCorrelationContext = function (responseHeader) {
+                if (responseHeader) {
+                    var correlationId = CorrelationIdHelper.getCorrelationContextValue(responseHeader, ApplicationInsights.RequestHeaders.requestContextTargetKey);
+                    if (correlationId && correlationId !== CorrelationIdHelper.correlationIdPrefix) {
+                        return correlationId;
+                    }
+                }
+            };
+            /**
+            * Gets key from correlation response header
+            */
+            CorrelationIdHelper.getCorrelationContextValue = function (responseHeader, key) {
+                if (responseHeader) {
+                    var keyValues = responseHeader.split(",");
+                    for (var i = 0; i < keyValues.length; ++i) {
+                        var keyValue = keyValues[i].split("=");
+                        if (keyValue.length == 2 && keyValue[0] == key) {
+                            return keyValue[1];
+                        }
+                    }
+                }
+            };
+            CorrelationIdHelper.correlationIdPrefix = "cid-v1:";
+            return CorrelationIdHelper;
+        }());
+        ApplicationInsights.CorrelationIdHelper = CorrelationIdHelper;
     })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
 })(Microsoft || (Microsoft = {}));
 /// <reference path="../JavaScriptSDK.Interfaces/Telemetry/ISerializable.ts" />
@@ -1851,6 +1904,37 @@ var Microsoft;
             return EventHelper;
         }());
         ApplicationInsights.EventHelper = EventHelper;
+        var AjaxHelper = /** @class */ (function () {
+            function AjaxHelper() {
+            }
+            AjaxHelper.ParseDependencyPath = function (absoluteUrl, method, pathName) {
+                var target, name;
+                if (absoluteUrl && absoluteUrl.length > 0) {
+                    var parsedUrl = ApplicationInsights.UrlHelper.parseUrl(absoluteUrl);
+                    target = parsedUrl.host;
+                    if (parsedUrl.pathname != null) {
+                        var pathName = (parsedUrl.pathname.length === 0) ? "/" : parsedUrl.pathname;
+                        if (pathName.charAt(0) !== '/') {
+                            pathName = "/" + pathName;
+                        }
+                        name = ApplicationInsights.Telemetry.Common.DataSanitizer.sanitizeString(method ? method + " " + pathName : pathName);
+                    }
+                    else {
+                        name = ApplicationInsights.Telemetry.Common.DataSanitizer.sanitizeString(absoluteUrl);
+                    }
+                }
+                else {
+                    target = pathName;
+                    name = pathName;
+                }
+                return {
+                    target: target,
+                    name: name
+                };
+            };
+            return AjaxHelper;
+        }());
+        ApplicationInsights.AjaxHelper = AjaxHelper;
     })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
 })(Microsoft || (Microsoft = {}));
 /// <reference path="../Logging.ts" />
@@ -1923,10 +2007,347 @@ var Microsoft;
     })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
 })(Microsoft || (Microsoft = {}));
 ;
+var Microsoft;
+(function (Microsoft) {
+    var ApplicationInsights;
+    (function (ApplicationInsights) {
+        "use strict";
+        var RequestHeaders = /** @class */ (function () {
+            function RequestHeaders() {
+            }
+            /**
+             * Request-Context header
+             */
+            RequestHeaders.requestContextHeader = "Request-Context";
+            /**
+             * Target instrumentation header that is added to the response and retrieved by the
+             * calling application when processing incoming responses.
+             */
+            RequestHeaders.requestContextTargetKey = "appId";
+            /**
+             * Request-Context appId format
+             */
+            RequestHeaders.requestContextAppIdFormat = "appId=cid-v1:";
+            /**
+             * Request-Id header
+             */
+            RequestHeaders.requestIdHeader = "Request-Id";
+            /**
+             * Sdk-Context header
+             * If this header passed with appId in content then appId will be returned back by the backend.
+             */
+            RequestHeaders.sdkContextHeader = "Sdk-Context";
+            /**
+             * String to pass in header for requesting appId back from the backend.
+             */
+            RequestHeaders.sdkContextHeaderAppIdRequest = "appId";
+            RequestHeaders.requestContextHeaderLowerCase = "request-context";
+            return RequestHeaders;
+        }());
+        ApplicationInsights.RequestHeaders = RequestHeaders;
+    })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
+})(Microsoft || (Microsoft = {}));
+// THIS FILE WAS AUTOGENERATED
+var Microsoft;
+(function (Microsoft) {
+    var Telemetry;
+    (function (Telemetry) {
+        "use strict";
+        /**
+         * The abstract common base of all domains.
+         */
+        var Domain = /** @class */ (function () {
+            function Domain() {
+            }
+            return Domain;
+        }());
+        Telemetry.Domain = Domain;
+    })(Telemetry = Microsoft.Telemetry || (Microsoft.Telemetry = {}));
+})(Microsoft || (Microsoft = {}));
+// THIS FILE WAS AUTOGENERATED
+/// <reference path="Domain.ts" />
+var AI;
+(function (AI) {
+    "use strict";
+    /**
+     * Instances of Event represent structured event records that can be grouped and searched by their properties. Event data item also creates a metric of event count by name.
+     */
+    var EventData = /** @class */ (function (_super) {
+        __extends(EventData, _super);
+        function EventData() {
+            var _this = _super.call(this) || this;
+            _this.ver = 2;
+            _this.properties = {};
+            _this.measurements = {};
+            return _this;
+        }
+        return EventData;
+    }(Microsoft.Telemetry.Domain));
+    AI.EventData = EventData;
+})(AI || (AI = {}));
+// THIS FILE WAS AUTOGENERATED
+/// <reference path="EventData.ts" />
+var AI;
+(function (AI) {
+    "use strict";
+    /**
+     * An instance of PageView represents a generic action on a page like a button click. It is also the base type for PageView.
+     */
+    var PageViewData = /** @class */ (function (_super) {
+        __extends(PageViewData, _super);
+        function PageViewData() {
+            var _this = _super.call(this) || this;
+            _this.ver = 2;
+            _this.properties = {};
+            _this.measurements = {};
+            return _this;
+        }
+        return PageViewData;
+    }(AI.EventData));
+    AI.PageViewData = PageViewData;
+})(AI || (AI = {}));
+// THIS FILE WAS AUTOGENERATED
+/// <reference path="Domain.ts" />
+var AI;
+(function (AI) {
+    "use strict";
+    /**
+     * An instance of Remote Dependency represents an interaction of the monitored component with a remote component/service like SQL or an HTTP endpoint.
+     */
+    var RemoteDependencyData = /** @class */ (function (_super) {
+        __extends(RemoteDependencyData, _super);
+        function RemoteDependencyData() {
+            var _this = _super.call(this) || this;
+            _this.ver = 2;
+            _this.success = true;
+            _this.properties = {};
+            _this.measurements = {};
+            return _this;
+        }
+        return RemoteDependencyData;
+    }(Microsoft.Telemetry.Domain));
+    AI.RemoteDependencyData = RemoteDependencyData;
+})(AI || (AI = {}));
+/// <reference path="../../Logging.ts" />
+/// <reference path="../../Util.ts"/>
+var Microsoft;
+(function (Microsoft) {
+    var ApplicationInsights;
+    (function (ApplicationInsights) {
+        var Telemetry;
+        (function (Telemetry) {
+            var Common;
+            (function (Common) {
+                "use strict";
+                var DataSanitizer = /** @class */ (function () {
+                    function DataSanitizer() {
+                    }
+                    DataSanitizer.sanitizeKeyAndAddUniqueness = function (key, map) {
+                        var origLength = key.length;
+                        var field = DataSanitizer.sanitizeKey(key);
+                        // validation truncated the length.  We need to add uniqueness
+                        if (field.length !== origLength) {
+                            var i = 0;
+                            var uniqueField = field;
+                            while (map[uniqueField] !== undefined) {
+                                i++;
+                                uniqueField = field.substring(0, DataSanitizer.MAX_NAME_LENGTH - 3) + DataSanitizer.padNumber(i);
+                            }
+                            field = uniqueField;
+                        }
+                        return field;
+                    };
+                    DataSanitizer.sanitizeKey = function (name) {
+                        if (name) {
+                            // Remove any leading or trailing whitepace
+                            name = ApplicationInsights.Util.trim(name.toString());
+                            // truncate the string to 150 chars
+                            if (name.length > DataSanitizer.MAX_NAME_LENGTH) {
+                                name = name.substring(0, DataSanitizer.MAX_NAME_LENGTH);
+                                ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.WARNING, ApplicationInsights._InternalMessageId.NameTooLong, "name is too long.  It has been truncated to " + DataSanitizer.MAX_NAME_LENGTH + " characters.", { name: name }, true);
+                            }
+                        }
+                        return name;
+                    };
+                    DataSanitizer.sanitizeString = function (value, maxLength) {
+                        if (maxLength === void 0) { maxLength = DataSanitizer.MAX_STRING_LENGTH; }
+                        if (value) {
+                            maxLength = maxLength ? maxLength : DataSanitizer.MAX_STRING_LENGTH; // in case default parameters dont work
+                            value = ApplicationInsights.Util.trim(value);
+                            if (value.toString().length > maxLength) {
+                                value = value.toString().substring(0, maxLength);
+                                ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.WARNING, ApplicationInsights._InternalMessageId.StringValueTooLong, "string value is too long. It has been truncated to " + maxLength + " characters.", { value: value }, true);
+                            }
+                        }
+                        return value;
+                    };
+                    DataSanitizer.sanitizeUrl = function (url) {
+                        return DataSanitizer.sanitizeInput(url, DataSanitizer.MAX_URL_LENGTH, ApplicationInsights._InternalMessageId.UrlTooLong);
+                    };
+                    DataSanitizer.sanitizeMessage = function (message) {
+                        if (message) {
+                            if (message.length > DataSanitizer.MAX_MESSAGE_LENGTH) {
+                                message = message.substring(0, DataSanitizer.MAX_MESSAGE_LENGTH);
+                                ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.WARNING, ApplicationInsights._InternalMessageId.MessageTruncated, "message is too long, it has been truncated to " + DataSanitizer.MAX_MESSAGE_LENGTH + " characters.", { message: message }, true);
+                            }
+                        }
+                        return message;
+                    };
+                    DataSanitizer.sanitizeException = function (exception) {
+                        if (exception) {
+                            if (exception.length > DataSanitizer.MAX_EXCEPTION_LENGTH) {
+                                exception = exception.substring(0, DataSanitizer.MAX_EXCEPTION_LENGTH);
+                                ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.WARNING, ApplicationInsights._InternalMessageId.ExceptionTruncated, "exception is too long, it has been truncated to " + DataSanitizer.MAX_EXCEPTION_LENGTH + " characters.", { exception: exception }, true);
+                            }
+                        }
+                        return exception;
+                    };
+                    DataSanitizer.sanitizeProperties = function (properties) {
+                        if (properties) {
+                            var tempProps = {};
+                            for (var prop in properties) {
+                                var value = DataSanitizer.sanitizeString(properties[prop], DataSanitizer.MAX_PROPERTY_LENGTH);
+                                prop = DataSanitizer.sanitizeKeyAndAddUniqueness(prop, tempProps);
+                                tempProps[prop] = value;
+                            }
+                            properties = tempProps;
+                        }
+                        return properties;
+                    };
+                    DataSanitizer.sanitizeMeasurements = function (measurements) {
+                        if (measurements) {
+                            var tempMeasurements = {};
+                            for (var measure in measurements) {
+                                var value = measurements[measure];
+                                measure = DataSanitizer.sanitizeKeyAndAddUniqueness(measure, tempMeasurements);
+                                tempMeasurements[measure] = value;
+                            }
+                            measurements = tempMeasurements;
+                        }
+                        return measurements;
+                    };
+                    DataSanitizer.sanitizeId = function (id) {
+                        return id ? DataSanitizer.sanitizeInput(id, DataSanitizer.MAX_ID_LENGTH, ApplicationInsights._InternalMessageId.IdTooLong).toString() : id;
+                    };
+                    DataSanitizer.sanitizeInput = function (input, maxLength, _msgId) {
+                        if (input) {
+                            input = ApplicationInsights.Util.trim(input);
+                            if (input.length > maxLength) {
+                                input = input.substring(0, maxLength);
+                                ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.WARNING, _msgId, "input is too long, it has been truncated to " + maxLength + " characters.", { data: input }, true);
+                            }
+                        }
+                        return input;
+                    };
+                    DataSanitizer.padNumber = function (num) {
+                        var s = "00" + num;
+                        return s.substr(s.length - 3);
+                    };
+                    /**
+                    * Max length allowed for custom names.
+                    */
+                    DataSanitizer.MAX_NAME_LENGTH = 150;
+                    /**
+                     * Max length allowed for Id field in page views.
+                     */
+                    DataSanitizer.MAX_ID_LENGTH = 128;
+                    /**
+                     * Max length allowed for custom values.
+                     */
+                    DataSanitizer.MAX_PROPERTY_LENGTH = 8192;
+                    /**
+                     * Max length allowed for names
+                     */
+                    DataSanitizer.MAX_STRING_LENGTH = 1024;
+                    /**
+                     * Max length allowed for url.
+                     */
+                    DataSanitizer.MAX_URL_LENGTH = 2048;
+                    /**
+                     * Max length allowed for messages.
+                     */
+                    DataSanitizer.MAX_MESSAGE_LENGTH = 32768;
+                    /**
+                     * Max length allowed for exceptions.
+                     */
+                    DataSanitizer.MAX_EXCEPTION_LENGTH = 32768;
+                    return DataSanitizer;
+                }());
+                Common.DataSanitizer = DataSanitizer;
+            })(Common = Telemetry.Common || (Telemetry.Common = {}));
+        })(Telemetry = ApplicationInsights.Telemetry || (ApplicationInsights.Telemetry = {}));
+    })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
+})(Microsoft || (Microsoft = {}));
+/// <reference path="../../JavaScriptSDK.Interfaces/Telemetry/ISerializable.ts" />
+/// <reference path="../../JavaScriptSDK.Interfaces/Contracts/Generated/PageViewData.ts" />
+/// <reference path="../../JavaScriptSDK.Interfaces/Contracts/Generated/RemoteDependencyData.ts"/>
+/// <reference path="../Serializer.ts" />
+/// <reference path="./Common/DataSanitizer.ts"/>
+var Microsoft;
+(function (Microsoft) {
+    var ApplicationInsights;
+    (function (ApplicationInsights) {
+        var Telemetry;
+        (function (Telemetry) {
+            "use strict";
+            var RemoteDependencyData = /** @class */ (function (_super) {
+                __extends(RemoteDependencyData, _super);
+                /**
+                 * Constructs a new instance of the RemoteDependencyData object
+                 */
+                function RemoteDependencyData(id, absoluteUrl, commandName, value, success, resultCode, method, properties, measurements) {
+                    var _this = _super.call(this) || this;
+                    _this.aiDataContract = {
+                        id: ApplicationInsights.FieldType.Required,
+                        ver: ApplicationInsights.FieldType.Required,
+                        name: ApplicationInsights.FieldType.Default,
+                        resultCode: ApplicationInsights.FieldType.Default,
+                        duration: ApplicationInsights.FieldType.Default,
+                        success: ApplicationInsights.FieldType.Default,
+                        data: ApplicationInsights.FieldType.Default,
+                        target: ApplicationInsights.FieldType.Default,
+                        type: ApplicationInsights.FieldType.Default,
+                        properties: ApplicationInsights.FieldType.Default,
+                        measurements: ApplicationInsights.FieldType.Default,
+                        kind: ApplicationInsights.FieldType.Default,
+                        value: ApplicationInsights.FieldType.Default,
+                        count: ApplicationInsights.FieldType.Default,
+                        min: ApplicationInsights.FieldType.Default,
+                        max: ApplicationInsights.FieldType.Default,
+                        stdDev: ApplicationInsights.FieldType.Default,
+                        dependencyKind: ApplicationInsights.FieldType.Default,
+                        dependencySource: ApplicationInsights.FieldType.Default,
+                        commandName: ApplicationInsights.FieldType.Default,
+                        dependencyTypeName: ApplicationInsights.FieldType.Default,
+                    };
+                    _this.id = id;
+                    _this.duration = ApplicationInsights.Util.msToTimeSpan(value);
+                    _this.success = success;
+                    _this.resultCode = resultCode + "";
+                    _this.type = "Ajax";
+                    _this.data = Telemetry.Common.DataSanitizer.sanitizeUrl(commandName);
+                    var dependencyFields = ApplicationInsights.AjaxHelper.ParseDependencyPath(absoluteUrl, method, commandName);
+                    _this.target = dependencyFields.target;
+                    _this.name = dependencyFields.name;
+                    _this.properties = ApplicationInsights.Telemetry.Common.DataSanitizer.sanitizeProperties(properties);
+                    _this.measurements = ApplicationInsights.Telemetry.Common.DataSanitizer.sanitizeMeasurements(measurements);
+                    return _this;
+                }
+                RemoteDependencyData.envelopeType = "Microsoft.ApplicationInsights.{0}.RemoteDependency";
+                RemoteDependencyData.dataType = "RemoteDependencyData";
+                return RemoteDependencyData;
+            }(AI.RemoteDependencyData));
+            Telemetry.RemoteDependencyData = RemoteDependencyData;
+        })(Telemetry = ApplicationInsights.Telemetry || (ApplicationInsights.Telemetry = {}));
+    })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
+})(Microsoft || (Microsoft = {}));
 /// <reference path="../Logging.ts" />
 /// <reference path="../Util.ts" />
 /// <reference path="./ajaxUtils.ts" />
 /// <reference path="./ajaxRecord.ts" />
+/// <reference path="../RequestResponseHeaders.ts" />
+/// <reference path="../Telemetry/RemoteDependencyData.ts" />
+/// <reference path="../AppInsights.ts" />
 var Microsoft;
 (function (Microsoft) {
     var ApplicationInsights;
@@ -2000,7 +2421,9 @@ var Microsoft;
                 };
             };
             AjaxMonitor.prototype.openHandler = function (xhr, method, url, async) {
-                var ajaxData = new ApplicationInsights.ajaxRecord(ApplicationInsights.Util.newId());
+                // this format corresponds with activity logic on server-side and is required for the correct correlation
+                var id = "|" + this.appInsights.context.operation.id + "." + ApplicationInsights.Util.newId();
+                var ajaxData = new ApplicationInsights.ajaxRecord(id);
                 ajaxData.method = method;
                 ajaxData.requestUrl = url;
                 ajaxData.xhrMonitoringState.openDone = true;
@@ -2039,12 +2462,16 @@ var Microsoft;
             };
             AjaxMonitor.prototype.sendHandler = function (xhr, content) {
                 xhr.ajaxData.requestSentTime = ApplicationInsights.dateTime.Now();
-                // Add correlation headers only for requests within the same host and port number
-                // For cross- origin requests we need to ensure that x- ms -* headers are present in `Access-Control-Allow-Headers` header (OPTIONS response)
-                if (!this.appInsights.config.disableCorrelationHeaders && (ApplicationInsights.UrlHelper.parseUrl(xhr.ajaxData.getAbsoluteUrl()).host == this.currentWindowHost)) {
-                    var rootId = this.appInsights.context.operation.id;
-                    xhr.setRequestHeader("x-ms-request-root-id", rootId);
-                    xhr.setRequestHeader("x-ms-request-id", xhr.ajaxData.id);
+                var absoluteUrl = xhr.ajaxData.getAbsoluteUrl();
+                if (ApplicationInsights.UrlHelper.parseUrl(absoluteUrl).host === this.currentWindowHost
+                    && ApplicationInsights.CorrelationIdHelper.canIncludeCorrelationHeader(this.appInsights.config, absoluteUrl)) {
+                    xhr.setRequestHeader(ApplicationInsights.RequestHeaders.requestIdHeader, xhr.ajaxData.id);
+                    if (this.appInsights.context) {
+                        var appId = this.appInsights.context.appId();
+                        if (appId) {
+                            xhr.setRequestHeader(ApplicationInsights.RequestHeaders.requestContextHeader, ApplicationInsights.RequestHeaders.requestContextAppIdFormat + appId);
+                        }
+                    }
                 }
                 xhr.ajaxData.xhrMonitoringState.sendDone = true;
             };
@@ -2101,8 +2528,32 @@ var Microsoft;
                     });
                 }
                 else {
-                    this.appInsights.trackDependency(xhr.ajaxData.id, xhr.ajaxData.method, xhr.ajaxData.getAbsoluteUrl(), xhr.ajaxData.getPathName(), xhr.ajaxData.ajaxTotalDuration, (+(xhr.ajaxData.status)) >= 200 && (+(xhr.ajaxData.status)) < 400, +xhr.ajaxData.status);
+                    var dependency = new ApplicationInsights.Telemetry.RemoteDependencyData(xhr.ajaxData.id, xhr.ajaxData.getAbsoluteUrl(), xhr.ajaxData.getPathName(), xhr.ajaxData.ajaxTotalDuration, (+(xhr.ajaxData.status)) >= 200 && (+(xhr.ajaxData.status)) < 400, +xhr.ajaxData.status, xhr.ajaxData.method);
+                    // enrich dependency target with correlation context from the server
+                    var correlationContext = this.getCorrelationContext(xhr);
+                    if (correlationContext) {
+                        dependency.target = dependency.target + " | " + correlationContext;
+                    }
+                    this.appInsights.trackDependencyData(dependency);
                     xhr.ajaxData = null;
+                }
+            };
+            AjaxMonitor.prototype.getCorrelationContext = function (xhr) {
+                try {
+                    var responseHeadersString = xhr.getAllResponseHeaders();
+                    if (responseHeadersString !== null) {
+                        var index = responseHeadersString.toLowerCase().indexOf(ApplicationInsights.RequestHeaders.requestContextHeaderLowerCase);
+                        if (index !== -1) {
+                            var responseHeader = xhr.getResponseHeader(ApplicationInsights.RequestHeaders.requestContextHeader);
+                            return ApplicationInsights.CorrelationIdHelper.getCorrelationContext(responseHeader);
+                        }
+                    }
+                }
+                catch (e) {
+                    ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.WARNING, ApplicationInsights._InternalMessageId.FailedMonitorAjaxGetCorrelationHeader, "Failed to get Request-Context correlation header as it may be not included in the response or not accessible.", {
+                        ajaxDiagnosticsMessage: AjaxMonitor.getFailedAjaxDiagnosticsMessage(xhr),
+                        exception: Microsoft.ApplicationInsights.Util.dump(e)
+                    });
                 }
             };
             AjaxMonitor.instrumentedByAppInsightsName = "InstrumentedByAppInsights";
@@ -2479,7 +2930,9 @@ var Microsoft;
                     }
                 }
                 catch (e) {
-                    ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.CRITICAL, ApplicationInsights._InternalMessageId.InvalidBackendResponse, "Cannot parse the response. " + ApplicationInsights.Util.getExceptionName(e));
+                    ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.CRITICAL, ApplicationInsights._InternalMessageId.InvalidBackendResponse, "Cannot parse the response. " + ApplicationInsights.Util.getExceptionName(e), {
+                        response: response
+                    });
                 }
                 return null;
             };
@@ -2548,6 +3001,8 @@ var Microsoft;
              *
              * Note: XDomainRequest does not support sync requests. This 'isAsync' parameter is added
              * to maintain consistency with the xhrSender's contract
+             * Note: XDomainRequest does not support custom headers and we are not able to get
+             * appId from the backend for the correct correlation.
              */
             Sender.prototype._xdrSender = function (payload, isAsync) {
                 var _this = this;
@@ -2574,6 +3029,8 @@ var Microsoft;
              * Send Beacon API request
              * @param payload {string} - The data payload to be sent.
              * @param isAsync {boolean} - not used
+             * Note: Beacon API does not support custom headers and we are not able to get
+             * appId from the backend for the correct correlation.
              */
             Sender.prototype._beaconSender = function (payload, isAsync) {
                 var url = this._config.endpointUrl();
@@ -2595,6 +3052,13 @@ var Microsoft;
              */
             Sender.prototype._xhrReadyStateChange = function (xhr, payload, countOfItemsInPayload) {
                 if (xhr.readyState === 4) {
+                    var response = null;
+                    if (!this._appId) {
+                        response = this._parseResponse(xhr.responseText || xhr.response);
+                        if (response && response.appId) {
+                            this._appId = response.appId;
+                        }
+                    }
                     if ((xhr.status < 200 || xhr.status >= 300) && xhr.status !== 0) {
                         if (!this._config.isRetryDisabled() && this._isRetriable(xhr.status)) {
                             this._resendPayload(payload);
@@ -2607,7 +3071,9 @@ var Microsoft;
                     }
                     else {
                         if (xhr.status === 206) {
-                            var response = this._parseResponse(xhr.responseText || xhr.response);
+                            if (!response) {
+                                response = this._parseResponse(xhr.responseText || xhr.response);
+                            }
                             if (response && !this._config.isRetryDisabled()) {
                                 this._onPartialSuccess(payload, response);
                             }
@@ -2699,23 +3165,6 @@ var Microsoft;
     })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
 })(Microsoft || (Microsoft = {}));
 // THIS FILE WAS AUTOGENERATED
-var Microsoft;
-(function (Microsoft) {
-    var Telemetry;
-    (function (Telemetry) {
-        "use strict";
-        /**
-         * The abstract common base of all domains.
-         */
-        var Domain = /** @class */ (function () {
-            function Domain() {
-            }
-            return Domain;
-        }());
-        Telemetry.Domain = Domain;
-    })(Telemetry = Microsoft.Telemetry || (Microsoft.Telemetry = {}));
-})(Microsoft || (Microsoft = {}));
-// THIS FILE WAS AUTOGENERATED
 /// <reference path="Domain.ts" />
 /// <reference path="SeverityLevel.ts" />
 var AI;
@@ -2736,140 +3185,6 @@ var AI;
     }(Microsoft.Telemetry.Domain));
     AI.MessageData = MessageData;
 })(AI || (AI = {}));
-/// <reference path="../../Logging.ts" />
-/// <reference path="../../Util.ts"/>
-var Microsoft;
-(function (Microsoft) {
-    var ApplicationInsights;
-    (function (ApplicationInsights) {
-        var Telemetry;
-        (function (Telemetry) {
-            var Common;
-            (function (Common) {
-                "use strict";
-                var DataSanitizer = /** @class */ (function () {
-                    function DataSanitizer() {
-                    }
-                    DataSanitizer.sanitizeKeyAndAddUniqueness = function (key, map) {
-                        var origLength = key.length;
-                        var field = DataSanitizer.sanitizeKey(key);
-                        // validation truncated the length.  We need to add uniqueness
-                        if (field.length !== origLength) {
-                            var i = 0;
-                            var uniqueField = field;
-                            while (map[uniqueField] !== undefined) {
-                                i++;
-                                uniqueField = field.substring(0, DataSanitizer.MAX_NAME_LENGTH - 3) + DataSanitizer.padNumber(i);
-                            }
-                            field = uniqueField;
-                        }
-                        return field;
-                    };
-                    DataSanitizer.sanitizeKey = function (name) {
-                        if (name) {
-                            // Remove any leading or trailing whitepace
-                            name = ApplicationInsights.Util.trim(name.toString());
-                            // truncate the string to 150 chars
-                            if (name.length > DataSanitizer.MAX_NAME_LENGTH) {
-                                name = name.substring(0, DataSanitizer.MAX_NAME_LENGTH);
-                                ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.WARNING, ApplicationInsights._InternalMessageId.NameTooLong, "name is too long.  It has been truncated to " + DataSanitizer.MAX_NAME_LENGTH + " characters.", { name: name }, true);
-                            }
-                        }
-                        return name;
-                    };
-                    DataSanitizer.sanitizeString = function (value) {
-                        if (value) {
-                            value = ApplicationInsights.Util.trim(value);
-                            if (value.toString().length > DataSanitizer.MAX_STRING_LENGTH) {
-                                value = value.toString().substring(0, DataSanitizer.MAX_STRING_LENGTH);
-                                ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.WARNING, ApplicationInsights._InternalMessageId.StringValueTooLong, "string value is too long. It has been truncated to " + DataSanitizer.MAX_STRING_LENGTH + " characters.", { value: value }, true);
-                            }
-                        }
-                        return value;
-                    };
-                    DataSanitizer.sanitizeUrl = function (url) {
-                        if (url) {
-                            url = ApplicationInsights.Util.trim(url);
-                            if (url.length > DataSanitizer.MAX_URL_LENGTH) {
-                                url = url.substring(0, DataSanitizer.MAX_URL_LENGTH);
-                                ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.WARNING, ApplicationInsights._InternalMessageId.UrlTooLong, "url is too long, it has been truncated to " + DataSanitizer.MAX_URL_LENGTH + " characters.", { url: url }, true);
-                            }
-                        }
-                        return url;
-                    };
-                    DataSanitizer.sanitizeMessage = function (message) {
-                        if (message) {
-                            if (message.length > DataSanitizer.MAX_MESSAGE_LENGTH) {
-                                message = message.substring(0, DataSanitizer.MAX_MESSAGE_LENGTH);
-                                ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.WARNING, ApplicationInsights._InternalMessageId.MessageTruncated, "message is too long, it has been truncated to " + DataSanitizer.MAX_MESSAGE_LENGTH + " characters.", { message: message }, true);
-                            }
-                        }
-                        return message;
-                    };
-                    DataSanitizer.sanitizeException = function (exception) {
-                        if (exception) {
-                            if (exception.length > DataSanitizer.MAX_EXCEPTION_LENGTH) {
-                                exception = exception.substring(0, DataSanitizer.MAX_EXCEPTION_LENGTH);
-                                ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.WARNING, ApplicationInsights._InternalMessageId.ExceptionTruncated, "exception is too long, it has been truncated to " + DataSanitizer.MAX_EXCEPTION_LENGTH + " characters.", { exception: exception }, true);
-                            }
-                        }
-                        return exception;
-                    };
-                    DataSanitizer.sanitizeProperties = function (properties) {
-                        if (properties) {
-                            var tempProps = {};
-                            for (var prop in properties) {
-                                var value = DataSanitizer.sanitizeString(properties[prop]);
-                                prop = DataSanitizer.sanitizeKeyAndAddUniqueness(prop, tempProps);
-                                tempProps[prop] = value;
-                            }
-                            properties = tempProps;
-                        }
-                        return properties;
-                    };
-                    DataSanitizer.sanitizeMeasurements = function (measurements) {
-                        if (measurements) {
-                            var tempMeasurements = {};
-                            for (var measure in measurements) {
-                                var value = measurements[measure];
-                                measure = DataSanitizer.sanitizeKeyAndAddUniqueness(measure, tempMeasurements);
-                                tempMeasurements[measure] = value;
-                            }
-                            measurements = tempMeasurements;
-                        }
-                        return measurements;
-                    };
-                    DataSanitizer.padNumber = function (num) {
-                        var s = "00" + num;
-                        return s.substr(s.length - 3);
-                    };
-                    /**
-                    * Max length allowed for custom names.
-                    */
-                    DataSanitizer.MAX_NAME_LENGTH = 150;
-                    /**
-                     * Max length allowed for custom values.
-                     */
-                    DataSanitizer.MAX_STRING_LENGTH = 1024;
-                    /**
-                     * Max length allowed for url.
-                     */
-                    DataSanitizer.MAX_URL_LENGTH = 2048;
-                    /**
-                     * Max length allowed for messages.
-                     */
-                    DataSanitizer.MAX_MESSAGE_LENGTH = 32768;
-                    /**
-                     * Max length allowed for exceptions.
-                     */
-                    DataSanitizer.MAX_EXCEPTION_LENGTH = 32768;
-                    return DataSanitizer;
-                }());
-                Common.DataSanitizer = DataSanitizer;
-            })(Common = Telemetry.Common || (Telemetry.Common = {}));
-        })(Telemetry = ApplicationInsights.Telemetry || (ApplicationInsights.Telemetry = {}));
-    })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
-})(Microsoft || (Microsoft = {}));
 /// <reference path="../../JavaScriptSDK.Interfaces/Contracts/Generated/MessageData.ts" />
 /// <reference path="./Common/DataSanitizer.ts"/>
 var Microsoft;
@@ -2908,27 +3223,6 @@ var Microsoft;
         })(Telemetry = ApplicationInsights.Telemetry || (ApplicationInsights.Telemetry = {}));
     })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
 })(Microsoft || (Microsoft = {}));
-// THIS FILE WAS AUTOGENERATED
-/// <reference path="Domain.ts" />
-var AI;
-(function (AI) {
-    "use strict";
-    /**
-     * Instances of Event represent structured event records that can be grouped and searched by their properties. Event data item also creates a metric of event count by name.
-     */
-    var EventData = /** @class */ (function (_super) {
-        __extends(EventData, _super);
-        function EventData() {
-            var _this = _super.call(this) || this;
-            _this.ver = 2;
-            _this.properties = {};
-            _this.measurements = {};
-            return _this;
-        }
-        return EventData;
-    }(Microsoft.Telemetry.Domain));
-    AI.EventData = EventData;
-})(AI || (AI = {}));
 /// <reference path="../../JavaScriptSDK.Interfaces/Telemetry/ISerializable.ts" />
 /// <reference path="../../JavaScriptSDK.Interfaces/Contracts/Generated/EventData.ts" />
 /// <reference path="../Serializer.ts" />
@@ -3310,27 +3604,6 @@ var Microsoft;
         })(Telemetry = ApplicationInsights.Telemetry || (ApplicationInsights.Telemetry = {}));
     })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
 })(Microsoft || (Microsoft = {}));
-// THIS FILE WAS AUTOGENERATED
-/// <reference path="EventData.ts" />
-var AI;
-(function (AI) {
-    "use strict";
-    /**
-     * An instance of PageView represents a generic action on a page like a button click. It is also the base type for PageView.
-     */
-    var PageViewData = /** @class */ (function (_super) {
-        __extends(PageViewData, _super);
-        function PageViewData() {
-            var _this = _super.call(this) || this;
-            _this.ver = 2;
-            _this.properties = {};
-            _this.measurements = {};
-            return _this;
-        }
-        return PageViewData;
-    }(AI.EventData));
-    AI.PageViewData = PageViewData;
-})(AI || (AI = {}));
 /// <reference path="../../JavaScriptSDK.Interfaces/Contracts/Generated/PageViewData.ts" />
 /// <reference path="./Common/DataSanitizer.ts"/>
 var Microsoft;
@@ -3345,7 +3618,7 @@ var Microsoft;
                 /**
                  * Constructs a new instance of the PageEventTelemetry object
                  */
-                function PageView(name, url, durationMs, properties, measurements) {
+                function PageView(name, url, durationMs, properties, measurements, id) {
                     var _this = _super.call(this) || this;
                     _this.aiDataContract = {
                         ver: ApplicationInsights.FieldType.Required,
@@ -3353,8 +3626,10 @@ var Microsoft;
                         url: ApplicationInsights.FieldType.Default,
                         duration: ApplicationInsights.FieldType.Default,
                         properties: ApplicationInsights.FieldType.Default,
-                        measurements: ApplicationInsights.FieldType.Default
+                        measurements: ApplicationInsights.FieldType.Default,
+                        id: ApplicationInsights.FieldType.Default,
                     };
+                    _this.id = Telemetry.Common.DataSanitizer.sanitizeId(id);
                     _this.url = Telemetry.Common.DataSanitizer.sanitizeUrl(url);
                     _this.name = Telemetry.Common.DataSanitizer.sanitizeString(name) || ApplicationInsights.Util.NotSpecified;
                     if (!isNaN(durationMs)) {
@@ -3574,8 +3849,14 @@ var Microsoft;
         "use strict";
         var TelemetryContext = /** @class */ (function () {
             function TelemetryContext(config) {
+                var _this = this;
                 this._config = config;
                 this._sender = new ApplicationInsights.Sender(config);
+                this.appId = function () { return _this._sender._appId; };
+                // use appId set in config instead of getting it from the backend
+                if (config.appId()) {
+                    this._sender._appId = config.appId();
+                }
                 this.telemetryInitializers = [];
                 // window will be undefined in node.js where we do not want to initialize contexts
                 if (typeof window !== 'undefined') {
@@ -4098,106 +4379,6 @@ var Microsoft;
         })(Telemetry = ApplicationInsights.Telemetry || (ApplicationInsights.Telemetry = {}));
     })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
 })(Microsoft || (Microsoft = {}));
-// THIS FILE WAS AUTOGENERATED
-/// <reference path="Domain.ts" />
-var AI;
-(function (AI) {
-    "use strict";
-    /**
-     * An instance of Remote Dependency represents an interaction of the monitored component with a remote component/service like SQL or an HTTP endpoint.
-     */
-    var RemoteDependencyData = /** @class */ (function (_super) {
-        __extends(RemoteDependencyData, _super);
-        function RemoteDependencyData() {
-            var _this = _super.call(this) || this;
-            _this.ver = 2;
-            _this.success = true;
-            _this.properties = {};
-            _this.measurements = {};
-            return _this;
-        }
-        return RemoteDependencyData;
-    }(Microsoft.Telemetry.Domain));
-    AI.RemoteDependencyData = RemoteDependencyData;
-})(AI || (AI = {}));
-/// <reference path="../../JavaScriptSDK.Interfaces/Telemetry/ISerializable.ts" />
-/// <reference path="../../JavaScriptSDK.Interfaces/Contracts/Generated/PageViewData.ts" />
-/// <reference path="../../JavaScriptSDK.Interfaces/Contracts/Generated/RemoteDependencyData.ts"/>
-/// <reference path="../Serializer.ts" />
-/// <reference path="./Common/DataSanitizer.ts"/>
-var Microsoft;
-(function (Microsoft) {
-    var ApplicationInsights;
-    (function (ApplicationInsights) {
-        var Telemetry;
-        (function (Telemetry) {
-            "use strict";
-            var RemoteDependencyData = /** @class */ (function (_super) {
-                __extends(RemoteDependencyData, _super);
-                /**
-                 * Constructs a new instance of the RemoteDependencyData object
-                 */
-                function RemoteDependencyData(id, absoluteUrl, commandName, value, success, resultCode, method, properties, measurements) {
-                    var _this = _super.call(this) || this;
-                    _this.aiDataContract = {
-                        id: ApplicationInsights.FieldType.Required,
-                        ver: ApplicationInsights.FieldType.Required,
-                        name: ApplicationInsights.FieldType.Default,
-                        resultCode: ApplicationInsights.FieldType.Default,
-                        duration: ApplicationInsights.FieldType.Default,
-                        success: ApplicationInsights.FieldType.Default,
-                        data: ApplicationInsights.FieldType.Default,
-                        target: ApplicationInsights.FieldType.Default,
-                        type: ApplicationInsights.FieldType.Default,
-                        properties: ApplicationInsights.FieldType.Default,
-                        measurements: ApplicationInsights.FieldType.Default,
-                        kind: ApplicationInsights.FieldType.Default,
-                        value: ApplicationInsights.FieldType.Default,
-                        count: ApplicationInsights.FieldType.Default,
-                        min: ApplicationInsights.FieldType.Default,
-                        max: ApplicationInsights.FieldType.Default,
-                        stdDev: ApplicationInsights.FieldType.Default,
-                        dependencyKind: ApplicationInsights.FieldType.Default,
-                        dependencySource: ApplicationInsights.FieldType.Default,
-                        commandName: ApplicationInsights.FieldType.Default,
-                        dependencyTypeName: ApplicationInsights.FieldType.Default,
-                    };
-                    _this.id = id;
-                    _this.duration = ApplicationInsights.Util.msToTimeSpan(value);
-                    _this.success = success;
-                    _this.resultCode = resultCode + "";
-                    _this.type = "Ajax";
-                    _this.data = Telemetry.Common.DataSanitizer.sanitizeUrl(commandName);
-                    if (absoluteUrl && absoluteUrl.length > 0) {
-                        var parsedUrl = ApplicationInsights.UrlHelper.parseUrl(absoluteUrl);
-                        _this.target = parsedUrl.host;
-                        if (parsedUrl.pathname != null) {
-                            var pathName = (parsedUrl.pathname.length === 0) ? "/" : parsedUrl.pathname;
-                            if (pathName.charAt(0) !== '/') {
-                                pathName = "/" + pathName;
-                            }
-                            _this.name = Telemetry.Common.DataSanitizer.sanitizeString(method ? method + " " + pathName : pathName);
-                        }
-                        else {
-                            _this.name = Telemetry.Common.DataSanitizer.sanitizeString(absoluteUrl);
-                        }
-                    }
-                    else {
-                        _this.target = commandName;
-                        _this.name = commandName;
-                    }
-                    _this.properties = ApplicationInsights.Telemetry.Common.DataSanitizer.sanitizeProperties(properties);
-                    _this.measurements = ApplicationInsights.Telemetry.Common.DataSanitizer.sanitizeMeasurements(measurements);
-                    return _this;
-                }
-                RemoteDependencyData.envelopeType = "Microsoft.ApplicationInsights.{0}.RemoteDependency";
-                RemoteDependencyData.dataType = "RemoteDependencyData";
-                return RemoteDependencyData;
-            }(AI.RemoteDependencyData));
-            Telemetry.RemoteDependencyData = RemoteDependencyData;
-        })(Telemetry = ApplicationInsights.Telemetry || (ApplicationInsights.Telemetry = {}));
-    })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
-})(Microsoft || (Microsoft = {}));
 /// <reference path="./HashCodeScoreGenerator.ts" />
 var Microsoft;
 (function (Microsoft) {
@@ -4239,7 +4420,7 @@ var Microsoft;
     var ApplicationInsights;
     (function (ApplicationInsights) {
         "use strict";
-        ApplicationInsights.Version = "1.0.15";
+        ApplicationInsights.Version = "1.0.17";
         /**
          * The main API that sends telemetry to Application Insights.
          * Learn more: http://go.microsoft.com/fwlink/?LinkID=401493
@@ -4288,7 +4469,8 @@ var Microsoft;
                     isRetryDisabled: function () { return _this.config.isRetryDisabled; },
                     isBeaconApiDisabled: function () { return _this.config.isBeaconApiDisabled; },
                     sdkExtension: function () { return _this.config.sdkExtension; },
-                    isBrowserLinkTrackingEnabled: function () { return _this.config.isBrowserLinkTrackingEnabled; }
+                    isBrowserLinkTrackingEnabled: function () { return _this.config.isBrowserLinkTrackingEnabled; },
+                    appId: function () { return _this.config.appId; },
                 };
                 if (this.config.isCookieUseDisabled) {
                     ApplicationInsights.Util.disableCookies();
@@ -4326,7 +4508,7 @@ var Microsoft;
                 }
             }
             AppInsights.prototype.sendPageViewInternal = function (name, url, duration, properties, measurements) {
-                var pageView = new ApplicationInsights.Telemetry.PageView(name, url, duration, properties, measurements);
+                var pageView = new ApplicationInsights.Telemetry.PageView(name, url, duration, properties, measurements, this.context.operation.id);
                 var data = new ApplicationInsights.Telemetry.Common.Data(ApplicationInsights.Telemetry.PageView.dataType, pageView);
                 var envelope = new ApplicationInsights.Telemetry.Common.Envelope(data, ApplicationInsights.Telemetry.PageView.envelopeType);
                 this.context.track(envelope);
@@ -4445,17 +4627,32 @@ var Microsoft;
              * @param id    unique id, this is used by the backend o correlate server requests. Use Util.newId() to generate a unique Id.
              * @param method    represents request verb (GET, POST, etc.)
              * @param absoluteUrl   absolute url used to make the dependency request
-             * @param pathName  the path part of the absolute url
+             * @param command   command name
              * @param totalTime total request time
              * @param success   indicates if the request was sessessful
              * @param resultCode    response code returned by the dependency request
              * @param properties    map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
              * @param measurements  map[string, number] - metrics associated with this event, displayed in Metrics Explorer on the portal. Defaults to empty.
              */
-            AppInsights.prototype.trackDependency = function (id, method, absoluteUrl, pathName, totalTime, success, resultCode, properties, measurements) {
+            AppInsights.prototype.trackDependency = function (id, method, absoluteUrl, command, totalTime, success, resultCode, properties, measurements) {
                 if (this.config.maxAjaxCallsPerView === -1 ||
                     this._trackAjaxAttempts < this.config.maxAjaxCallsPerView) {
-                    var dependency = new ApplicationInsights.Telemetry.RemoteDependencyData(id, absoluteUrl, pathName, totalTime, success, resultCode, method, properties, measurements);
+                    var dependency = new ApplicationInsights.Telemetry.RemoteDependencyData(id, absoluteUrl, command, totalTime, success, resultCode, method, properties, measurements);
+                    var dependencyData = new ApplicationInsights.Telemetry.Common.Data(ApplicationInsights.Telemetry.RemoteDependencyData.dataType, dependency);
+                    var envelope = new ApplicationInsights.Telemetry.Common.Envelope(dependencyData, ApplicationInsights.Telemetry.RemoteDependencyData.envelopeType);
+                    this.context.track(envelope);
+                }
+                else if (this._trackAjaxAttempts === this.config.maxAjaxCallsPerView) {
+                    ApplicationInsights._InternalLogging.throwInternal(ApplicationInsights.LoggingSeverity.CRITICAL, ApplicationInsights._InternalMessageId.MaxAjaxPerPVExceeded, "Maximum ajax per page view limit reached, ajax monitoring is paused until the next trackPageView(). In order to increase the limit set the maxAjaxCallsPerView configuration parameter.", true);
+                }
+                ++this._trackAjaxAttempts;
+            };
+            /**
+            * Logs dependency call
+            * @param dependencyData dependency data object
+            */
+            AppInsights.prototype.trackDependencyData = function (dependency) {
+                if (this.config.maxAjaxCallsPerView === -1 || this._trackAjaxAttempts < this.config.maxAjaxCallsPerView) {
                     var dependencyData = new ApplicationInsights.Telemetry.Common.Data(ApplicationInsights.Telemetry.RemoteDependencyData.dataType, dependency);
                     var envelope = new ApplicationInsights.Telemetry.Common.Envelope(dependencyData, ApplicationInsights.Telemetry.RemoteDependencyData.envelopeType);
                     this.context.track(envelope);
@@ -4898,6 +5095,12 @@ var Microsoft;
                 config.maxAjaxCallsPerView = !isNaN(config.maxAjaxCallsPerView) ? config.maxAjaxCallsPerView : 500;
                 config.isBeaconApiDisabled = ApplicationInsights.Util.stringToBoolOrDefault(config.isBeaconApiDisabled, true);
                 config.disableCorrelationHeaders = ApplicationInsights.Util.stringToBoolOrDefault(config.disableCorrelationHeaders);
+                config.correlationHeaderExcludedDomains = config.correlationHeaderExcludedDomains || [
+                    "*.blob.core.windows.net",
+                    "*.blob.core.chinacloudapi.cn",
+                    "*.blob.core.cloudapi.de",
+                    "*.blob.core.usgovcloudapi.net"
+                ];
                 config.disableFlushOnBeforeUnload = ApplicationInsights.Util.stringToBoolOrDefault(config.disableFlushOnBeforeUnload);
                 config.enableSessionStorageBuffer = ApplicationInsights.Util.stringToBoolOrDefault(config.enableSessionStorageBuffer, true);
                 config.isRetryDisabled = ApplicationInsights.Util.stringToBoolOrDefault(config.isRetryDisabled);
