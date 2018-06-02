@@ -23,10 +23,10 @@ namespace JLattimer.D365AppInsights
         private readonly AiProperties _eventProperties;
         private static HttpClient _httpClient;
 
-        public AiLogger(string secureConfig, IOrganizationService service, ITracingService tracingService,
+        public AiLogger(string aiSetupJson, IOrganizationService service, ITracingService tracingService,
             IExecutionContext executionContext, Dictionary<string, object> workflowContextDetails = null)
         {
-            AiConfig aiConfig = new AiConfig(secureConfig);
+            AiConfig aiConfig = new AiConfig(aiSetupJson);
             _instrumentationKey = aiConfig.InstrumentationKey;
             _loggingEndpoint = aiConfig.AiEndpoint;
             _disableTraceTracking = aiConfig.DisableTraceTracking;

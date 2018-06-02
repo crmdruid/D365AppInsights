@@ -14,9 +14,9 @@ namespace JLattimer.D365AppInsights
         public bool DisableContextParameterTracking { get; set; }
         public bool EnableDebug { get; set; }
 
-        public AiConfig(string secureConfig)
+        public AiConfig(string aiSetupJson)
         {
-            AiSetup aiSetup = SerializationHelper.DeserializeObject<AiSetup>(secureConfig);
+            AiSetup aiSetup = SerializationHelper.DeserializeObject<AiSetup>(aiSetupJson);
 
             var aiEndpoint = aiSetup.AiEndpoint;
             if (string.IsNullOrEmpty(aiEndpoint))
