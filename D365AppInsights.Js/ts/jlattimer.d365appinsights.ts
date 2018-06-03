@@ -1,5 +1,5 @@
 ﻿/// <reference path="../node_modules/@types/xrm/index.d.ts" />
-/// <reference path="../scripts/ai.1.0.15-build03916.d.ts" />
+/// <reference path="../scripts/ai.1.0.17-build01715.d.ts" />
 
 namespace AiFormLogger {
     declare var impersonatingUserId: string;
