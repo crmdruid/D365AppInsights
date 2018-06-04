@@ -34,7 +34,7 @@ namespace D365AppInsights.Workflow.Tests
         [TestMethod]
         public void DependencyTest()
         {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
 
             var inputs = new Dictionary<string, object>
             {
@@ -59,7 +59,7 @@ namespace D365AppInsights.Workflow.Tests
         [TestMethod]
         public void Dependency_Missing_Name_Test()
         {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
 
             var inputs = new Dictionary<string, object>
             {

@@ -33,7 +33,7 @@ namespace D365AppInsights.Workflow.Tests
         [TestMethod]
         public void EventTest()
         {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
 
             var inputs = new Dictionary<string, object>
             {
@@ -54,7 +54,7 @@ namespace D365AppInsights.Workflow.Tests
         [TestMethod]
         public void Event_Float_Value_Test()
         {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
 
             var inputs = new Dictionary<string, object>
             {
@@ -75,7 +75,7 @@ namespace D365AppInsights.Workflow.Tests
         [TestMethod]
         public void Event_Missing_Name_Test()
         {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
 
             var inputs = new Dictionary<string, object>
             {
@@ -96,7 +96,7 @@ namespace D365AppInsights.Workflow.Tests
         [TestMethod]
         public void Event_Invalid_Measurement_Name_Test()
         {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
 
             var inputs = new Dictionary<string, object>
             {

@@ -33,7 +33,7 @@ namespace D365AppInsights.Workflow.Tests
         [TestMethod]
         public void TraceTest()
         {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
 
             var inputs = new Dictionary<string, object>
             {
@@ -53,7 +53,7 @@ namespace D365AppInsights.Workflow.Tests
         [TestMethod]
         public void Trace_Null_Severity_Test()
         {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
 
             var inputs = new Dictionary<string, object>
             {
@@ -73,7 +73,7 @@ namespace D365AppInsights.Workflow.Tests
         [TestMethod]
         public void Trace_Invalid_Severity_Test()
         {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext();
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
 
             var inputs = new Dictionary<string, object>
             {
