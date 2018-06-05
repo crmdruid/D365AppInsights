@@ -37,7 +37,7 @@ namespace D365AppInsights.Shared.Tests
 
             AiLogger aiLogger = new AiLogger(secureConfig, fakedService, fakedTracingService, xrmFakedPluginExecution);
 
-            bool result = aiLogger.WriteDependency(DateTime.UtcNow, "https://www.test1.com/test/123", "GET", AiDependencyType.HTTP.ToString(), 2346, 200, true, "Hello from DependencyTest - 0");
+            bool result = aiLogger.WriteDependency("https://www.test1.com/test/123", "GET", AiDependencyType.HTTP.ToString(), 2346, 200, true, "Hello from DependencyTest - 0");
 
             Assert.IsTrue(result);
         }

@@ -3,6 +3,7 @@ using JLattimer.D365AppInsights;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xrm.Sdk;
 using System;
+using System.Collections.Generic;
 
 namespace D365AppInsights.Action.Tests
 {
@@ -111,12 +112,12 @@ namespace D365AppInsights.Action.Tests
             xrmFakedPluginExecution.InputParameters = GetInputParameters();
 
             xrmFakedPluginExecution.OutputParameters = new ParameterCollection {
-                new System.Collections.Generic.KeyValuePair<string, object>("name", "Hello from MetricTest - 1"),
-                new System.Collections.Generic.KeyValuePair<string, object>("value", 34),
-                new System.Collections.Generic.KeyValuePair<string, object>("count", 1),
-                new System.Collections.Generic.KeyValuePair<string, object>("min", 34),
-                new System.Collections.Generic.KeyValuePair<string, object>("max", 34),
-                new System.Collections.Generic.KeyValuePair<string, object>("stddev", 0)
+                new KeyValuePair<string, object>("name", "Hello from MetricTest - 1"),
+                new KeyValuePair<string, object>("value", 34),
+                new KeyValuePair<string, object>("count", 1),
+                new KeyValuePair<string, object>("min", 34),
+                new KeyValuePair<string, object>("max", 34),
+                new KeyValuePair<string, object>("stddev", 0)
             };
 
             context.ExecutePluginWithConfigurations<LogMetric>(xrmFakedPluginExecution, null, secureConfig);
@@ -127,8 +128,8 @@ namespace D365AppInsights.Action.Tests
         private static ParameterCollection GetInputParameters()
         {
             return new ParameterCollection {
-                new System.Collections.Generic.KeyValuePair<string, object>("name", "Hello from MetricTest - 1"),
-                new System.Collections.Generic.KeyValuePair<string, object>("value", 34)
+                new KeyValuePair<string, object>("name", "Hello from MetricTest - 1"),
+                new KeyValuePair<string, object>("value", 34)
             };
         }
     }

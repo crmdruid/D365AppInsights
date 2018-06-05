@@ -4,6 +4,7 @@ using JLattimer.D365AppInsights;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xrm.Sdk;
 using System;
+using System.Collections.Generic;
 
 namespace D365AppInsights.Action.Tests
 {
@@ -136,13 +137,13 @@ namespace D365AppInsights.Action.Tests
         private static ParameterCollection GetInputParameters()
         {
             return new ParameterCollection {
-                new System.Collections.Generic.KeyValuePair<string, object>("name", "https://www.testapi.com/user/7"),
-                new System.Collections.Generic.KeyValuePair<string, object>("method", "GET"),
-                new System.Collections.Generic.KeyValuePair<string, object>("type", "HTTP"),
-                new System.Collections.Generic.KeyValuePair<string, object>("duration", 213),
-                new System.Collections.Generic.KeyValuePair<string, object>("resultcode", 200),
-                new System.Collections.Generic.KeyValuePair<string, object>("success", true),
-                new System.Collections.Generic.KeyValuePair<string, object>("data", "Hello from DependencyTest - 1")
+                new KeyValuePair<string, object>("name", "https://www.testapi.com/user/7"),
+                new KeyValuePair<string, object>("method", "GET"),
+                new KeyValuePair<string, object>("type", "HTTP"),
+                new KeyValuePair<string, object>("duration", 213),
+                new KeyValuePair<string, object>("resultcode", 200),
+                new KeyValuePair<string, object>("success", true),
+                new KeyValuePair<string, object>("data", "Hello from DependencyTest - 1")
             };
         }
     }

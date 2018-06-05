@@ -38,7 +38,7 @@ namespace D365AppInsights.Action
 
                 bool isValid = Enum.TryParse(severity, out AiTraceSeverity traceSeverity);
 
-                bool result = aiLogger.WriteTrace(DateTime.UtcNow, message, isValid
+                bool result = aiLogger.WriteTrace(message, isValid
                     ? traceSeverity
                     : AiTraceSeverity.Information);
 

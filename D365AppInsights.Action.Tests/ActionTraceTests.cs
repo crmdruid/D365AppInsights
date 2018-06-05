@@ -3,6 +3,7 @@ using JLattimer.D365AppInsights;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xrm.Sdk;
 using System;
+using System.Collections.Generic;
 
 namespace D365AppInsights.Action.Tests
 {
@@ -89,8 +90,8 @@ namespace D365AppInsights.Action.Tests
         private static ParameterCollection GetInputParameters()
         {
             return new ParameterCollection {
-                new System.Collections.Generic.KeyValuePair<string, object>("message", "Hello from TraceTest - 1"),
-                new System.Collections.Generic.KeyValuePair<string, object>("severity", "Warning")
+                new KeyValuePair<string, object>("message", "Hello from TraceTest - 1"),
+                new KeyValuePair<string, object>("severity", "Warning")
             };
         }
     }

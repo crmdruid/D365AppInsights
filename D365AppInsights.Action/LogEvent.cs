@@ -50,7 +50,7 @@ namespace D365AppInsights.Action
                 else
                     measurements.Add(measurementName, null);
 
-                bool result = aiLogger.WriteEvent(DateTime.UtcNow, name, measurements);
+                bool result = aiLogger.WriteEvent(name, measurements);
 
                 ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, result, null);
             }
@@ -59,35 +59,5 @@ namespace D365AppInsights.Action
                 ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, e.Message);
             }
         }
-
-        // This would have been used to convert a JSON string into the Dictionary<string, double> objects
-        // Maybe this will get implemented at some point
-        //private static Dictionary<string, double> GetMeasurementsFromInput(string measurementsInput, ITracingService tracer)
-        //{
-        //    try
-        //    {
-        //        JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-        //        object dictionary = jsSerializer.DeserializeObject(measurementsInput);
-        //        Dictionary<string, object> unconvertedMeasurements = (Dictionary<string, object>)dictionary;
-
-        //        Dictionary<String, double> measurements = new Dictionary<string, double>();
-        //        foreach (KeyValuePair<string, object> keyValuePair in unconvertedMeasurements)
-        //        {
-        //            var type = keyValuePair.Value.GetType();
-
-        //            if (type == typeof(Int32))
-        //                measurements.Add(keyValuePair.Key, Convert.ToDouble(keyValuePair.Value));
-        //            else if (type == typeof(double))
-        //                measurements.Add(keyValuePair.Key, (double)keyValuePair.Value);
-        //        }
-
-        //        return measurements;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        tracer.Trace($"Error deserializing measurements: {e.Message}");
-        //        throw;
-        //    }
-        //}
     }
 }

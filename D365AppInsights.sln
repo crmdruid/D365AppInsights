@@ -46,8 +46,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Action.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Shared.Tests", "D365AppInsights.Shared.Tests\D365AppInsights.Shared.Tests.csproj", "{45C18ACD-4467-4883-AEE8-3FBA137673A4}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "D365AppInsights.Workflow.Shared", "D365AppInsights.Workflow.Shared\D365AppInsights.Workflow.Shared.shproj", "{EB0E658B-3404-4A35-B689-626493C029AD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Workflow.Tests", "D365AppInsights.Workflow.Tests\D365AppInsights.Workflow.Tests.csproj", "{27C0F6FA-1B9B-431F-AFBD-1F7F0EBA9AE0}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "D365AppInsights.Shared.Tests.Common", "D365AppInsights.Shared.Tests.Common\D365AppInsights.Shared.Tests.Common.shproj", "{5A5E6D7D-6AA9-45E4-A251-19F592B431D6}"
@@ -69,7 +67,6 @@ Global
 		D365AppInsights.Shared\D365AppInsights.Shared.projitems*{9a5277e5-7184-4726-91d5-9b201f1811bf}*SharedItemsImports = 4
 		D365AppInsights.Shared\D365AppInsights.Shared.projitems*{9adca6a3-54d2-4816-bf5e-e418ed3764eb}*SharedItemsImports = 13
 		D365AppInsights.Shared\D365AppInsights.Shared.projitems*{ad22de1a-5502-46c9-92cd-db55626ba765}*SharedItemsImports = 4
-		D365AppInsights.Workflow.Shared\D365AppInsights.Workflow.Shared.projitems*{eb0e658b-3404-4a35-b689-626493c029ad}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

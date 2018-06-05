@@ -43,7 +43,7 @@ namespace D365AppInsights.Action
                     return;
                 }
 
-                bool result = aiLogger.WriteMetric(DateTime.UtcNow, name, (int)value, count, min, max, stdDev);
+                bool result = aiLogger.WriteMetric(name, (int)value, count, min, max, stdDev);
 
                 ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, result, null);
             }

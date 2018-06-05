@@ -46,7 +46,7 @@ namespace D365AppInsights.Shared.Tests
             };
 
             AiLogger aiLogger = new AiLogger(secureConfig, fakedService, fakedTracingService, xrmFakedPluginExecution);
-            bool result = aiLogger.WriteTrace(DateTime.UtcNow, "Hello from TraceTest - 0", AiTraceSeverity.Information);
+            bool result = aiLogger.WriteTrace("Hello from TraceTest - 0", AiTraceSeverity.Information);
 
             Assert.IsTrue(result);
         }

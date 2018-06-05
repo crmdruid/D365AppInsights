@@ -4,6 +4,7 @@ namespace JLattimer.D365AppInsights
 {
     public class AiConfig
     {
+        private const string DefaultAiEndpoint = "https://dc.services.visualstudio.com/v2/track";
         public string InstrumentationKey { get; set; }
         public string AiEndpoint { get; set; }
         public bool DisableTraceTracking { get; set; }
@@ -14,13 +15,15 @@ namespace JLattimer.D365AppInsights
         public bool DisableContextParameterTracking { get; set; }
         public bool EnableDebug { get; set; }
 
+        public AiConfig(string instrumentationKey, string aiEndpoint = DefaultAiEndpoint) { }
+
         public AiConfig(string aiSetupJson)
         {
             AiSetup aiSetup = SerializationHelper.DeserializeObject<AiSetup>(aiSetupJson);
 
             var aiEndpoint = aiSetup.AiEndpoint;
             if (string.IsNullOrEmpty(aiEndpoint))
-                throw new InvalidPluginExecutionException("Missing Application Insights logging endpoint url");
+                aiEndpoint = DefaultAiEndpoint;
 
             var instrumentationKey = aiSetup.InstrumentationKey;
             if (string.IsNullOrEmpty(instrumentationKey))

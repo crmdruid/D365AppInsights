@@ -47,7 +47,7 @@ namespace D365AppInsights.Shared.Tests
                 { "Click1", 33 }
             };
 
-            bool result = aiLogger.WriteEvent(DateTime.UtcNow, "Hello from EventTest - 0", measurements);
+            bool result = aiLogger.WriteEvent("Hello from EventTest - 0", measurements);
 
             Assert.IsTrue(result);
         }

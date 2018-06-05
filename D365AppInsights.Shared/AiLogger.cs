@@ -1,5 +1,6 @@
 ﻿using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Workflow;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,23 +11,49 @@ namespace JLattimer.D365AppInsights
 {
     public class AiLogger
     {
-        private readonly string _instrumentationKey;
-        private readonly string _loggingEndpoint;
-        private readonly bool _disableTraceTracking;
-        private readonly bool _disableExceptionTracking;
-        private readonly bool _disableDependencyTracking;
-        private readonly bool _disableMetricTracking;
-        private readonly bool _disableEventTracking;
-        private readonly bool _enableDebug;
-        private readonly string _authenticatedUserId;
-        private readonly ITracingService _tracingService;
-        private readonly AiProperties _eventProperties;
+        private string _instrumentationKey;
+        private string _loggingEndpoint;
+        private bool _disableTraceTracking;
+        private bool _disableExceptionTracking;
+        private bool _disableDependencyTracking;
+        private bool _disableMetricTracking;
+        private bool _disableEventTracking;
+        private bool _enableDebug;
+        private string _authenticatedUserId;
+        private ITracingService _tracingService;
+        private AiProperties _eventProperties;
         private static HttpClient _httpClient;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AiLogger"/> class.
+        /// </summary>
+        /// <param name="aiSetupJson">AiSetup json.</param>
+        /// <param name="service">D365 IOrganizationService.</param>
+        /// <param name="tracingService">D365 ITracingService.</param>
+        /// <param name="executionContext">D365 IExecutionContext (IPluginExecutionContext or IWorkflowContext).</param>
         public AiLogger(string aiSetupJson, IOrganizationService service, ITracingService tracingService,
-            IExecutionContext executionContext, Dictionary<string, object> workflowContextDetails = null)
+            IExecutionContext executionContext)
         {
             AiConfig aiConfig = new AiConfig(aiSetupJson);
+            SetupAiLogger(aiConfig, service, tracingService, executionContext);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AiLogger"/> class.
+        /// </summary>
+        /// <param name="aiConfig">AiConfiguration.</param>
+        /// <param name="service">D365 IOrganizationService.</param>
+        /// <param name="tracingService">D365 ITracingService.</param>
+        /// <param name="executionContext">D365 IExecutionContext (IPluginExecutionContext or IWorkflowContext).</param>
+        public AiLogger(AiConfig aiConfig, IOrganizationService service, ITracingService tracingService,
+            IExecutionContext executionContext)
+        {
+            SetupAiLogger(aiConfig, service, tracingService, executionContext);
+        }
+
+        private void SetupAiLogger(AiConfig aiConfig, IOrganizationService service, ITracingService tracingService,
+            IExecutionContext executionContext)
+        {
             _instrumentationKey = aiConfig.InstrumentationKey;
             _loggingEndpoint = aiConfig.AiEndpoint;
             _disableTraceTracking = aiConfig.DisableTraceTracking;
@@ -44,17 +71,26 @@ namespace JLattimer.D365AppInsights
             AddPrimaryPropertyValues(executionContext, service);
 
             if (!disableContextParameterTracking)
-                AddExecutionContextDetails(executionContext, workflowContextDetails);
+                AddExecutionContextDetails(executionContext);
         }
 
-        public bool WriteTrace(DateTime timestamp, string message, AiTraceSeverity aiTraceSeverity)
+        /// <summary>
+        /// Writes a trace message to Application Insights.
+        /// </summary>
+        /// <param name="message">The trace message.</param>
+        /// <param name="aiTraceSeverity">The severity level <see cref="AiTraceSeverity"/>.</param>
+        /// <param name="timestamp">The UTC timestamp of the event (default = DateTime.UtcNow).</param>
+        /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
+        public bool WriteTrace(string message, AiTraceSeverity aiTraceSeverity, DateTime? timestamp = null)
         {
             if (_disableTraceTracking)
                 return true;
 
+            timestamp = timestamp ?? DateTime.UtcNow;
+
             AiTrace aiTrace = new AiTrace(message, aiTraceSeverity);
 
-            string json = GetTraceJsonString(timestamp, aiTrace);
+            string json = GetTraceJsonString(timestamp.Value, aiTrace);
 
             if (_enableDebug)
                 _tracingService.Trace($"DEBUG: Application Insights JSON: {CreateJsonDataLog(json)}");
@@ -62,14 +98,23 @@ namespace JLattimer.D365AppInsights
             return SendToAi(json);
         }
 
-        public bool WriteEvent(DateTime timestamp, string name, Dictionary<string, double?> measurements)
+        /// <summary>
+        /// Writes an event message to Application Insights.
+        /// </summary>
+        /// <param name="name">The event name.</param>
+        /// <param name="measurements">The associated measurements.</param>
+        /// <param name="timestamp">The UTC timestamp of the event (default = DateTime.UtcNow).</param>
+        /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
+        public bool WriteEvent(string name, Dictionary<string, double?> measurements, DateTime? timestamp = null)
         {
             if (_disableEventTracking)
                 return true;
 
+            timestamp = timestamp ?? DateTime.UtcNow;
+
             AiEvent aiEvent = new AiEvent(name);
 
-            string json = GetEventJsonString(timestamp, aiEvent, measurements);
+            string json = GetEventJsonString(timestamp.Value, aiEvent, measurements);
 
             if (_enableDebug)
                 _tracingService.Trace($"DEBUG: Application Insights JSON: {CreateJsonDataLog(json)}");
@@ -77,14 +122,23 @@ namespace JLattimer.D365AppInsights
             return SendToAi(json);
         }
 
-        public bool WriteException(DateTime timestamp, Exception e, AiExceptionSeverity severity)
+        /// <summary>
+        /// Writes exception data to Application Insights.
+        /// </summary>
+        /// <param name="exception">The exception being logged.</param>
+        /// <param name="aiExceptionSeverity">The severity level <see cref="AiExceptionSeverity"/>.</param>
+        /// <param name="timestamp">The UTC timestamp of the event (default = DateTime.UtcNow).</param>
+        /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
+        public bool WriteException(Exception exception, AiExceptionSeverity aiExceptionSeverity, DateTime? timestamp = null)
         {
             if (_disableExceptionTracking)
                 return true;
 
-            AiException aiException = new AiException(e, severity);
+            timestamp = timestamp ?? DateTime.UtcNow;
 
-            string json = GetExceptionJsonString(timestamp, aiException);
+            AiException aiException = new AiException(exception, aiExceptionSeverity);
+
+            string json = GetExceptionJsonString(timestamp.Value, aiException);
 
             if (_enableDebug)
                 _tracingService.Trace($"DEBUG: Application Insights JSON: {CreateJsonDataLog(json)}");
@@ -92,14 +146,27 @@ namespace JLattimer.D365AppInsights
             return SendToAi(json);
         }
 
-        public bool WriteMetric(DateTime timestamp, string name, int value, int? count, int? min, int? max, int? stdDev)
+        /// <summary>
+        /// Writes a metric message to Application Insights.
+        /// </summary>
+        /// <param name="name">The metric name.</param>
+        /// <param name="value">The metric value.</param>
+        /// <param name="count">The count of metrics being logged (default = 1).</param>
+        /// <param name="min">The minimum value of metrics being logged (default = value).</param>
+        /// <param name="max">The maximum value of metrics being logged (default = value).</param>
+        /// <param name="stdDev">The standard deviantion of metrics being logged (default = 0).</param>
+        /// <param name="timestamp">The UTC timestamp of the event (default = DateTime.UtcNow).</param>
+        /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
+        public bool WriteMetric(string name, int value, int? count, int? min, int? max, int? stdDev, DateTime? timestamp = null)
         {
             if (_disableMetricTracking)
                 return true;
 
+            timestamp = timestamp ?? DateTime.UtcNow;
+
             AiMetric metric = new AiMetric(name, value, count, min, max, stdDev);
 
-            string json = GetMetricJsonString(timestamp, metric);
+            string json = GetMetricJsonString(timestamp.Value, metric);
 
             if (_enableDebug)
                 _tracingService.Trace($"DEBUG: Application Insights JSON: {CreateJsonDataLog(json)}");
@@ -107,17 +174,30 @@ namespace JLattimer.D365AppInsights
             return SendToAi(json);
         }
 
-        public bool WriteDependency(DateTime timestamp, string name, string method, string type, int duration,
-            int? resultCode,
-            bool success, string data)
+        /// <summary>
+        /// Writes a dependency message to Application Insights.
+        /// </summary>
+        /// <param name="name">The dependency name.</param>
+        /// <param name="method">The associated HTTP method.</param>
+        /// <param name="type">The type of dependency (Ajax, HTTP, SQL, etc.).</param>
+        /// <param name="duration">The duration in ms of the event.</param>
+        /// <param name="resultCode">The result code, HTTP or otherwise.</param>
+        /// <param name="success">Set to <c>true</c> if the event was successful, <c>false</c> otherwise.</param>
+        /// <param name="data">Any other data associated with the event.</param>
+        /// <param name="timestamp">The UTC timestamp of the event (default = DateTime.UtcNow).</param>
+        /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
+        public bool WriteDependency(string name, string method, string type, int duration, int? resultCode, 
+            bool success, string data, DateTime? timestamp = null)
         {
             if (_disableDependencyTracking)
                 return true;
 
+            timestamp = timestamp ?? DateTime.UtcNow;
+
             AiDependency dependency =
                 new AiDependency(_eventProperties, name, method, type, duration, resultCode, success, data);
 
-            string json = GetDependencyJsonString(timestamp, dependency, null);
+            string json = GetDependencyJsonString(timestamp.Value, dependency, null);
 
             if (_enableDebug)
                 _tracingService.Trace($"DEBUG: Application Insights JSON: {CreateJsonDataLog(json)}");
@@ -311,8 +391,7 @@ namespace JLattimer.D365AppInsights
             _eventProperties.OrgVersion = GetVersion(service);
         }
 
-        private void AddExecutionContextDetails(IExecutionContext executionContext,
-            Dictionary<string, object> workflowContextDetails)
+        private void AddExecutionContextDetails(IExecutionContext executionContext)
         {
             _eventProperties.ImpersonatingUserId = executionContext.UserId.ToString();
             _eventProperties.CorrelationId = executionContext.CorrelationId.ToString();
@@ -326,8 +405,8 @@ namespace JLattimer.D365AppInsights
                 AddPluginExecutionContextDetails((IPluginExecutionContext)executionContext);
 
             if (executionContext.GetType().Name.Contains("CodeActivityContext")
-                || executionContext.GetType().Name.Contains("WorkflowContext") && workflowContextDetails != null)
-                AddWorkflowExecutionContextDetails(workflowContextDetails);
+                || executionContext.GetType().Name.Contains("WorkflowContext"))
+                AddWorkflowExecutionContextDetails((IWorkflowContext) executionContext);
         }
 
         private void AddPluginExecutionContextDetails(IPluginExecutionContext pluginExecutionContext)
@@ -336,13 +415,10 @@ namespace JLattimer.D365AppInsights
             _eventProperties.Source = "Plug-in";
         }
 
-        private void AddWorkflowExecutionContextDetails(Dictionary<string, object> workflowContextDetails)
+        private void AddWorkflowExecutionContextDetails(IWorkflowContext workflowContext)
         {
             _eventProperties.Source = "Workflow";
-            bool hasWorkflowCategory =
-                workflowContextDetails.TryGetValue("WorkflowCategory", out object workflowCategory);
-            if (hasWorkflowCategory)
-                _eventProperties.WorkflowCategory = workflowCategory.ToString();
+            _eventProperties.WorkflowCategory = GetWorkflowCategoryName(workflowContext.WorkflowCategory);
         }
 
         private static string TrimPropertyValueLength(string value)
@@ -441,6 +517,25 @@ namespace JLattimer.D365AppInsights
         private static string CreateJsonDataLog(string json)
         {
             return json.Replace("{", "{{").Replace("}", "}}");
+        }
+
+        private static string GetWorkflowCategoryName(int category)
+        {
+            switch (category)
+            {
+                case 0:
+                    return "Workflow";
+                case 1:
+                    return "Dialog";
+                case 2:
+                    return "Business Rule";
+                case 3:
+                    return "Action";
+                case 4:
+                    return "Business Process Flow";
+                default:
+                    return "Unknown";
+            }
         }
     }
 }

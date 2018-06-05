@@ -45,7 +45,7 @@ namespace D365AppInsights.Shared.Tests
 
             Exception e = new ArgumentException("Hello from ExceptionTest - 0");
 
-            bool result = aiLogger.WriteException(DateTime.UtcNow, e, AiExceptionSeverity.Error);
+            bool result = aiLogger.WriteException(e, AiExceptionSeverity.Error);
 
             Assert.IsTrue(result);
         }
