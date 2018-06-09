@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
+using System;
 
 namespace JLattimer.D365AppInsights
 {
@@ -15,7 +16,11 @@ namespace JLattimer.D365AppInsights
         public bool DisableContextParameterTracking { get; set; }
         public bool EnableDebug { get; set; }
 
-        public AiConfig(string instrumentationKey, string aiEndpoint = DefaultAiEndpoint) { }
+        public AiConfig(Guid instrumentationKey, string aiEndpoint = DefaultAiEndpoint)
+        {
+            InstrumentationKey = instrumentationKey.ToString();
+            AiEndpoint = aiEndpoint;
+        }
 
         public AiConfig(string aiSetupJson)
         {
@@ -28,6 +33,9 @@ namespace JLattimer.D365AppInsights
             var instrumentationKey = aiSetup.InstrumentationKey;
             if (string.IsNullOrEmpty(instrumentationKey))
                 throw new InvalidPluginExecutionException("Missing Application Insights instrumentation key");
+
+            if (instrumentationKey == "YOUR AI INSTRUMENTATION KEY")
+                throw new InvalidPluginExecutionException("Application Insights instrumentation key not set");
 
             InstrumentationKey = instrumentationKey;
             AiEndpoint = aiEndpoint;

@@ -1,7 +1,7 @@
 ﻿using JLattimer.D365AppInsights;
 using System;
 
-namespace AppInsightsShared.Tests
+namespace D365AppInsights.Shared.Tests.Common
 {
     public class Configs
     {

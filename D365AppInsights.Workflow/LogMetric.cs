@@ -1,13 +1,16 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using JLattimer.D365AppInsights;
 using Microsoft.Xrm.Sdk.Workflow;
 using System;
 using System.Activities;
-using System.Collections.Generic;
 
 namespace D365AppInsights.Workflow
 {
     public sealed class LogMetric : WorkFlowActivityBase
     {
+        [RequiredArgument]
+        [Input("AI Setup JSON")]
+        public InArgument<string> AiSetupJson { get; set; }
+
         [RequiredArgument]
         [Input("Name")]
         public InArgument<string> Name { get; set; }
@@ -40,44 +43,20 @@ namespace D365AppInsights.Workflow
             if (localContext == null)
                 throw new ArgumentNullException(nameof(localContext));
 
+            string aiSetupJson = AiSetupJson.Get(context);
+            AiLogger aiLogger = new AiLogger(aiSetupJson, localContext.OrganizationService, localContext.TracingService,
+                localContext.WorkflowExecutionContext, null, localContext.WorkflowExecutionContext.WorkflowCategory);
+
             string name = Name.Get(context);
-            int? value = MetricValue.Get(context);
+            int value = MetricValue.Get(context);
             int? count = Count.Get(context);
             int? min = Min.Get(context);
             int? max = Max.Get(context);
             int stdDev = StdDev.Get(context);
 
-            if (string.IsNullOrEmpty(name))
-            {
-                localContext.TracingService.Trace("Name must be populated");
-                LogSuccess.Set(context, false);
-                return;
-            }
+            bool logSuccess = aiLogger.WriteMetric(name, value, count, min, max, stdDev);
 
-            OrganizationRequest request = new OrganizationRequest
-            {
-                RequestName = "lat_ApplicationInsightsLogMetric",
-                Parameters = new ParameterCollection
-                {
-                    new KeyValuePair<string, object>("name", name),
-                    new KeyValuePair<string, object>("value", value),
-                    new KeyValuePair<string, object>("count", count),
-                    new KeyValuePair<string, object>("min", min),
-                    new KeyValuePair<string, object>("max", max),
-                    new KeyValuePair<string, object>("stddev", stdDev)
-                }
-            };
-
-            OrganizationResponse response = localContext.OrganizationService.Execute(request);
-
-            bool hasLogSuccess = response.Results.TryGetValue("logsuccess", out object objLogSuccess);
-            if (hasLogSuccess)
-            {
-                LogSuccess.Set(context, (bool)objLogSuccess);
-                return;
-            }
-
-            LogSuccess.Set(context, false);
+            LogSuccess.Set(context, logSuccess);
         }
     }
 }

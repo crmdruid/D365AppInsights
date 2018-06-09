@@ -27,6 +27,17 @@ namespace JLattimer.D365AppInsights
         [DataMember(Name = "type")]
         public string Type { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AiDependency"/> class.
+        /// </summary>
+        /// <param name="properties">The D365 specific AI properties.</param>
+        /// <param name="name">The dependency name or absolute URL.</param>
+        /// <param name="method">The HTTP method (only logged with URL).</param>
+        /// <param name="type">The type of dependency (Ajax, HTTP, SQL, etc.).</param>
+        /// <param name="duration">he duration in ms of the dependent event.</param>
+        /// <param name="resultCode">The result code, HTTP or otherwise.</param>
+        /// <param name="success">Set to <c>true</c> if the dependent event was successful, <c>false</c> otherwise.</param>
+        /// <param name="data">Any other data associated with the dependent event (ignored with URL).</param>
         public AiDependency(AiProperties properties, string name, string method,
             string type, int duration, int? resultCode, bool success, string data)
         {
@@ -60,7 +71,7 @@ namespace JLattimer.D365AppInsights
 
         private static Uri CreateUri(string name)
         {
-            bool isUri = Uri.TryCreate(name, UriKind.RelativeOrAbsolute, out Uri uri);
+            bool isUri = Uri.TryCreate(name, UriKind.Absolute, out Uri uri);
             return isUri ? uri : null;
         }
     }

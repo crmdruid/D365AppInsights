@@ -1,4 +1,5 @@
-﻿using FakeXrmEasy;
+﻿using D365AppInsights.Shared.Tests.Common;
+using FakeXrmEasy;
 using FakeXrmEasy.FakeMessageExecutors;
 using JLattimer.D365AppInsights;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -34,11 +35,27 @@ namespace D365AppInsights.Workflow.Tests
         [TestMethod]
         public void DependencyTest()
         {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
+            Guid userId = Guid.Parse("9e7ec57b-3a08-4a41-a4d4-354d66f19b65");
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext
+            {
+                WorkflowCategory = 0,
+                InitiatingUserId = userId,
+                UserId = userId,
+                CorrelationId = Guid.Parse("15cc775b-9ebc-48d1-93a6-b0ce9c920b66"),
+                MessageName = "Update",
+                Mode = 1,
+                Depth = 1,
+                OrganizationName = "test.crm.dynamics.com",
+                OperationCreatedOn = DateTime.Now
+            };
+
+            var aiSetup = Configs.GetAiSetup(false, false, false, false, false, false, true);
+            string aiSetupJson = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
 
             var inputs = new Dictionary<string, object>
             {
-                { "Name", "Hello from EventTest - 2" },
+                { "AiSetupJson", aiSetupJson },
+                { "Name", "Hello from DependencyTest - 2" },
                 { "Method", "GET" },
                 { "Type", AiDependencyType.HTTP.ToString() },
                 { "Duration", 12356 },
@@ -54,31 +71,6 @@ namespace D365AppInsights.Workflow.Tests
             var result = xrmFakedContext.ExecuteCodeActivity<LogDependency>(workflowContext, inputs);
 
             Assert.IsTrue(bool.Parse(result["LogSuccess"].ToString()));
-        }
-
-        [TestMethod]
-        public void Dependency_Missing_Name_Test()
-        {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
-
-            var inputs = new Dictionary<string, object>
-            {
-                { "Name", null },
-                { "Method", "GET" },
-                { "Type", AiDependencyType.HTTP.ToString() },
-                { "Duration", 12356 },
-                { "ResultCode", 200 },
-                { "Success", true },
-                { "Data", "Hello from DependencyTest - 2" }
-            };
-
-            XrmFakedContext xrmFakedContext = new XrmFakedContext();
-            var fakeLogActionExecutor = new FakeLogActionExecutor("lat_ApplicationInsightsLogDependency");
-            xrmFakedContext.AddFakeMessageExecutor<OrganizationRequest>(fakeLogActionExecutor);
-
-            var result = xrmFakedContext.ExecuteCodeActivity<LogDependency>(workflowContext, inputs);
-
-            Assert.IsFalse(bool.Parse(result["LogSuccess"].ToString()));
         }
 
         private class FakeLogActionExecutor : IFakeMessageExecutor

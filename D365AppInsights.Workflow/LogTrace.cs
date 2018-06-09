@@ -1,14 +1,16 @@
 ﻿using JLattimer.D365AppInsights;
-using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
 using System;
 using System.Activities;
-using System.Collections.Generic;
 
 namespace D365AppInsights.Workflow
 {
     public sealed class LogTrace : WorkFlowActivityBase
     {
+        [RequiredArgument]
+        [Input("AI Setup JSON")]
+        public InArgument<string> AiSetupJson { get; set; }
+
         [RequiredArgument]
         [Input("Message")]
         public InArgument<string> Message { get; set; }
@@ -28,6 +30,10 @@ namespace D365AppInsights.Workflow
             if (localContext == null)
                 throw new ArgumentNullException(nameof(localContext));
 
+            string aiSetupJson = AiSetupJson.Get(context);
+            AiLogger aiLogger = new AiLogger(aiSetupJson, localContext.OrganizationService, localContext.TracingService,
+                localContext.WorkflowExecutionContext, null, localContext.WorkflowExecutionContext.WorkflowCategory);
+
             string message = Message.Get(context);
             string severity = Severity.Get(context);
 
@@ -39,26 +45,11 @@ namespace D365AppInsights.Workflow
                 return;
             }
 
-            OrganizationRequest request = new OrganizationRequest
-            {
-                RequestName = "lat_ApplicationInsightsLogTrace",
-                Parameters = new ParameterCollection
-                {
-                    new KeyValuePair<string, object>("message", message),
-                    new KeyValuePair<string, object>("severity", severity)
-                }
-            };
+            Enum.TryParse(severity, out AiTraceSeverity traceSeverity);
 
-            OrganizationResponse response = localContext.OrganizationService.Execute(request);
+            bool logSuccess = aiLogger.WriteTrace(message, traceSeverity);
 
-            bool hasLogSuccess = response.Results.TryGetValue("logsuccess", out object objLogSuccess);
-            if (hasLogSuccess)
-            {
-                LogSuccess.Set(context, (bool)objLogSuccess);
-                return;
-            }
-
-            LogSuccess.Set(context, false);
+            LogSuccess.Set(context, logSuccess);
         }
     }
 }

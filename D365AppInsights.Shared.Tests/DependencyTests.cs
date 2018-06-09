@@ -3,6 +3,7 @@ using JLattimer.D365AppInsights;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xrm.Sdk;
 using System;
+using D365AppInsights.Shared.Tests.Common;
 
 namespace D365AppInsights.Shared.Tests
 {
@@ -12,8 +13,7 @@ namespace D365AppInsights.Shared.Tests
         [TestMethod]
         public void DependencyTest()
         {
-            AiSetup aiSetup =
-                AppInsightsShared.Tests.Configs.GetAiSetup(false, false, false, false, false, false, true);
+            AiSetup aiSetup = Configs.GetAiSetup(false, false, false, false, false, false, true);
 
             string secureConfig = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
 
@@ -28,16 +28,18 @@ namespace D365AppInsights.Shared.Tests
             xrmFakedPluginExecution.CorrelationId = Guid.Parse("15cc775b-9ebc-48d1-93a6-b0ce9c920b66");
             xrmFakedPluginExecution.PrimaryEntityName = "account";
             xrmFakedPluginExecution.PrimaryEntityId = Guid.Parse("f14c4d40-96e9-40a5-95b7-4028af9605de");
-            xrmFakedPluginExecution.MessageName = "update";
+            xrmFakedPluginExecution.MessageName = "Update";
             xrmFakedPluginExecution.Mode = 1;
             xrmFakedPluginExecution.Depth = 1;
             xrmFakedPluginExecution.OrganizationName = "test.crm.dynamics.com";
             xrmFakedPluginExecution.Stage = 40;
             xrmFakedPluginExecution.OperationCreatedOn = DateTime.Now;
 
-            AiLogger aiLogger = new AiLogger(secureConfig, fakedService, fakedTracingService, xrmFakedPluginExecution);
+            AiLogger aiLogger = new AiLogger(secureConfig, fakedService, fakedTracingService,
+                xrmFakedPluginExecution, xrmFakedPluginExecution.Stage, null);
 
-            bool result = aiLogger.WriteDependency("https://www.test1.com/test/123", "GET", AiDependencyType.HTTP.ToString(), 2346, 200, true, "Hello from DependencyTest - 0");
+            bool result = aiLogger.WriteDependency("https://www.test1.com/test/123", "GET",
+                AiDependencyType.HTTP.ToString(), 2346, 200, true, "Hello from DependencyTest - 0");
 
             Assert.IsTrue(result);
         }

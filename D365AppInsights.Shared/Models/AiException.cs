@@ -25,15 +25,20 @@ namespace JLattimer.D365AppInsights
         [DataMember(Name = "severityLevel")]
         public AiExceptionSeverity SeverityLevel { get; set; }
 
-        public AiException(Exception e, AiExceptionSeverity severity)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AiException"/> class.
+        /// </summary>
+        /// <param name="exception">The exception being logged.</param>
+        /// <param name="severity">The severity level <see cref="AiExceptionSeverity"/>.</param>
+        public AiException(Exception exception, AiExceptionSeverity severity)
         {
-            TypeName = e.GetType().Name.Length > 1024
-                ? e.GetType().Name.Substring(0, 1023)
-                : e.GetType().Name;
-            Message = e.Message;
-            HasFullStack = !string.IsNullOrEmpty(e.StackTrace);
-            Stack = HasFullStack ? e.StackTrace : null;
-            ParsedStacks = ExceptionHelper.GetParsedStacked(e);
+            TypeName = exception.GetType().Name.Length > 1024
+                ? exception.GetType().Name.Substring(0, 1023)
+                : exception.GetType().Name;
+            Message = exception.Message;
+            HasFullStack = !string.IsNullOrEmpty(exception.StackTrace);
+            Stack = HasFullStack ? exception.StackTrace : null;
+            ParsedStacks = ExceptionHelper.GetParsedStacked(exception);
             SeverityLevel = severity;
         }
 

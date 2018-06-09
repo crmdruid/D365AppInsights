@@ -24,7 +24,8 @@ namespace D365AppInsights.Action
 
             try
             {
-                AiLogger aiLogger = new AiLogger(_secureConfig, localContext.OrganizationService, localContext.TracingService, localContext.PluginExecutionContext);
+                AiLogger aiLogger = new AiLogger(_unsecureConfig, localContext.OrganizationService, localContext.TracingService, 
+                    localContext.PluginExecutionContext, localContext.PluginExecutionContext.Stage, null);
 
                 string name = ActionHelpers.GetInputValue<string>("name", localContext.PluginExecutionContext, localContext.TracingService);
                 int? value = ActionHelpers.GetInputValue<int?>("value", localContext.PluginExecutionContext, localContext.TracingService);

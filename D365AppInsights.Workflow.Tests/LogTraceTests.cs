@@ -4,6 +4,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
+using D365AppInsights.Shared.Tests.Common;
+using JLattimer.D365AppInsights;
 
 namespace D365AppInsights.Workflow.Tests
 {
@@ -33,10 +35,26 @@ namespace D365AppInsights.Workflow.Tests
         [TestMethod]
         public void TraceTest()
         {
-            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
+            Guid userId = Guid.Parse("9e7ec57b-3a08-4a41-a4d4-354d66f19b65");
+            XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext
+            {
+                WorkflowCategory = 0,
+                InitiatingUserId = userId,
+                UserId = userId,
+                CorrelationId = Guid.Parse("15cc775b-9ebc-48d1-93a6-b0ce9c920b66"),
+                MessageName = "Update",
+                Mode = 1,
+                Depth = 1,
+                OrganizationName = "test.crm.dynamics.com",
+                OperationCreatedOn = DateTime.Now
+            };
+
+            var aiSetup = Configs.GetAiSetup(false, false, false, false, false, false, true);
+            string aiSetupJson = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
 
             var inputs = new Dictionary<string, object>
             {
+                { "AiSetupJson", aiSetupJson },
                 { "Message", "Hello from TraceTest - 2"},
                 { "Severity", "Verbose" }
             };
@@ -55,8 +73,12 @@ namespace D365AppInsights.Workflow.Tests
         {
             XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
 
+            var aiSetup = Configs.GetAiSetup(false, false, false, false, false, false, true);
+            string aiSetupJson = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
+
             var inputs = new Dictionary<string, object>
             {
+                { "AiSetupJson", aiSetupJson },
                 { "Message", "Hello from TraceTest - 2"},
                 { "Severity", null }
             };
@@ -75,8 +97,12 @@ namespace D365AppInsights.Workflow.Tests
         {
             XrmFakedWorkflowContext workflowContext = new XrmFakedWorkflowContext { WorkflowCategory = 0 };
 
+            var aiSetup = Configs.GetAiSetup(false, false, false, false, false, false, true);
+            string aiSetupJson = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
+
             var inputs = new Dictionary<string, object>
             {
+                { "AiSetupJson", aiSetupJson },
                 { "Message", "Hello from TraceTest - 2"},
                 { "Severity", "test" }
             };

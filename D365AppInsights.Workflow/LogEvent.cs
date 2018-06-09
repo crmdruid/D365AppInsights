@@ -1,5 +1,4 @@
 ﻿using JLattimer.D365AppInsights;
-using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
 using System;
 using System.Activities;
@@ -9,6 +8,10 @@ namespace D365AppInsights.Workflow
 {
     public sealed class LogEvent : WorkFlowActivityBase
     {
+        [RequiredArgument]
+        [Input("AI Setup JSON")]
+        public InArgument<string> AiSetupJson { get; set; }
+
         [RequiredArgument]
         [Input("Name")]
         public InArgument<string> Name { get; set; }
@@ -32,16 +35,13 @@ namespace D365AppInsights.Workflow
             if (localContext == null)
                 throw new ArgumentNullException(nameof(localContext));
 
+            string aiSetupJson = AiSetupJson.Get(context);
+            AiLogger aiLogger = new AiLogger(aiSetupJson, localContext.OrganizationService, localContext.TracingService,
+                localContext.WorkflowExecutionContext, null, localContext.WorkflowExecutionContext.WorkflowCategory);
+
             string name = Name.Get(context);
             string measurementName = MeasurementName.Get(context);
             double measurementValue = MeasurementValue.Get(context);
-
-            if (string.IsNullOrEmpty(name))
-            {
-                localContext.TracingService.Trace("Name must be populated");
-                LogSuccess.Set(context, false);
-                return;
-            }
 
             string measurementNameValidationResult = AiEvent.ValidateMeasurementName(measurementName);
             if (!string.IsNullOrEmpty(measurementNameValidationResult))
@@ -51,27 +51,13 @@ namespace D365AppInsights.Workflow
                 return;
             }
 
-            OrganizationRequest request = new OrganizationRequest
-            {
-                RequestName = "lat_ApplicationInsightsLogEvent",
-                Parameters = new ParameterCollection
-                {
-                    new KeyValuePair<string, object>("name", name),
-                    new KeyValuePair<string, object>("measurementname", measurementName),
-                    new KeyValuePair<string, object>("measurementvalue", measurementValue)
-                }
+            Dictionary<string, double?> measurements = new Dictionary<string, double?> {
+                { measurementName, Convert.ToDouble(measurementValue) }
             };
 
-            OrganizationResponse response = localContext.OrganizationService.Execute(request);
+            bool logSuccess = aiLogger.WriteEvent(name, measurements);
 
-            bool hasLogSuccess = response.Results.TryGetValue("logsuccess", out object objLogSuccess);
-            if (hasLogSuccess)
-            {
-                LogSuccess.Set(context, (bool)objLogSuccess);
-                return;
-            }
-
-            LogSuccess.Set(context, false);
+            LogSuccess.Set(context, logSuccess);
         }
     }
 }

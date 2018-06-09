@@ -1,8 +1,8 @@
 ﻿using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Workflow;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Net.Http;
 using System.Text;
@@ -31,11 +31,14 @@ namespace JLattimer.D365AppInsights
         /// <param name="service">D365 IOrganizationService.</param>
         /// <param name="tracingService">D365 ITracingService.</param>
         /// <param name="executionContext">D365 IExecutionContext (IPluginExecutionContext or IWorkflowContext).</param>
+        /// <param name="pluginStage">Plug-in stage from context</param>
+        /// <param name="workflowCategory">Workflow category from context</param>
         public AiLogger(string aiSetupJson, IOrganizationService service, ITracingService tracingService,
-            IExecutionContext executionContext)
+            IExecutionContext executionContext, int? pluginStage, int? workflowCategory)
         {
+            ValidateContextSpecific(pluginStage, workflowCategory);
             AiConfig aiConfig = new AiConfig(aiSetupJson);
-            SetupAiLogger(aiConfig, service, tracingService, executionContext);
+            SetupAiLogger(aiConfig, service, tracingService, executionContext, pluginStage, workflowCategory);
         }
 
         /// <summary>
@@ -45,14 +48,25 @@ namespace JLattimer.D365AppInsights
         /// <param name="service">D365 IOrganizationService.</param>
         /// <param name="tracingService">D365 ITracingService.</param>
         /// <param name="executionContext">D365 IExecutionContext (IPluginExecutionContext or IWorkflowContext).</param>
+        /// <param name="pluginStage">Plug-in stage from context</param>
+        /// <param name="workflowCategory">Workflow category from context</param>
         public AiLogger(AiConfig aiConfig, IOrganizationService service, ITracingService tracingService,
-            IExecutionContext executionContext)
+            IExecutionContext executionContext, int? pluginStage, int? workflowCategory)
         {
-            SetupAiLogger(aiConfig, service, tracingService, executionContext);
+            ValidateContextSpecific(pluginStage, workflowCategory);
+            SetupAiLogger(aiConfig, service, tracingService, executionContext, pluginStage, workflowCategory);
+        }
+
+        [SuppressMessage("ReSharper", "ParameterOnlyUsedForPreconditionCheck.Local")]
+        private static void ValidateContextSpecific(int? pluginStage, int? workflowCategory)
+        {
+            if (pluginStage == null && workflowCategory == null)
+                throw new InvalidPluginExecutionException(
+                    "Either Plug-in Stage or Workflow Category must be passed to AiLogger");
         }
 
         private void SetupAiLogger(AiConfig aiConfig, IOrganizationService service, ITracingService tracingService,
-            IExecutionContext executionContext)
+            IExecutionContext executionContext, int? pluginStage, int? workflowCategory)
         {
             _instrumentationKey = aiConfig.InstrumentationKey;
             _loggingEndpoint = aiConfig.AiEndpoint;
@@ -71,7 +85,7 @@ namespace JLattimer.D365AppInsights
             AddPrimaryPropertyValues(executionContext, service);
 
             if (!disableContextParameterTracking)
-                AddExecutionContextDetails(executionContext);
+                AddExecutionContextDetails(executionContext, pluginStage, workflowCategory);
         }
 
         /// <summary>
@@ -88,7 +102,7 @@ namespace JLattimer.D365AppInsights
 
             timestamp = timestamp ?? DateTime.UtcNow;
 
-            AiTrace aiTrace = new AiTrace(message, aiTraceSeverity);
+            AiTrace aiTrace = new AiTrace(_eventProperties, message, aiTraceSeverity);
 
             string json = GetTraceJsonString(timestamp.Value, aiTrace);
 
@@ -112,7 +126,7 @@ namespace JLattimer.D365AppInsights
 
             timestamp = timestamp ?? DateTime.UtcNow;
 
-            AiEvent aiEvent = new AiEvent(name);
+            AiEvent aiEvent = new AiEvent(_eventProperties, name);
 
             string json = GetEventJsonString(timestamp.Value, aiEvent, measurements);
 
@@ -177,16 +191,16 @@ namespace JLattimer.D365AppInsights
         /// <summary>
         /// Writes a dependency message to Application Insights.
         /// </summary>
-        /// <param name="name">The dependency name.</param>
-        /// <param name="method">The associated HTTP method.</param>
+        /// <param name="name">The dependency name or absolute URL.</param>
+        /// <param name="method">The HTTP method (only logged with URL).</param>
         /// <param name="type">The type of dependency (Ajax, HTTP, SQL, etc.).</param>
-        /// <param name="duration">The duration in ms of the event.</param>
+        /// <param name="duration">The duration in ms of the dependent event.</param>
         /// <param name="resultCode">The result code, HTTP or otherwise.</param>
-        /// <param name="success">Set to <c>true</c> if the event was successful, <c>false</c> otherwise.</param>
-        /// <param name="data">Any other data associated with the event.</param>
-        /// <param name="timestamp">The UTC timestamp of the event (default = DateTime.UtcNow).</param>
+        /// <param name="success">Set to <c>true</c> if the dependent event was successful, <c>false</c> otherwise.</param>
+        /// <param name="data">Any other data associated with the dependent event.</param>
+        /// <param name="timestamp">The UTC timestamp of the dependent event (default = DateTime.UtcNow).</param>
         /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
-        public bool WriteDependency(string name, string method, string type, int duration, int? resultCode, 
+        public bool WriteDependency(string name, string method, string type, int duration, int? resultCode,
             bool success, string data, DateTime? timestamp = null)
         {
             if (_disableDependencyTracking)
@@ -391,7 +405,7 @@ namespace JLattimer.D365AppInsights
             _eventProperties.OrgVersion = GetVersion(service);
         }
 
-        private void AddExecutionContextDetails(IExecutionContext executionContext)
+        private void AddExecutionContextDetails(IExecutionContext executionContext, int? pluginStage, int? workflowCategory)
         {
             _eventProperties.ImpersonatingUserId = executionContext.UserId.ToString();
             _eventProperties.CorrelationId = executionContext.CorrelationId.ToString();
@@ -401,24 +415,29 @@ namespace JLattimer.D365AppInsights
             _eventProperties.InputParameters = TraceParameters(true, executionContext);
             _eventProperties.OutputParameters = TraceParameters(false, executionContext);
 
-            if (executionContext.GetType().Name.Contains("PluginExecutionContext"))
-                AddPluginExecutionContextDetails((IPluginExecutionContext)executionContext);
+            if (pluginStage != null)
+            {
+                int stage = pluginStage.Value;
+                AddPluginExecutionContextDetails(stage);
+            }
 
-            if (executionContext.GetType().Name.Contains("CodeActivityContext")
-                || executionContext.GetType().Name.Contains("WorkflowContext"))
-                AddWorkflowExecutionContextDetails((IWorkflowContext) executionContext);
+            if (workflowCategory != null)
+            {
+                int category = workflowCategory.Value;
+                AddWorkflowExecutionContextDetails(category);
+            }
         }
 
-        private void AddPluginExecutionContextDetails(IPluginExecutionContext pluginExecutionContext)
+        private void AddPluginExecutionContextDetails(int stage)
         {
-            _eventProperties.Stage = AiProperties.GetStageName(pluginExecutionContext.Stage);
             _eventProperties.Source = "Plug-in";
+            _eventProperties.Stage = AiProperties.GetStageName(stage);
         }
 
-        private void AddWorkflowExecutionContextDetails(IWorkflowContext workflowContext)
+        private void AddWorkflowExecutionContextDetails(int workflowCategory)
         {
             _eventProperties.Source = "Workflow";
-            _eventProperties.WorkflowCategory = GetWorkflowCategoryName(workflowContext.WorkflowCategory);
+            _eventProperties.WorkflowCategory = GetWorkflowCategoryName(workflowCategory);
         }
 
         private static string TrimPropertyValueLength(string value)

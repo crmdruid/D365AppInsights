@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
 
 /*
- {
+{
     "InstrumentationKey": "YOUR AI INSTRUMENTATION KEY",
     "AiEndpoint": "https://dc.services.visualstudio.com/v2/track",
     "DisableTraceTracking": false,

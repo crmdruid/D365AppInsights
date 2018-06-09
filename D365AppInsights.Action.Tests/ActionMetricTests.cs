@@ -1,4 +1,5 @@
-﻿using FakeXrmEasy;
+﻿using D365AppInsights.Shared.Tests.Common;
+using FakeXrmEasy;
 using JLattimer.D365AppInsights;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xrm.Sdk;
@@ -11,12 +12,11 @@ namespace D365AppInsights.Action.Tests
     public class ActionMetricTests
     {
         [TestMethod]
-        public void ActionMetric_Measurement_Test()
+        public void ActionMetric_Measurement_Valid_Test()
         {
-            AiSetup aiSetup =
-                AppInsightsShared.Tests.Configs.GetAiSetup(false, false, false, false, false, false, true);
+            AiSetup aiSetup = Configs.GetAiSetup(false, false, false, false, false, false, true);
 
-            string secureConfig = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
+            string unsecureConfig = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
 
             XrmFakedContext context = new XrmFakedContext();
 
@@ -25,7 +25,7 @@ namespace D365AppInsights.Action.Tests
             xrmFakedPluginExecution.InitiatingUserId = userId;
             xrmFakedPluginExecution.UserId = userId;
             xrmFakedPluginExecution.CorrelationId = Guid.Parse("15cc775b-9ebc-48d1-93a6-b0ce9c920b66");
-            xrmFakedPluginExecution.MessageName = "update";
+            xrmFakedPluginExecution.MessageName = "Update";
             xrmFakedPluginExecution.Mode = 1;
             xrmFakedPluginExecution.Depth = 1;
             xrmFakedPluginExecution.OrganizationName = "test.crm.dynamics.com";
@@ -36,7 +36,7 @@ namespace D365AppInsights.Action.Tests
 
             xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
 
-            context.ExecutePluginWithConfigurations<LogMetric>(xrmFakedPluginExecution, null, secureConfig);
+            context.ExecutePluginWithConfigurations<LogMetric>(xrmFakedPluginExecution, unsecureConfig, null);
 
             Assert.IsTrue((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
         }
@@ -44,10 +44,9 @@ namespace D365AppInsights.Action.Tests
         [TestMethod]
         public void ActionMetric_Measurement_Missing_Name_Test()
         {
-            AiSetup aiSetup =
-                AppInsightsShared.Tests.Configs.GetAiSetup(false, false, false, false, false, false, true);
+            AiSetup aiSetup = Configs.GetAiSetup(false, false, false, false, false, false, true);
 
-            string secureConfig = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
+            string unsecureConfig = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
 
             XrmFakedContext context = new XrmFakedContext();
 
@@ -58,7 +57,7 @@ namespace D365AppInsights.Action.Tests
 
             xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
 
-            context.ExecutePluginWithConfigurations<LogMetric>(xrmFakedPluginExecution, null, secureConfig);
+            context.ExecutePluginWithConfigurations<LogMetric>(xrmFakedPluginExecution, unsecureConfig, null);
 
             Assert.IsFalse((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
             Assert.IsTrue(xrmFakedPluginExecution.OutputParameters["errormessage"].ToString() == "Name must be populated");
@@ -67,10 +66,9 @@ namespace D365AppInsights.Action.Tests
         [TestMethod]
         public void ActionMetric_Measurement_Missing_Value_Test()
         {
-            AiSetup aiSetup =
-                AppInsightsShared.Tests.Configs.GetAiSetup(false, false, false, false, false, false, true);
+            AiSetup aiSetup = Configs.GetAiSetup(false, false, false, false, false, false, true);
 
-            string secureConfig = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
+            string unsecureConfig = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
 
             XrmFakedContext context = new XrmFakedContext();
 
@@ -81,7 +79,7 @@ namespace D365AppInsights.Action.Tests
 
             xrmFakedPluginExecution.OutputParameters = new ParameterCollection();
 
-            context.ExecutePluginWithConfigurations<LogMetric>(xrmFakedPluginExecution, null, secureConfig);
+            context.ExecutePluginWithConfigurations<LogMetric>(xrmFakedPluginExecution, unsecureConfig, null);
 
             Assert.IsFalse((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
             Assert.IsTrue(xrmFakedPluginExecution.OutputParameters["errormessage"].ToString() == "Value must be populated");
@@ -90,10 +88,9 @@ namespace D365AppInsights.Action.Tests
         [TestMethod]
         public void ActionMetric_Aggregate_Test()
         {
-            AiSetup aiSetup =
-                AppInsightsShared.Tests.Configs.GetAiSetup(false, false, false, false, false, false, true);
+            AiSetup aiSetup = Configs.GetAiSetup(false, false, false, false, false, false, true);
 
-            string secureConfig = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
+            string unsecureConfig = SerializationHelper.SerializeObject<AiSetup>(aiSetup);
 
             XrmFakedContext context = new XrmFakedContext();
 
@@ -120,7 +117,7 @@ namespace D365AppInsights.Action.Tests
                 new KeyValuePair<string, object>("stddev", 0)
             };
 
-            context.ExecutePluginWithConfigurations<LogMetric>(xrmFakedPluginExecution, null, secureConfig);
+            context.ExecutePluginWithConfigurations<LogMetric>(xrmFakedPluginExecution, unsecureConfig, null);
 
             Assert.IsTrue((bool)xrmFakedPluginExecution.OutputParameters["logsuccess"]);
         }

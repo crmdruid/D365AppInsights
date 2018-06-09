@@ -40,11 +40,11 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="scripts\ai.1.0.17-build01715.js" />
-    <Content Include="scripts\ai.1.0.17-build01715.min.js" />
+    <Content Include="scripts\ai.1.0.18-build01843.js" />
+    <Content Include="scripts\ai.1.0.18-build01843.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="scripts\ai.1.0.17-build01715.d.ts" />
+    <TypeScriptCompile Include="scripts\ai.1.0.18-build01843.d.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
