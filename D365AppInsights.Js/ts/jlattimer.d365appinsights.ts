@@ -2,26 +2,16 @@
 /// <reference path="../scripts/ai.1.0.18-build01843.d.ts" />
 
 namespace AiFormLogger {
-    declare var impersonatingUserId: string;
-    declare var enableDebug: boolean;
-    declare var props: Object;
-    declare var disablePageviewTracking: boolean;
-    declare var disablePageLoadTimeTracking: boolean;
-    declare var disableTraceTracking: boolean;
-    declare var disableExceptionTracking: boolean;
-    declare var disableDependencyTracking: boolean;
-    declare var disableMetricTracking: boolean;
-    declare var disableEventTracking: boolean;
-    declare var targetPage: any;
-    enableDebug = false;
-    disableTraceTracking = false;
-    disablePageviewTracking = false;
-    disablePageLoadTimeTracking = false;
-    disableExceptionTracking = false;
-    disableDependencyTracking = false;
-    disableMetricTracking = false;
-    disableEventTracking = false;
-    targetPage = window;
+    var enableDebug: boolean = false;
+    var props: Object;
+    var disablePageviewTracking: boolean = false;
+    var disablePageLoadTimeTracking: boolean = false;
+    var disableTraceTracking: boolean = false;
+    var disableExceptionTracking: boolean = false;
+    var disableDependencyTracking: boolean = false;
+    var disableMetricTracking: boolean = false;
+    var disableEventTracking: boolean = false;
+    var targetPage: any = window;
 
     export function startLogging(config?: any) {
         if (config)
