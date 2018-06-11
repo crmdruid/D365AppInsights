@@ -6,5 +6,6 @@ using System.Reflection;
 #if DEBUG
 [assembly: AssemblyInformationalVersion("1.0.2-PreRelease")]
 #else
-[assembly: AssemblyInformationalVersion("1.0.2")]
+// This also needs to be PreRelease since the Microsoft AppInsights dependencies are also PreRelease
+[assembly: AssemblyInformationalVersion("1.0.2-PreRelease")]
 #endif
