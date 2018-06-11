@@ -3,12 +3,12 @@ using System;
 
 namespace D365AppInsights.Action
 {
-    public class LogDependency : PluginBase
+    public class LogDependencyAsync : PluginBase
     {
         #region Constructor/Configuration
         private readonly string _unsecureConfig;
 
-        public LogDependency(string unsecure)
+        public LogDependencyAsync(string unsecure)
             : base(typeof(LogDependency))
         {
             _unsecureConfig = unsecure;
@@ -46,18 +46,14 @@ namespace D365AppInsights.Action
                         errorMessage = "Success must be populated";
 
                     localContext.TracingService.Trace(errorMessage);
-                    ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, errorMessage);
                     return;
                 }
 
-                bool result = aiLogger.WriteDependency(name, method, typeInput, (int)duration, resultcode, (bool)success, data);
-
-                ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, result, null);
+                aiLogger.WriteDependency(name, method, typeInput, (int)duration, resultcode, (bool)success, data);
             }
             catch (Exception e)
             {
                 localContext.TracingService.Trace($"Unhandled Exception: {e.Message}");
-                ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, e.Message);
             }
         }
     }

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace D365AppInsights.Action
 {
-    public class LogEvent : PluginBase
+    public class LogEventAsync : PluginBase
     {
         #region Constructor/Configuration
         private readonly string _unsecureConfig;
 
-        public LogEvent(string unsecure)
+        public LogEventAsync(string unsecure)
             : base(typeof(LogEvent))
         {
             _unsecureConfig = unsecure;
@@ -33,7 +33,6 @@ namespace D365AppInsights.Action
                 if (string.IsNullOrEmpty(name))
                 {
                     localContext.TracingService.Trace("Name must be populated");
-                    ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, "Name must be populated");
                     return;
                 }
 
@@ -41,7 +40,6 @@ namespace D365AppInsights.Action
                 if (!string.IsNullOrEmpty(measurementNameValidationResult))
                 {
                     localContext.TracingService.Trace(measurementNameValidationResult);
-                    ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, measurementNameValidationResult);
                     return;
                 }
 
@@ -51,14 +49,11 @@ namespace D365AppInsights.Action
                 else
                     measurements.Add(measurementName, null);
 
-                bool result = aiLogger.WriteEvent(name, measurements);
-
-                ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, result, null);
+                aiLogger.WriteEvent(name, measurements);
             }
             catch (Exception e)
             {
                 localContext.TracingService.Trace($"Unhandled Exception: {e.Message}");
-                ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, e.Message);
             }
         }
     }

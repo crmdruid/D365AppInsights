@@ -76,10 +76,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogDependencyAsync.cs" />
     <Compile Include="LogDependency.cs" />
+    <Compile Include="LogEventAsync.cs" />
     <Compile Include="LogEvent.cs" />
     <Compile Include="ActionHelpers.cs" />
+    <Compile Include="LogMetricAsync.cs" />
     <Compile Include="LogMetric.cs" />
+    <Compile Include="LogTraceAsync.cs" />
     <Compile Include="LogTrace.cs" />
     <Compile Include="PluginBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

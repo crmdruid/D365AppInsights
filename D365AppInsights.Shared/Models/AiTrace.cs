@@ -30,10 +30,10 @@ namespace JLattimer.D365AppInsights
         public static string ValidateSeverityValue(string severity)
         {
             if (string.IsNullOrEmpty(severity))
-                return "Severity cannot be null";
+                return "Invalid Severity: cannot be null";
 
             if (!Enum.IsDefined(typeof(AiTraceSeverity), severity))
-                return "Severity valid values: Verbose, Information, Warning, Error, Critical";
+                return "Invalid Severity: valid values: Verbose, Information, Warning, Error, Critical";
 
             return null;
         }

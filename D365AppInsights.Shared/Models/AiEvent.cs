@@ -21,7 +21,7 @@ namespace JLattimer.D365AppInsights
         public static string ValidateMeasurementName(string mesaurementName)
         {
             if (mesaurementName.Length > 150)
-                return "Measurement name cannot exceed 150 characters";
+                return "Invalid Measurement: name cannot exceed 150 characters";
 
             return null;
         }

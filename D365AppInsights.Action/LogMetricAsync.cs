@@ -3,12 +3,12 @@ using System;
 
 namespace D365AppInsights.Action
 {
-    public class LogMetric : PluginBase
+    public class LogMetricAsync : PluginBase
     {
         #region Constructor/Configuration
         private readonly string _unsecureConfig;
 
-        public LogMetric(string unsecure)
+        public LogMetricAsync(string unsecure)
             : base(typeof(LogMetric))
         {
             _unsecureConfig = unsecure;
@@ -39,18 +39,14 @@ namespace D365AppInsights.Action
                         : "Value must be populated";
 
                     localContext.TracingService.Trace(errorMessage);
-                    ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, errorMessage);
                     return;
                 }
 
-                bool result = aiLogger.WriteMetric(name, (int)value, count, min, max, stdDev);
-
-                ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, result, null);
+                aiLogger.WriteMetric(name, (int)value, count, min, max, stdDev);
             }
             catch (Exception e)
             {
                 localContext.TracingService.Trace($"Unhandled Exception: {e.Message}");
-                ActionHelpers.SetOutputParameters(localContext.PluginExecutionContext.OutputParameters, false, e.Message);
             }
         }
     }
