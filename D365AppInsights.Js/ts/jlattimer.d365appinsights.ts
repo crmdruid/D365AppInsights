@@ -5,12 +5,19 @@ namespace AiFormLogger {
     var enableDebug: boolean = false;
     var props: Object;
     var disablePageviewTracking: boolean = false;
+    var percentLoggedPageview: number = 100;
     var disablePageLoadTimeTracking: boolean = false;
+    var percentLoggedPageLoadTime: number = 100;
     var disableTraceTracking: boolean = false;
+    var percentLoggedTrace: number = 100;
     var disableExceptionTracking: boolean = false;
+    var percentLoggedException: number = 100;
     var disableDependencyTracking: boolean = false;
+    var percentLoggedDependency: number = 100;
     var disableMetricTracking: boolean = false;
+    var percentLoggedMetric: number = 100;
     var disableEventTracking: boolean = false;
+    var percentLoggedEvent: number = 100;
     var targetPage: any = window;
 
     export function startLogging(config?: any) {
@@ -32,7 +39,7 @@ namespace AiFormLogger {
         // Custom implementation of Pageview to avoid duplicate events being 
         // recorded likely due to CRM already implementing AI which currently
         // has poor support for multiple AI accounts
-        if (!disablePageviewTracking) {
+        if (!disablePageviewTracking && shouldLog(percentLoggedPageview)) {
             (window as any).addEventListener("beforeunload",
                 () => {
                     const envelope = createPageViewEnvelope(formName, pageViewStart);
@@ -91,13 +98,22 @@ namespace AiFormLogger {
             if (config.hasOwnProperty("disablePageviewTracking")) //default false
                 disablePageviewTracking = config.disablePageviewTracking;
 
+            if (config.hasOwnProperty("percentLoggedPageview")) //default 100
+                percentLoggedPageview = getLogPercent(config.percentLoggedPageview);
+
             if (config.hasOwnProperty("disablePageLoadTimeTracking")) //default false
                 disablePageLoadTimeTracking = config.disablePageLoadTimeTracking;
+
+            if (config.hasOwnProperty("percentLoggedPageLoadTime")) //default 100
+                percentLoggedPageLoadTime = getLogPercent(config.percentLoggedPageLoadTime);
 
             if (config.hasOwnProperty("disableExceptionTracking")) { //default false
                 disableExceptionTracking = config.disableExceptionTracking;
                 (window as any).appInsights.config.disableExceptionTracking = config.disableExceptionTracking;
             }
+
+            if (config.hasOwnProperty("percentLoggedException")) //default 100
+                percentLoggedException = getLogPercent(config.percentLoggedException);
 
             if (config.hasOwnProperty("disableAjaxTracking")) //default false
                 (window as any).appInsights.config.disableAjaxTracking = config.disableAjaxTracking;
@@ -110,19 +126,52 @@ namespace AiFormLogger {
                 (window as any).appInsights.config.disableTraceTracking = config.disableTraceTracking;
             }
 
+            if (config.hasOwnProperty("percentLoggedTrace")) //default 100
+                percentLoggedTrace = getLogPercent(config.percentLoggedTrace);
+
             if (config.hasOwnProperty("disableDependencyTracking")) { //default false
                 disableDependencyTracking = config.disableDependencyTracking;
                 (window as any).appInsights.config.disableDependencyTracking = config.disableDependencyTracking;
             }
+
+            if (config.hasOwnProperty("percentLoggedDependency")) //default 100
+                percentLoggedDependency = getLogPercent(config.percentLoggedDependency);
 
             if (config.hasOwnProperty("disableMetricTracking")) { //default false
                 disableMetricTracking = config.disableMetricTracking;
                 (window as any).appInsights.config.disableMetricTracking = config.disableMetricTracking;
             }
 
+            if (config.hasOwnProperty("percentLoggedMetric")) //default 100
+                percentLoggedMetric = getLogPercent(config.percentLoggedMetric);
+
             if (config.hasOwnProperty("disableEventTracking")) { //default false
                 disableEventTracking = config.disableEventTracking;
                 (window as any).appInsights.config.disableEventTracking = config.disableEventTracking;
+            }
+
+            if (config.hasOwnProperty("percentLoggedEvent")) //default 100
+                percentLoggedEvent = getLogPercent(config.percentLoggedEvent);
+
+            if (enableDebug) {
+                console.log("D365 Application Insights configuration:");
+                console.log(`enableDebug: ${enableDebug}`);
+                console.log(`disablePageviewTracking: ${disablePageviewTracking}`);
+                console.log(`percentLoggedPageview: ${percentLoggedPageview}`);
+                console.log(`disablePageLoadTimeTracking: ${disablePageLoadTimeTracking}`);
+                console.log(`percentLoggedPageLoadTime: ${percentLoggedPageLoadTime}`);
+                console.log(`disableExceptionTracking: ${disableExceptionTracking}`);
+                console.log(`percentLoggedException: ${percentLoggedException}`);
+                console.log(`disableAjaxTracking: ${(window as any).appInsights.config.disableAjaxTracking}`);
+                console.log(`maxAjaxCallsPerView: ${(window as any).appInsights.config.maxAjaxCallsPerView}`);
+                console.log(`disableTraceTracking: ${disableTraceTracking}`);
+                console.log(`percentLoggedTrace: ${percentLoggedTrace}`);
+                console.log(`disableDependencyTracking: ${disableDependencyTracking}`);
+                console.log(`percentLoggedDependency: ${percentLoggedDependency}`);
+                console.log(`disableMetricTracking: ${disableMetricTracking}`);
+                console.log(`percentLoggedMetric: ${percentLoggedMetric}`);
+                console.log(`disableEventTracking: ${disableEventTracking}`);
+                console.log(`percentLoggedEvent: ${percentLoggedEvent}`);
             }
 
         } catch (error) {
@@ -131,7 +180,7 @@ namespace AiFormLogger {
     }
 
     function writePageLoadMetric() {
-        if (disablePageLoadTimeTracking)
+        if (disablePageLoadTimeTracking || !shouldLog(percentLoggedPageLoadTime))
             return;
 
         if (isNaN(targetPage.performance.timing.loadEventEnd) || isNaN(targetPage.performance.timing.responseEnd) ||
@@ -150,7 +199,7 @@ namespace AiFormLogger {
     }
 
     export function writeEvent(name: string, newProps: any, measurements: any) {
-        if (disableEventTracking)
+        if (disableEventTracking || !shouldLog(percentLoggedEvent))
             return;
 
         (window as any).appInsights.trackEvent(name, newProps, measurements);
@@ -159,7 +208,7 @@ namespace AiFormLogger {
     }
 
     export function writeMetric(name: string, average: number, sampleCount?: number, min?: number, max?: number, newProps?: any) {
-        if (disableMetricTracking)
+        if (disableMetricTracking || !shouldLog(percentLoggedMetric))
             return;
 
         (window as any).appInsights.trackMetric(name, average, sampleCount, min, max, newProps);
@@ -168,7 +217,7 @@ namespace AiFormLogger {
     }
 
     export function writeException(exception: Error, handledAt?: string, newProps?: any, measurements?: any, severityLevel?: AI.SeverityLevel) {
-        if (disableExceptionTracking)
+        if (disableExceptionTracking || !shouldLog(percentLoggedException))
             return;
 
         (window as any).appInsights.trackException(exception, handledAt, newProps, measurements, severityLevel);
@@ -177,7 +226,7 @@ namespace AiFormLogger {
     }
 
     export function writeTrace(message: string, newProps?: any, severityLevel?: AI.SeverityLevel) {
-        if (disableTraceTracking)
+        if (disableTraceTracking || !shouldLog(percentLoggedTrace))
             return;
 
         (window as any).appInsights.trackTrace(message, newProps, severityLevel);
@@ -186,7 +235,7 @@ namespace AiFormLogger {
     }
 
     export function writeDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number, newProps?: any) {
-        if (disableDependencyTracking)
+        if (disableDependencyTracking || !shouldLog(percentLoggedDependency))
             return;
 
         (window as any).appInsights.trackDependency(id, method, absoluteUrl, pathName, totalTime, success, resultCode, newProps, null);
@@ -319,6 +368,33 @@ namespace AiFormLogger {
 
     function getMode(mode: boolean): string {
         return (mode) ? "Asynchronous" : "Synchronous";
+    }
+
+    function getLogPercent(value: any): number {
+        if (isNaN(value)) {
+            if (enableDebug)
+                console.log(`Log percent: ${value} is not a number`);
+            return 100;
+        }
+
+        let x = parseFloat(value);
+        x = Math.round(x);
+
+        if (x < 1)
+            return 0;
+        if (x > 100)
+            return 100;
+        return x;
+    }
+
+    function shouldLog(threshold: number): boolean {
+        if (threshold === 100)
+            return true;
+        if (threshold === 0)
+            return false;
+
+        const number = Math.floor(Math.random() * (101));
+        return number <= threshold;
     }
 
     var xhrProto = XMLHttpRequest.prototype,
