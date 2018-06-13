@@ -10,7 +10,12 @@
     "DisableExceptionTracking": false,
     "DisableDependencyTracking": false,
     "DisableContextParameterTracking": false,
-    "EnableDebug": true
+    "EnableDebug": true,
+    "PercentLoggedTrace": 100,
+    "PercentLoggedMetric": 100,
+    "PercentLoggedEvent": 100,
+    "PercentLoggedException": 100,
+    "PercentLoggedDependency": 100
 }
 */
 
@@ -45,5 +50,20 @@ namespace JLattimer.D365AppInsights
 
         [DataMember]
         public bool EnableDebug { get; set; }
+
+        [DataMember]
+        public int? PercentLoggedTrace { get; set; }
+
+        [DataMember]
+        public int? PercentLoggedMetric { get; set; }
+
+        [DataMember]
+        public int? PercentLoggedEvent { get; set; }
+
+        [DataMember]
+        public int? PercentLoggedException { get; set; }
+
+        [DataMember]
+        public int? PercentLoggedDependency { get; set; }
     }
 }

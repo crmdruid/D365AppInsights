@@ -19,6 +19,11 @@ namespace JLattimer.D365AppInsights
         private bool _disableMetricTracking;
         private bool _disableEventTracking;
         private bool _enableDebug;
+        private int _percentLoggedTrace;
+        private int _percentLoggedMetric;
+        private int _percentLoggedEvent;
+        private int _percentLoggedException;
+        private int _percentLoggedDependency;
         private string _authenticatedUserId;
         private ITracingService _tracingService;
         private AiProperties _eventProperties;
@@ -76,6 +81,11 @@ namespace JLattimer.D365AppInsights
             _disableEventTracking = aiConfig.DisableEventTracking;
             _disableMetricTracking = aiConfig.DisableMetricTracking;
             _enableDebug = aiConfig.EnableDebug;
+            _percentLoggedTrace = aiConfig.PercentLoggedTrace;
+            _percentLoggedMetric = aiConfig.PercentLoggedMetric;
+            _percentLoggedEvent = aiConfig.PercentLoggedEvent;
+            _percentLoggedException = aiConfig.PercentLoggedException;
+            _percentLoggedDependency = aiConfig.PercentLoggedDependency;
             bool disableContextParameterTracking = aiConfig.DisableContextParameterTracking;
             _authenticatedUserId = executionContext.InitiatingUserId.ToString();
             _tracingService = tracingService;
@@ -97,7 +107,7 @@ namespace JLattimer.D365AppInsights
         /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
         public bool WriteTrace(string message, AiTraceSeverity aiTraceSeverity, DateTime? timestamp = null)
         {
-            if (_disableTraceTracking)
+            if (!Log("Trace", _disableTraceTracking, _percentLoggedTrace))
                 return true;
 
             timestamp = timestamp ?? DateTime.UtcNow;
@@ -121,7 +131,7 @@ namespace JLattimer.D365AppInsights
         /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
         public bool WriteEvent(string name, Dictionary<string, double?> measurements, DateTime? timestamp = null)
         {
-            if (_disableEventTracking)
+            if (!Log("Event", _disableEventTracking, _percentLoggedEvent))
                 return true;
 
             timestamp = timestamp ?? DateTime.UtcNow;
@@ -145,7 +155,7 @@ namespace JLattimer.D365AppInsights
         /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
         public bool WriteException(Exception exception, AiExceptionSeverity aiExceptionSeverity, DateTime? timestamp = null)
         {
-            if (_disableExceptionTracking)
+            if (!Log("Exception", _disableExceptionTracking, _percentLoggedException))
                 return true;
 
             timestamp = timestamp ?? DateTime.UtcNow;
@@ -173,7 +183,7 @@ namespace JLattimer.D365AppInsights
         /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
         public bool WriteMetric(string name, int value, int? count, int? min, int? max, int? stdDev, DateTime? timestamp = null)
         {
-            if (_disableMetricTracking)
+            if (!Log("Metric", _disableMetricTracking, _percentLoggedMetric))
                 return true;
 
             timestamp = timestamp ?? DateTime.UtcNow;
@@ -203,7 +213,7 @@ namespace JLattimer.D365AppInsights
         public bool WriteDependency(string name, string method, string type, int duration, int? resultCode,
             bool success, string data, DateTime? timestamp = null)
         {
-            if (_disableDependencyTracking)
+            if (!Log("Dependency", _disableDependencyTracking, _percentLoggedDependency))
                 return true;
 
             timestamp = timestamp ?? DateTime.UtcNow;
@@ -230,7 +240,7 @@ namespace JLattimer.D365AppInsights
                     return true;
 
                 _tracingService?.Trace(
-                    $"Error writing to Application Insights with response: {response.StatusCode.ToString()}: {response.ReasonPhrase}: Message: {CreateJsonDataLog(json)}");
+                    $"ERROR: Unable to write to Application Insights with response: {response.StatusCode.ToString()}: {response.ReasonPhrase}: Message: {CreateJsonDataLog(json)}");
                 return false;
             }
             catch (Exception e)
@@ -528,7 +538,7 @@ namespace JLattimer.D365AppInsights
             }
             catch (Exception e)
             {
-                _tracingService.Trace($"Error tracing parameters: {e.Message}");
+                _tracingService.Trace($"ERROR: Tracing parameters: {e.Message}");
                 return null;
             }
         }
@@ -555,6 +565,39 @@ namespace JLattimer.D365AppInsights
                 default:
                     return "Unknown";
             }
+        }
+
+        private bool Log(string type, bool disable, int threshold)
+        {
+            if (disable)
+            {
+                if (_enableDebug)
+                    _tracingService.Trace($"DEBUG: Application Insights {type} not written: Disabled");
+                return false;
+            }
+
+            bool shouldLog = InLogThreshold(threshold);
+            if (!shouldLog)
+            {
+                if (_enableDebug)
+                    _tracingService.Trace($"DEBUG: Application Insights {type} not written: Threshold%: {threshold}");
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool InLogThreshold(int threshold)
+        {
+            if (threshold == 100)
+                return true;
+            if (threshold == 0)
+                return false;
+
+            Random random = new Random();
+            int number = random.Next(1, 100);
+
+            return number <= threshold;
         }
     }
 }

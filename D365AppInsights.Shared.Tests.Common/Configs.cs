@@ -7,7 +7,8 @@ namespace D365AppInsights.Shared.Tests.Common
     {
         public static AiSetup GetAiSetup(bool disableDependencyTracking, bool disableEventTracking,
             bool disableExceptionTracking, bool disableMetricTracking, bool disableTraceTracking,
-            bool disableContextParameterTracking, bool enableDebug)
+            bool disableContextParameterTracking, bool enableDebug, int percentLoggedTrace = 100, int percentLoggedMetric = 100,
+            int percentLoggedEvent = 100, int percentLoggedException = 100, int percentLoggedDependency = 100)
         {
             const string aiInstrumentationKey = "YOUR AI INSTRUMENTATION KEY";
 
@@ -25,7 +26,12 @@ namespace D365AppInsights.Shared.Tests.Common
                 DisableMetricTracking = disableMetricTracking,
                 DisableTraceTracking = disableTraceTracking,
                 DisableContextParameterTracking = disableContextParameterTracking,
-                EnableDebug = enableDebug
+                EnableDebug = enableDebug,
+                PercentLoggedTrace = percentLoggedTrace,
+                PercentLoggedMetric = percentLoggedMetric,
+                PercentLoggedEvent = percentLoggedEvent,
+                PercentLoggedException = percentLoggedException,
+                PercentLoggedDependency = percentLoggedDependency
             };
         }
     }
