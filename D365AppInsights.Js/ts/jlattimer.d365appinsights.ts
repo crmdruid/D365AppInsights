@@ -31,7 +31,7 @@ namespace AiFormLogger {
         if (/ClientApiWrapper\.aspx/i.test(window.location.pathname)) {
             targetPage = window.parent;
             if (enableDebug)
-                console.log("Application Insights page target: window.parent");
+                console.log("DEBUG: Application Insights page target: window.parent");
         }
 
         var formName = Xrm.Page.ui.formSelector.getCurrentItem().getLabel();
@@ -39,7 +39,7 @@ namespace AiFormLogger {
         // Custom implementation of Pageview to avoid duplicate events being 
         // recorded likely due to CRM already implementing AI which currently
         // has poor support for multiple AI accounts
-        if (!disablePageviewTracking && shouldLog(percentLoggedPageview)) {
+        if (log("PageviewTracking", disablePageviewTracking, percentLoggedPageview)) {
             (window as any).addEventListener("beforeunload",
                 () => {
                     const envelope = createPageViewEnvelope(formName, pageViewStart);
@@ -47,7 +47,7 @@ namespace AiFormLogger {
                     if (navigator.sendBeacon) {
                         navigator.sendBeacon((window as any).appInsights.config.endpointUrl, JSON.stringify(envelope));
                         if (enableDebug)
-                            console.log("Application Insights logged Pageview via Beacon");
+                            console.log("DEBUG: Application Insights logged Pageview via Beacon");
                     } else {
                         // IE doesn't support Beacon - use sync XHR w/ delay instead
                         // Need slight delay to ensure PageView gets sent
@@ -175,12 +175,12 @@ namespace AiFormLogger {
             }
 
         } catch (error) {
-            console.log(`Application Insights error parsing configuration parameters: ${error}`);
+            console.log(`DEBUG: Application Insights error parsing configuration parameters: ${error}`);
         }
     }
 
     function writePageLoadMetric() {
-        if (disablePageLoadTimeTracking || !shouldLog(percentLoggedPageLoadTime))
+        if (!log("PageLoadTime", disablePageLoadTimeTracking, percentLoggedPageLoadTime))
             return;
 
         if (isNaN(targetPage.performance.timing.loadEventEnd) || isNaN(targetPage.performance.timing.responseEnd) ||
@@ -193,61 +193,61 @@ namespace AiFormLogger {
 
             writeMetric("PageLoad", pageLoad, 1, null, null, null);
             if (enableDebug) {
-                console.log(`Application Insights logged metric: PageLoad time: ${pageLoad}ms`);
+                console.log(`DEBUG: Application Insights logged metric: PageLoad time: ${pageLoad}ms`);
             }
         }
     }
 
     export function writeEvent(name: string, newProps: any, measurements: any) {
-        if (disableEventTracking || !shouldLog(percentLoggedEvent))
+        if (!log("Event", disableEventTracking, percentLoggedEvent))
             return;
 
         (window as any).appInsights.trackEvent(name, newProps, measurements);
         if (enableDebug)
-            console.log(`Application Insights logged event: ${name}`);
+            console.log(`DEBUG: Application Insights logged event: ${name}`);
     }
 
     export function writeMetric(name: string, average: number, sampleCount?: number, min?: number, max?: number, newProps?: any) {
-        if (disableMetricTracking || !shouldLog(percentLoggedMetric))
+        if (!log("Metric", disableMetricTracking, percentLoggedMetric))
             return;
 
         (window as any).appInsights.trackMetric(name, average, sampleCount, min, max, newProps);
         if (enableDebug)
-            console.log(`Application Insights logged metric: ${name}`);
+            console.log(`DEBUG: Application Insights logged metric: ${name}`);
     }
 
     export function writeException(exception: Error, handledAt?: string, newProps?: any, measurements?: any, severityLevel?: AI.SeverityLevel) {
-        if (disableExceptionTracking || !shouldLog(percentLoggedException))
+        if (!log("Exception", disableExceptionTracking, percentLoggedException))
             return;
 
         (window as any).appInsights.trackException(exception, handledAt, newProps, measurements, severityLevel);
         if (enableDebug)
-            console.log(`Application Insights logged exception: ${exception.name}`);
+            console.log(`DEBUG: Application Insights logged exception: ${exception.name}`);
     }
 
     export function writeTrace(message: string, newProps?: any, severityLevel?: AI.SeverityLevel) {
-        if (disableTraceTracking || !shouldLog(percentLoggedTrace))
+        if (!log("Trace", disableTraceTracking, percentLoggedTrace))
             return;
 
         (window as any).appInsights.trackTrace(message, newProps, severityLevel);
         if (enableDebug)
-            console.log(`Application Insights logged trace: ${message}`);
+            console.log(`DEBUG: Application Insights logged trace: ${message}`);
     }
 
     export function writeDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number, newProps?: any) {
-        if (disableDependencyTracking || !shouldLog(percentLoggedDependency))
+        if (!log("Dependency", disableDependencyTracking, percentLoggedDependency))
             return;
 
         (window as any).appInsights.trackDependency(id, method, absoluteUrl, pathName, totalTime, success, resultCode, newProps, null);
         if (enableDebug)
-            console.log(`Application Insights logged dependency: ${id}: ${totalTime}`);
+            console.log(`DEBUG: Application Insights logged dependency: ${id}: ${totalTime}`);
     }
 
     export function writeMethodTime(methodName: string, start: number, end: number) {
         const time = end - start;
         writeMetric(`Method Time: ${methodName}`, time, null, null, null);
         if (enableDebug)
-            console.log(`Application Insights logged method time: ${methodName}: ${time}ms`);
+            console.log(`DEBUG: Application Insights logged method time: ${methodName}: ${time}ms`);
     }
 
     export function trackDependencyTime(req: any, methodName: string) {
@@ -311,7 +311,7 @@ namespace AiFormLogger {
             if (req.readyState === 4) {
                 if (req.status === 200) {
                     if (enableDebug)
-                        console.log("Application Insights logged Pageview via XHR");
+                        console.log("DEBUG: Application Insights logged Pageview via XHR");
                 }
             }
         }
@@ -373,7 +373,7 @@ namespace AiFormLogger {
     function getLogPercent(value: any): number {
         if (isNaN(value)) {
             if (enableDebug)
-                console.log(`Log percent: ${value} is not a number`);
+                console.log(`DEBUG: Log percent: ${value} is not a number`);
             return 100;
         }
 
@@ -387,7 +387,24 @@ namespace AiFormLogger {
         return x;
     }
 
-    function shouldLog(threshold: number): boolean {
+    function log(type: string, disable: boolean, threshold: number): boolean {
+        if (disable) {
+            if (enableDebug)
+                console.log(`DEBUG: Application Insights ${type} not written: Disabled`);
+            return false;
+        }
+
+        var shouldLog = inLogThreshold(threshold);
+        if (!shouldLog) {
+            if (enableDebug)
+                console.log(`DEBUG: Application Insights ${type} not written: Threshold%: ${threshold}`);
+            return false;
+        }
+
+        return true;
+    }
+
+    function inLogThreshold(threshold: number): boolean {
         if (threshold === 100)
             return true;
         if (threshold === 0)
