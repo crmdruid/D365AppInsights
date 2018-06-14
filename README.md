@@ -1,5 +1,5 @@
 # D365AppInsights
-## Dynamics 365/CE Application Insights logging for C#.
+## Dynamics 365/CE Application Insights logging for C# plug-ins & workflows
 
 This contains the source code files needed to implement Azure Application Insights logging without needing an external assembly reference.
 
