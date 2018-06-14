@@ -1,8 +1,0 @@
-{
-  "name": "myproject",
-  "version": "1.0.0",
-  "devDependencies": {
-    "@types/xrm": "^9.0.2"
-  },
-  "dependencies": {}
-}

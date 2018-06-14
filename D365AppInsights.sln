@@ -14,33 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NuGetPack", ".NuGetPack", 
 		.NuGetPack\NupkgWrench.exe = .NuGetPack\NupkgWrench.exe
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "D365AppInsights.Js", "D365AppInsights.Js\", "{CE43390F-55D5-4D47-806B-E544CD0093ED}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_3489"
-		Debug.AspNetCompiler.PhysicalPath = "D365AppInsights.Js\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_3489\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_3489"
-		Release.AspNetCompiler.PhysicalPath = "D365AppInsights.Js\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_3489\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "3489"
-		SlnRelativePath = "D365AppInsights.Js\"
-		DefaultWebSiteLanguage = "Visual C#"
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Action", "D365AppInsights.Action\D365AppInsights.Action.csproj", "{9A5277E5-7184-4726-91D5-9B201F1811BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Workflow", "D365AppInsights.Workflow\D365AppInsights.Workflow.csproj", "{AD22DE1A-5502-46C9-92CD-DB55626BA765}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Js.NuGet", "D365AppInsights.Js.NuGet\D365AppInsights.Js.NuGet.csproj", "{C176C753-DCB5-47D7-A1A0-CF6F8EF9A85C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Action.Tests", "D365AppInsights.Action.Tests\D365AppInsights.Action.Tests.csproj", "{878A80CF-1B96-4858-A704-4D974580FB73}"
 EndProject
@@ -54,8 +30,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{DBA941
 	ProjectSection(SolutionItems) = preProject
 		Assets\logo.png = Assets\logo.png
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365AppInsights.Js.References", "D365AppInsights.Js.References\D365AppInsights.Js.References.csproj", "{A68DF862-999E-4B8E-9CB2-5094D90BFAE5}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -77,10 +51,6 @@ Global
 		{AEA3D3AD-56C4-4811-806B-DE563E248138}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEA3D3AD-56C4-4811-806B-DE563E248138}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEA3D3AD-56C4-4811-806B-DE563E248138}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE43390F-55D5-4D47-806B-E544CD0093ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE43390F-55D5-4D47-806B-E544CD0093ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE43390F-55D5-4D47-806B-E544CD0093ED}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE43390F-55D5-4D47-806B-E544CD0093ED}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{9A5277E5-7184-4726-91D5-9B201F1811BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A5277E5-7184-4726-91D5-9B201F1811BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A5277E5-7184-4726-91D5-9B201F1811BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -89,10 +59,6 @@ Global
 		{AD22DE1A-5502-46C9-92CD-DB55626BA765}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD22DE1A-5502-46C9-92CD-DB55626BA765}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD22DE1A-5502-46C9-92CD-DB55626BA765}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C176C753-DCB5-47D7-A1A0-CF6F8EF9A85C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C176C753-DCB5-47D7-A1A0-CF6F8EF9A85C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C176C753-DCB5-47D7-A1A0-CF6F8EF9A85C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C176C753-DCB5-47D7-A1A0-CF6F8EF9A85C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{878A80CF-1B96-4858-A704-4D974580FB73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{878A80CF-1B96-4858-A704-4D974580FB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{878A80CF-1B96-4858-A704-4D974580FB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -105,10 +71,6 @@ Global
 		{27C0F6FA-1B9B-431F-AFBD-1F7F0EBA9AE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27C0F6FA-1B9B-431F-AFBD-1F7F0EBA9AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27C0F6FA-1B9B-431F-AFBD-1F7F0EBA9AE0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A68DF862-999E-4B8E-9CB2-5094D90BFAE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A68DF862-999E-4B8E-9CB2-5094D90BFAE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A68DF862-999E-4B8E-9CB2-5094D90BFAE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A68DF862-999E-4B8E-9CB2-5094D90BFAE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
