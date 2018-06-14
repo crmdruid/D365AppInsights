@@ -7,11 +7,13 @@ namespace D365AppInsights.Action
     {
         #region Constructor/Configuration
         private readonly string _unsecureConfig;
+        private readonly string _secureConfig;
 
-        public LogTrace(string unsecure)
+        public LogTrace(string unsecure, string secure)
             : base(typeof(LogTrace))
         {
             _unsecureConfig = unsecure;
+            _secureConfig = secure;
         }
         #endregion
 

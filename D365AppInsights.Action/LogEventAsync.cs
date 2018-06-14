@@ -8,11 +8,13 @@ namespace D365AppInsights.Action
     {
         #region Constructor/Configuration
         private readonly string _unsecureConfig;
+        private readonly string _secureConfig;
 
-        public LogEventAsync(string unsecure)
+        public LogEventAsync(string unsecure, string secure)
             : base(typeof(LogEvent))
         {
             _unsecureConfig = unsecure;
+            _secureConfig = secure;
         }
         #endregion
 
