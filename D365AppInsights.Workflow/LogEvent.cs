@@ -51,9 +51,8 @@ namespace D365AppInsights.Workflow
                 return;
             }
 
-            Dictionary<string, double?> measurements = new Dictionary<string, double?> {
-                { measurementName, Convert.ToDouble(measurementValue) }
-            };
+            Dictionary<string, double> measurements =
+                new Dictionary<string, double> { { measurementName, Convert.ToDouble(measurementValue) } };
 
             bool logSuccess = aiLogger.WriteEvent(name, measurements);
 

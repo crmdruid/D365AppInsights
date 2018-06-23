@@ -129,7 +129,7 @@ namespace JLattimer.D365AppInsights
         /// <param name="measurements">The associated measurements.</param>
         /// <param name="timestamp">The UTC timestamp of the event (default = DateTime.UtcNow).</param>
         /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
-        public bool WriteEvent(string name, Dictionary<string, double?> measurements, DateTime? timestamp = null)
+        public bool WriteEvent(string name, Dictionary<string, double> measurements, DateTime? timestamp = null)
         {
             if (!Log("Event", _disableEventTracking, _percentLoggedEvent))
                 return true;
@@ -181,7 +181,8 @@ namespace JLattimer.D365AppInsights
         /// <param name="stdDev">The standard deviantion of metrics being logged (default = 0).</param>
         /// <param name="timestamp">The UTC timestamp of the event (default = DateTime.UtcNow).</param>
         /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
-        public bool WriteMetric(string name, int value, int? count, int? min, int? max, int? stdDev, DateTime? timestamp = null)
+        public bool WriteMetric(string name, int value, int? count = null, int? min = null,
+            int? max = null, int? stdDev = null, DateTime? timestamp = null)
         {
             if (!Log("Metric", _disableMetricTracking, _percentLoggedMetric))
                 return true;
@@ -274,7 +275,7 @@ namespace JLattimer.D365AppInsights
             return json;
         }
 
-        private string GetEventJsonString(DateTime timestamp, AiEvent aiEvent, Dictionary<string, double?> measurements)
+        private string GetEventJsonString(DateTime timestamp, AiEvent aiEvent, Dictionary<string, double> measurements)
         {
             AiLogRequest logRequest = new AiLogRequest
             {
@@ -300,7 +301,7 @@ namespace JLattimer.D365AppInsights
             return json;
         }
 
-        private static string InsertMetricsJson(Dictionary<string, double?> measurements, string json)
+        private static string InsertMetricsJson(Dictionary<string, double> measurements, string json)
         {
             if (measurements == null)
                 return json;
@@ -308,7 +309,7 @@ namespace JLattimer.D365AppInsights
             string replacement = "\"measurements\":{";
 
             int i = 0;
-            foreach (KeyValuePair<string, double?> keyValuePair in measurements)
+            foreach (KeyValuePair<string, double> keyValuePair in measurements)
             {
                 i++;
                 replacement += $"\"{keyValuePair.Key}\": {keyValuePair.Value}";

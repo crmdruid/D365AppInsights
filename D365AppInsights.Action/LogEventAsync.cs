@@ -45,11 +45,8 @@ namespace D365AppInsights.Action
                     return;
                 }
 
-                Dictionary<string, double?> measurements = new Dictionary<string, double?>();
-                if (measurementValue != null)
-                    measurements.Add(measurementName, Convert.ToDouble(measurementValue));
-                else
-                    measurements.Add(measurementName, null);
+                Dictionary<string, double> measurements =
+                    new Dictionary<string, double> { { measurementName, Convert.ToDouble(measurementValue) } };
 
                 aiLogger.WriteEvent(name, measurements);
             }

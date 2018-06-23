@@ -37,9 +37,6 @@
     <Compile Include="..\D365AppInsights.Shared\Enums\AiDataPointType.cs">
       <Link>content\D365AppInsights\Enums\AiDataPointType.cs</Link>
     </Compile>
-    <Compile Include="..\D365AppInsights.Shared\Enums\AiDependencyType.cs">
-      <Link>content\D365AppInsights\Enums\AiDependencyType.cs</Link>
-    </Compile>
     <Compile Include="..\D365AppInsights.Shared\Enums\AiExceptionSeverity.cs">
       <Link>content\D365AppInsights\Enums\AiExceptionSeverity.cs</Link>
     </Compile>
@@ -144,6 +141,9 @@
     <Reference Include="System.Workflow.Runtime" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="content\D365AppInsights\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

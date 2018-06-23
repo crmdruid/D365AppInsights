@@ -44,7 +44,7 @@ namespace D365AppInsights.Shared.Tests
             AiLogger aiLogger = new AiLogger(secureConfig, fakedService, fakedTracingService, 
                 xrmFakedPluginExecution, xrmFakedPluginExecution.Stage, null);
 
-            Dictionary<string, double?> measurements = new Dictionary<string, double?> {
+            Dictionary<string, double> measurements = new Dictionary<string, double> {
                 { "Click1", 33 }
             };
 

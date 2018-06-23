@@ -39,7 +39,7 @@ namespace D365AppInsights.Shared.Tests
                 xrmFakedPluginExecution, xrmFakedPluginExecution.Stage, null);
 
             bool result = aiLogger.WriteDependency("https://www.test1.com/test/123", "GET",
-                AiDependencyType.HTTP.ToString(), 2346, 200, true, "Hello from DependencyTest - 0");
+                "HTTP", 2346, 200, true, "Hello from DependencyTest - 0");
 
             Assert.IsTrue(result);
         }

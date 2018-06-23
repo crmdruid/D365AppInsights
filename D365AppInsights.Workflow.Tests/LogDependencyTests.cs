@@ -57,7 +57,7 @@ namespace D365AppInsights.Workflow.Tests
                 { "AiSetupJson", aiSetupJson },
                 { "Name", "Hello from DependencyTest - 2" },
                 { "Method", "GET" },
-                { "Type", AiDependencyType.HTTP.ToString() },
+                { "Type", "HTTP" },
                 { "Duration", 12356 },
                 { "ResultCode", 200 },
                 { "Success", true },

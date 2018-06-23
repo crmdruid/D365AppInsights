@@ -11,7 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Enums\AiDataPointType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\SerializationHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Enums\AiDependencyType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\AiLogType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\EnumHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\HttpHelper.cs" />
