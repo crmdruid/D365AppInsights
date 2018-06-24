@@ -178,7 +178,7 @@ namespace JLattimer.D365AppInsights
         /// <param name="count">The count of metrics being logged (default = 1).</param>
         /// <param name="min">The minimum value of metrics being logged (default = value).</param>
         /// <param name="max">The maximum value of metrics being logged (default = value).</param>
-        /// <param name="stdDev">The standard deviantion of metrics being logged (default = 0).</param>
+        /// <param name="stdDev">The standard deviation of metrics being logged (default = 0).</param>
         /// <param name="timestamp">The UTC timestamp of the event (default = DateTime.UtcNow).</param>
         /// <returns><c>true</c> if successfully logged, <c>false</c> otherwise.</returns>
         public bool WriteMetric(string name, int value, int? count = null, int? min = null,
