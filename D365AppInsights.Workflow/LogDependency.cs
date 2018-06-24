@@ -30,6 +30,7 @@ namespace D365AppInsights.Workflow
         public InArgument<int> ResultCode { get; set; }
 
         [RequiredArgument]
+        [Default("true")]
         [Input("Success")]
         public InArgument<bool> Success { get; set; }
 
